@@ -4,7 +4,6 @@
 
 *************************************************************************/
 
-WRITE_HANDLER( sega_sh_speechboard_w );
 
 extern const struct Memory_ReadAddress  sega_speechboard_readmem[];
 extern const struct Memory_WriteAddress sega_speechboard_writemem[];

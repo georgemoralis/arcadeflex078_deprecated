@@ -1392,7 +1392,7 @@ static void PREFIX86(_jo)(void)    /* Opcode 0x70 */
 static void PREFIX86(_jno)(void)    /* Opcode 0x71 */
 {
 	int tmp = (int)((INT8)FETCH);
-	if (!OF) {
+	if (OF == 0) {
 		I.pc += tmp;
 		ICOUNT -= cycles.jcc_t;
 /* ASG - can probably assume this is safe
@@ -1414,7 +1414,7 @@ static void PREFIX86(_jb)(void)    /* Opcode 0x72 */
 static void PREFIX86(_jnb)(void)    /* Opcode 0x73 */
 {
 	int tmp = (int)((INT8)FETCH);
-	if (!CF) {
+	if (CF == 0) {
 		I.pc += tmp;
 		ICOUNT -= cycles.jcc_t;
 /* ASG - can probably assume this is safe
@@ -1436,7 +1436,7 @@ static void PREFIX86(_jz)(void)    /* Opcode 0x74 */
 static void PREFIX86(_jnz)(void)    /* Opcode 0x75 */
 {
 	int tmp = (int)((INT8)FETCH);
-	if (!ZF) {
+	if (ZF == 0) {
 		I.pc += tmp;
 		ICOUNT -= cycles.jcc_t;
 /* ASG - can probably assume this is safe
@@ -1480,7 +1480,7 @@ static void PREFIX86(_js)(void)    /* Opcode 0x78 */
 static void PREFIX86(_jns)(void)    /* Opcode 0x79 */
 {
 	int tmp = (int)((INT8)FETCH);
-    if (!SF) {
+    if (SF == 0) {
 		I.pc += tmp;
 		ICOUNT -= cycles.jcc_t;
 /* ASG - can probably assume this is safe
@@ -1502,7 +1502,7 @@ static void PREFIX86(_jp)(void)    /* Opcode 0x7a */
 static void PREFIX86(_jnp)(void)    /* Opcode 0x7b */
 {
 	int tmp = (int)((INT8)FETCH);
-    if (!PF) {
+    if (PF == 0) {
 		I.pc += tmp;
 		ICOUNT -= cycles.jcc_t;
 /* ASG - can probably assume this is safe
@@ -3216,8 +3216,7 @@ static void PREFIX86(_invalid)(void)
 	i286_trap2(ILLEGAL_INSTRUCTION);
 #else
 	 /* makes the cpu loops forever until user resets it */
-	/*{ extern int debug_key_pressed; debug_key_pressed = 1; } */
-	logerror("illegal instruction %.2x at %.5x\n",PEEKBYTE(I.pc), I.pc);
+	/*{ 	logerror("illegal instruction %.2x at %.5x\n",PEEKBYTE(I.pc), I.pc);
 	I.pc--;
 	ICOUNT -= 10;
 #endif

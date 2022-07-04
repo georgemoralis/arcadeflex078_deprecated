@@ -11,10 +11,6 @@ struct RF5C68interface
 };
 
 int RF5C68_sh_start( const struct MachineSound *msound );
-void RF5C68_sh_stop( void );
 
-WRITE_HANDLER( RF5C68_reg_w );
-READ_HANDLER( RF5C68_r );
-WRITE_HANDLER( RF5C68_w );
 
 #endif

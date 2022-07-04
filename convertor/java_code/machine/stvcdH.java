@@ -1,6 +1,3 @@
-void cdb_build_ftree(void);
-void cdb_build_toc(void);
-void iso_reset(void);
 void CD_com_update(UINT32 count);
 UINT32 cdb_find_track(UINT32 fad);
 UINT32 cdb_find_file(UINT32 fad);

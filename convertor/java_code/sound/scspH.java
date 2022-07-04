@@ -17,7 +17,6 @@ struct SCSPinterface
 };
 
 int SCSP_sh_start(const struct MachineSound *msound);
-void SCSP_sh_stop(void);
 
 // SCSP register access
 READ16_HANDLER( SCSP_0_r );

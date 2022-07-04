@@ -1,6 +1,5 @@
 /* Variables needed by vidhrdw: */
 
-extern int unico_has_lightgun;
 
 /* Variables defined in vidhrdw: */
 

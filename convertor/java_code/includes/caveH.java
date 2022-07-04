@@ -5,8 +5,6 @@
 
 /* Variables defined in vidhrdw */
 
-extern int cave_spritetype;
-extern int cave_kludge;
 
 extern data16_t *cave_videoregs;
 
@@ -43,6 +41,5 @@ VIDEO_START( sailormn_3_layers );
 
 VIDEO_UPDATE( cave );
 
-void cave_get_sprite_info(void);
 
 void sailormn_tilebank_w( int bank );

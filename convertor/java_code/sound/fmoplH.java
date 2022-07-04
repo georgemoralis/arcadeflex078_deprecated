@@ -38,7 +38,6 @@ typedef unsigned char (*OPL_PORTHANDLER_R)(int param);
 #if BUILD_YM3812
 
 int  YM3812Init(int num, int clock, int rate);
-void YM3812Shutdown(void);
 void YM3812ResetChip(int which);
 int  YM3812Write(int which, int a, int v);
 unsigned char YM3812Read(int which, int a);
@@ -63,7 +62,6 @@ void YM3812SetUpdateHandler(int which, OPL_UPDATEHANDLER UpdateHandler, int para
 */
 int  YM3526Init(int num, int clock, int rate);
 /* shutdown the YM3526 emulators*/
-void YM3526Shutdown(void);
 void YM3526ResetChip(int which);
 int  YM3526Write(int which, int a, int v);
 unsigned char YM3526Read(int which, int a);
@@ -92,7 +90,6 @@ void Y8950SetKeyboardHandler(int which, OPL_PORTHANDLER_W KeyboardHandler_w, OPL
 void Y8950SetDeltaTMemory(int which, void * deltat_mem_ptr, int deltat_mem_size );
 
 int  Y8950Init (int num, int clock, int rate);
-void Y8950Shutdown (void);
 void Y8950ResetChip (int which);
 int  Y8950Write (int which, int a, int v);
 unsigned char Y8950Read (int which, int a);

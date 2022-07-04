@@ -32,8 +32,6 @@ extern double sec_to_cycles[];
 typedef struct _mame_timer mame_timer;
 
 
-void timer_init(void);
-void timer_free(void);
 double timer_time_until_next_timer(void);
 void timer_adjust_global_time(double delta);
 mame_timer *timer_alloc(void (*callback)(int));

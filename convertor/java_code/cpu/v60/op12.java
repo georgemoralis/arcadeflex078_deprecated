@@ -1632,7 +1632,7 @@ UINT32 opSETF(void)
 	switch (f12Op1 & 0xF)
 	{
 	case 0:
-		if (!_OV) modWriteValB=0;
+		if (_OV == 0) modWriteValB=0;
 		else modWriteValB=1;
 		break;
 	case 1:
@@ -1640,7 +1640,7 @@ UINT32 opSETF(void)
 		else modWriteValB=1;
 		break;
 	case 2:
-		if (!_CY) modWriteValB=0;
+		if (_CY == 0) modWriteValB=0;
 		else modWriteValB=1;
 		break;
 	case 3:
@@ -1648,7 +1648,7 @@ UINT32 opSETF(void)
 		else modWriteValB=1;
 		break;
 	case 4:
-		if (!_Z) modWriteValB=0;
+		if (_Z == 0) modWriteValB=0;
 		else modWriteValB=1;
 		break;
 	case 5:
@@ -1664,7 +1664,7 @@ UINT32 opSETF(void)
 		else modWriteValB=1;
 		break;
 	case 8:
-		if (!_S) modWriteValB=0;
+		if (_S == 0) modWriteValB=0;
 		else modWriteValB=1;
 		break;
 	case 9:

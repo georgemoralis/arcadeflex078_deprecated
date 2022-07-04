@@ -15,8 +15,6 @@ struct AM53CF96interface
 	void (*irq_callback)(void);	/* irq callback */
 };
 
-extern void am53cf96_init( struct AM53CF96interface *interface );
-extern void am53cf96_read_data(int bytes, data8_t *pData);
 extern READ32_HANDLER( am53cf96_r );
 extern WRITE32_HANDLER( am53cf96_w );
 

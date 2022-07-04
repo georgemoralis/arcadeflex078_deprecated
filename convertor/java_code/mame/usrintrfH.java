@@ -28,7 +28,6 @@ struct DisplayText
 extern UINT8 ui_dirty;
 
 struct GfxElement *builduifont(void);
-void pick_uifont_colors(void);
 void displaytext(struct mame_bitmap *bitmap,const struct DisplayText *dt);
 
 void ui_drawchar(struct mame_bitmap *dest, int ch, int color, int sx, int sy);
@@ -42,21 +41,15 @@ int showgamewarnings(struct mame_bitmap *bitmap);
 int showgameinfo(struct mame_bitmap *bitmap);
 void set_ui_visarea (int xmin, int ymin, int xmax, int ymax);
 
-void init_user_interface(void);
 int handle_user_interface(struct mame_bitmap *bitmap);
 
 void ui_show_fps_temp(double seconds);
 void ui_show_fps_set(int show);
-int ui_show_fps_get(void);
 
 void ui_show_profiler_set(int show);
-int ui_show_profiler_get(void);
 
-int onscrd_active(void);
-int setup_active(void);
 
 #if defined(__sgi) && ! defined(MESS)
-int is_game_paused(void);
 #endif
 
 void switch_ui_orientation(struct mame_bitmap *bitmap);

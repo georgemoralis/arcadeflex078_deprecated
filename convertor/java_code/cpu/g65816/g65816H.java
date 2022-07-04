@@ -58,7 +58,6 @@ enum
 /* ============================== PROTOTYPES ============================== */
 /* ======================================================================== */
 
-extern int g65816_ICount;				/* cycle count */
 
 
 
@@ -70,7 +69,6 @@ extern int g65816_ICount;				/* cycle count */
 /* CPU Peek and Poke API */
 /* --------------------- */
 
-void g65816_init(void);
 
 /* Get the current CPU context */
 unsigned g65816_get_context(void *dst);
@@ -146,7 +144,6 @@ void g65816_branching(unsigned int new_pc);
 /* ======================================================================== */
 
 /* Clean up after the emulation core - Not used in this core - */
-void g65816_exit(void);
 
 /* Save the current CPU state to disk */
 void g65816_state_save(void *file);
@@ -161,25 +158,29 @@ const char *g65816_info(void *context, int regnum);
 unsigned g65816_dasm(char *buffer, unsigned pc);
 
 
-#include "cpuintrf.h"
-#include "memory.h"
-#include "driver.h"
-#include "state.h"
-#include "mamedbg.h"
+/*
+ * ported to v0.78
+ * using automatic conversion tool v0.01
+ */ 
+package cpu.g65816;
 
-#undef G65816_CALL_DEBUGGER
-#define G65816_CALL_DEBUGGER CALL_MAME_DEBUG
-
-#define g65816_read_8(addr) 			cpu_readmem24(addr)
-#define g65816_write_8(addr,data)		cpu_writemem24(addr,data)
-#define g65816_read_8_immediate(A)		cpu_readmem24(A)
-#define g65816_jumping(A)				change_pc24(A)
-#define g65816_branching(A)
-
-
-
-/* ======================================================================== */
-/* ============================== END OF FILE ============================= */
-/* ======================================================================== */
-
-#endif /* HEADER__G65816 */
+public class g65816H
+{
+	
+	#undef G65816_CALL_DEBUGGER
+	#define G65816_CALL_DEBUGGER CALL_MAME_DEBUG
+	
+	#define g65816_read_8(addr) 			cpu_readmem24(addr)
+	#define g65816_write_8(addr,data)		cpu_writemem24(addr,data)
+	#define g65816_read_8_immediate(A)		cpu_readmem24(A)
+	#define g65816_jumping(A)				change_pc24(A)
+	#define g65816_branching(A)
+	
+	
+	
+	/* ======================================================================== */
+	/* ============================== END OF FILE ============================= */
+	/* ======================================================================== */
+	
+	#endif /* HEADER__G65816 */
+}

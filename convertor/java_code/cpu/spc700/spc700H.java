@@ -37,7 +37,6 @@ enum
 /* implementation APIs below.                                       */
 
 
-void spc700_init(void);
 
 /* Pulse the RESET pin on the CPU */
 void spc700_reset(void* param);
@@ -46,7 +45,6 @@ void spc700_reset(void* param);
 void spc700_set_reset_line(int state, void* param);
 
 /* Clean up after the emulation core - Not used in this core - */
-void spc700_exit(void);
 
 /* Get the current CPU context */
 unsigned spc700_get_context(void *dst);
@@ -98,9 +96,7 @@ unsigned spc700_dasm(char *buffer, unsigned pc);
 
 
 /* Pulse the SO (Set Overflow) pin on the CPU */
-void spc700_pulse_so(void);
 
-extern int spc700_ICount;				/* cycle count */
 
 int spc700_execute(int clocks);
 
@@ -132,25 +128,31 @@ void spc700_branching(unsigned int new_pc);
 /* ================================= MAME ================================= */
 /* ======================================================================== */
 
-#include "cpuintrf.h"
-#include "memory.h"
-#include "mamedbg.h"
+/*
+ * ported to v0.78
+ * using automatic conversion tool v0.01
+ */ 
+package cpu.spc700;
 
-#define spc700_read_8(addr) cpu_readmem16(addr)
-#define spc700_write_8(addr,data) cpu_writemem16(addr,data)
-
-#define spc700_read_8_direct(A)     spc700_read_8(A)
-#define spc700_write_8_direct(A, V) spc700_write_8(A, V)
-#define spc700_read_instruction(A)    cpu_readop(A)
-#define spc700_read_8_immediate(A)    cpu_readop_arg(A)
-#define spc700_jumping(A)             change_pc16(A)
-#define spc700_branching(A)
-
-
-
-/* ======================================================================== */
-/* ============================== END OF FILE ============================= */
-/* ======================================================================== */
-
-#endif /* SPC700__HEADER */
-
+public class spc700H
+{
+	
+	#define spc700_read_8(addr) cpu_readmem16(addr)
+	#define spc700_write_8(addr,data) cpu_writemem16(addr,data)
+	
+	#define spc700_read_8_direct(A)     spc700_read_8(A)
+	#define spc700_write_8_direct(A, V) spc700_write_8(A, V)
+	#define spc700_read_instruction(A)    cpu_readop(A)
+	#define spc700_read_8_immediate(A)    cpu_readop_arg(A)
+	#define spc700_jumping(A)             change_pc16(A)
+	#define spc700_branching(A)
+	
+	
+	
+	/* ======================================================================== */
+	/* ============================== END OF FILE ============================= */
+	/* ======================================================================== */
+	
+	#endif /* SPC700__HEADER */
+	
+}

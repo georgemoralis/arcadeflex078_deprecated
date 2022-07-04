@@ -28,225 +28,231 @@
 
 ***************************************************************************/
 
-#include "driver.h"
-#include "vidhrdw/generic.h"
-#include "thedeep.h"
+/*
+ * ported to v0.78
+ * using automatic conversion tool v0.01
+ */ 
+package vidhrdw;
 
-/* Variables only used here: */
-
-static struct tilemap *tilemap_0,*tilemap_1;
-
-/* Variables & functions needed by drivers: */
-
-data8_t *thedeep_vram_0, *thedeep_vram_1;
-data8_t *thedeep_scroll, *thedeep_scroll2;
-
-
-/***************************************************************************
-
-						Callbacks for the TileMap code
-
-***************************************************************************/
-
-static UINT32 tilemap_scan_rows_back( UINT32 col, UINT32 row, UINT32 num_cols, UINT32 num_rows )
+public class thedeep
 {
-	return (col & 0x0f) + ((col & 0x10) << 5) + (row << 4);
-}
-
-static void get_tile_info_0( int tile_index )
-{
-	data8_t code	=	thedeep_vram_0[ tile_index * 2 + 0 ];
-	data8_t color	=	thedeep_vram_0[ tile_index * 2 + 1 ];
-	SET_TILE_INFO(
-			1,
-			code + (color << 8),
-			(color & 0xf0) >> 4,
-			TILE_FLIPX	)	// why?
-}
-
-static void get_tile_info_1( int tile_index )
-{
-	data8_t code	=	thedeep_vram_1[ tile_index * 2 + 0 ];
-	data8_t color	=	thedeep_vram_1[ tile_index * 2 + 1 ];
-	SET_TILE_INFO(
-			2,
-			code + (color << 8),
-			(color & 0xf0) >> 4,
-			0)
-}
-
-WRITE_HANDLER( thedeep_vram_0_w )
-{
-	if (thedeep_vram_0[offset] != data)
+	
+	/* Variables only used here: */
+	
+	static struct tilemap *tilemap_0,*tilemap_1;
+	
+	/* Variables & functions needed by drivers: */
+	
+	data8_t *thedeep_vram_0, *thedeep_vram_1;
+	data8_t *thedeep_scroll, *thedeep_scroll2;
+	
+	
+	/***************************************************************************
+	
+							Callbacks for the TileMap code
+	
+	***************************************************************************/
+	
+	static UINT32 tilemap_scan_rows_back( UINT32 col, UINT32 row, UINT32 num_cols, UINT32 num_rows )
 	{
-		thedeep_vram_0[offset] = data;
-		tilemap_mark_tile_dirty(tilemap_0, offset / 2);
+		return (col & 0x0f) + ((col & 0x10) << 5) + (row << 4);
 	}
-}
-
-WRITE_HANDLER( thedeep_vram_1_w )
-{
-	if (thedeep_vram_1[offset] != data)
+	
+	static void get_tile_info_0( int tile_index )
 	{
-		thedeep_vram_1[offset] = data;
-		tilemap_mark_tile_dirty(tilemap_1, offset / 2);
+		data8_t code	=	thedeep_vram_0[ tile_index * 2 + 0 ];
+		data8_t color	=	thedeep_vram_0[ tile_index * 2 + 1 ];
+		SET_TILE_INFO(
+				1,
+				code + (color << 8),
+				(color & 0xf0) >> 4,
+				TILE_FLIPX	)	// why?
 	}
-}
-
-
-/***************************************************************************
-
-								Palette Init
-
-***************************************************************************/
-
-PALETTE_INIT( thedeep )
-{
-	int i;
-	for (i = 0;i < 512;i++)
+	
+	static void get_tile_info_1( int tile_index )
 	{
-		int b = ((color_prom[0x200 + i] >> 0) & 0xf) * 0x11;
-		int g = ((color_prom[0x400 + i] >> 4) & 0xf) * 0x11;
-		int r = ((color_prom[0x400 + i] >> 0) & 0xf) * 0x11;
-		palette_set_color(i,r,g,b);
+		data8_t code	=	thedeep_vram_1[ tile_index * 2 + 0 ];
+		data8_t color	=	thedeep_vram_1[ tile_index * 2 + 1 ];
+		SET_TILE_INFO(
+				2,
+				code + (color << 8),
+				(color & 0xf0) >> 4,
+				0)
 	}
-}
-
-/***************************************************************************
-
-								Video Init
-
-***************************************************************************/
-
-VIDEO_START( thedeep )
-{
-	tilemap_0  = tilemap_create(get_tile_info_0,tilemap_scan_rows_back,TILEMAP_TRANSPARENT,16,16,0x20,0x20);
-	tilemap_1  = tilemap_create(get_tile_info_1,tilemap_scan_rows,TILEMAP_TRANSPARENT,8,8,0x20,0x20);
-
-	if (!tilemap_0 || !tilemap_1)
-		return 1;
-
-	tilemap_set_transparent_pen( tilemap_0,  0 );
-	tilemap_set_transparent_pen( tilemap_1,  0 );
-
-	tilemap_set_scroll_cols(tilemap_0, 0x20);	// column scroll for the background
-
-	return 0;
-}
-
-/***************************************************************************
-
-								Sprites Drawing
-
-Offset:		Bits:		Value:
-
-	0					Y (low bits, 0 is bottom)
-
-	1		7-------	Enable
-			-6------	Flip Y
-			--5-----	Flip X ? (unused)
-			---43---	Height: 1,2,4 or 8 tiles
-			-----21-	Width: 1,2,4 or 8 tiles*
-			-------0	Y (High bit)
-
-	2					Code (low bits)
-
-	3					Code (high bits)
-
-	4					X (low bits, 0 is right)
-
-	5		7654----	Color
-			----321-
-			-------0	X (High bit)
-
-	6					Unused
-
-	7					Unused
-
-* a sprite of width N uses N consecutive sprites. The first one specifies
-  all the data, the following ones only the tile code and color.
-
-***************************************************************************/
-
-static void draw_sprites(struct mame_bitmap *bitmap, const struct rectangle *cliprect)
-{
-	data8_t *s = spriteram, *end = s + spriteram_size;
-
-	while (s < end)
+	
+	public static WriteHandlerPtr thedeep_vram_0_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
-		int code,color,sx,sy,flipx,flipy,nx,ny,x,y,attr;
-
-		attr	=	 s[1];
-		if (!(attr & 0x80))	{	s+=8;	continue;	}
-
-		sx		=	 s[4];
-		sy		=	 s[0];
-
-		color	=	 s[5];
-
-		flipx	=	attr & 0x00;	// ?
-		flipy	=	attr & 0x40;
-
-		nx = 1 << ((attr & 0x06) >> 1);
-		ny = 1 << ((attr & 0x18) >> 3);
-
-		if (color & 1)	sx -= 256;
-		if (attr  & 1)	sy -= 256;
-
-		if (flip_screen)
+		if (thedeep_vram_0[offset] != data)
 		{
-			flipx = !flipx;
-			flipy = !flipy;
-			sy = sy - 8;
+			thedeep_vram_0[offset] = data;
+			tilemap_mark_tile_dirty(tilemap_0, offset / 2);
 		}
-		else
+	} };
+	
+	public static WriteHandlerPtr thedeep_vram_1_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		if (thedeep_vram_1[offset] != data)
 		{
-			sx = 240 - sx;
-			sy = 240 - sy - ny * 16 + 16;
+			thedeep_vram_1[offset] = data;
+			tilemap_mark_tile_dirty(tilemap_1, offset / 2);
 		}
-
-		for (x = 0; (x < nx) && (s < end);  x++,s+=8)
+	} };
+	
+	
+	/***************************************************************************
+	
+									Palette Init
+	
+	***************************************************************************/
+	
+	PALETTE_INIT( thedeep )
+	{
+		int i;
+		for (i = 0;i < 512;i++)
 		{
-			code	=	 s[2] + (s[3] << 8);
-			color	=	 s[5] >> 4;
-
-			for (y = 0; y < ny; y++)
+			int b = ((color_prom.read(0x200 + i)>> 0) & 0xf) * 0x11;
+			int g = ((color_prom.read(0x400 + i)>> 4) & 0xf) * 0x11;
+			int r = ((color_prom.read(0x400 + i)>> 0) & 0xf) * 0x11;
+			palette_set_color(i,r,g,b);
+		}
+	}
+	
+	/***************************************************************************
+	
+									Video Init
+	
+	***************************************************************************/
+	
+	VIDEO_START( thedeep )
+	{
+		tilemap_0  = tilemap_create(get_tile_info_0,tilemap_scan_rows_back,TILEMAP_TRANSPARENT,16,16,0x20,0x20);
+		tilemap_1  = tilemap_create(get_tile_info_1,tilemap_scan_rows,TILEMAP_TRANSPARENT,8,8,0x20,0x20);
+	
+		if (!tilemap_0 || !tilemap_1)
+			return 1;
+	
+		tilemap_set_transparent_pen( tilemap_0,  0 );
+		tilemap_set_transparent_pen( tilemap_1,  0 );
+	
+		tilemap_set_scroll_cols(tilemap_0, 0x20);	// column scroll for the background
+	
+		return 0;
+	}
+	
+	/***************************************************************************
+	
+									Sprites Drawing
+	
+	Offset:		Bits:		Value:
+	
+		0					Y (low bits, 0 is bottom)
+	
+		1		7-------	Enable
+				-6------	Flip Y
+				--5-----	Flip X ? (unused)
+				---43---	Height: 1,2,4 or 8 tiles
+				-----21-	Width: 1,2,4 or 8 tiles*
+				-------0	Y (High bit)
+	
+		2					Code (low bits)
+	
+		3					Code (high bits)
+	
+		4					X (low bits, 0 is right)
+	
+		5		7654----	Color
+				----321-
+				-------0	X (High bit)
+	
+		6					Unused
+	
+		7					Unused
+	
+	* a sprite of width N uses N consecutive sprites. The first one specifies
+	  all the data, the following ones only the tile code and color.
+	
+	***************************************************************************/
+	
+	static void draw_sprites(struct mame_bitmap *bitmap, const struct rectangle *cliprect)
+	{
+		data8_t *s = spriteram, *end = s + spriteram_size;
+	
+		while (s < end)
+		{
+			int code,color,sx,sy,flipx,flipy,nx,ny,x,y,attr;
+	
+			attr	=	 s[1];
+			if (!(attr & 0x80))	{	s+=8;	continue;	}
+	
+			sx		=	 s[4];
+			sy		=	 s[0];
+	
+			color	=	 s[5];
+	
+			flipx	=	attr & 0x00;	// ?
+			flipy	=	attr & 0x40;
+	
+			nx = 1 << ((attr & 0x06) >> 1);
+			ny = 1 << ((attr & 0x18) >> 3);
+	
+			if (color & 1)	sx -= 256;
+			if (attr  & 1)	sy -= 256;
+	
+			if (flip_screen)
 			{
-				drawgfx(bitmap,Machine->gfx[0],
-						code + (flipy ? (ny - y - 1) :  y),
-						color,
-						flipx,flipy,
-						sx + x * (flipx ? 16 : -16), sy + y * 16,
-						cliprect,TRANSPARENCY_PEN,0 );
+				flipx = !flipx;
+				flipy = !flipy;
+				sy = sy - 8;
+			}
+			else
+			{
+				sx = 240 - sx;
+				sy = 240 - sy - ny * 16 + 16;
+			}
+	
+			for (x = 0; (x < nx) && (s < end);  x++,s+=8)
+			{
+				code	=	 s[2] + (s[3] << 8);
+				color	=	 s[5] >> 4;
+	
+				for (y = 0; y < ny; y++)
+				{
+					drawgfx(bitmap,Machine->gfx[0],
+							code + (flipy ? (ny - y - 1) :  y),
+							color,
+							flipx,flipy,
+							sx + x * (flipx ? 16 : -16), sy + y * 16,
+							cliprect,TRANSPARENCY_PEN,0 );
+				}
 			}
 		}
 	}
-}
-
-
-/***************************************************************************
-
-								Screen Drawing
-
-***************************************************************************/
-
-VIDEO_UPDATE( thedeep )
-{
-	int scrollx = thedeep_scroll[0] + (thedeep_scroll[1]<<8);
-	int scrolly = thedeep_scroll[2] + (thedeep_scroll[3]<<8);
-	int x;
-
-	tilemap_set_scrollx(tilemap_0, 0, scrollx);
-
-	for (x = 0; x < 0x20; x++)
+	
+	
+	/***************************************************************************
+	
+									Screen Drawing
+	
+	***************************************************************************/
+	
+	VIDEO_UPDATE( thedeep )
 	{
-		int y = thedeep_scroll2[x*2+0] + (thedeep_scroll2[x*2+1]<<8);
-		tilemap_set_scrolly(tilemap_0, x, y + scrolly);
+		int scrollx = thedeep_scroll[0] + (thedeep_scroll[1]<<8);
+		int scrolly = thedeep_scroll[2] + (thedeep_scroll[3]<<8);
+		int x;
+	
+		tilemap_set_scrollx(tilemap_0, 0, scrollx);
+	
+		for (x = 0; x < 0x20; x++)
+		{
+			int y = thedeep_scroll2[x*2+0] + (thedeep_scroll2[x*2+1]<<8);
+			tilemap_set_scrolly(tilemap_0, x, y + scrolly);
+		}
+	
+		fillbitmap(bitmap,get_black_pen(),cliprect);
+	
+		tilemap_draw(bitmap,cliprect,tilemap_0,0,0);
+		draw_sprites(bitmap,cliprect);
+		tilemap_draw(bitmap,cliprect,tilemap_1,0,0);
 	}
-
-	fillbitmap(bitmap,get_black_pen(),cliprect);
-
-	tilemap_draw(bitmap,cliprect,tilemap_0,0,0);
-	draw_sprites(bitmap,cliprect);
-	tilemap_draw(bitmap,cliprect,tilemap_1,0,0);
 }

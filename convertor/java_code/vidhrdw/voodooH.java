@@ -17,7 +17,6 @@ VIDEO_UPDATE( voodoo );
 
 void voodoo_set_init_enable(data32_t newval);
 
-void voodoo_reset(void);
 
 WRITE32_HANDLER( voodoo_regs_w );
 WRITE32_HANDLER( voodoo2_regs_w );

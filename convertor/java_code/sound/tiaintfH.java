@@ -11,8 +11,6 @@ struct TIAinterface {
 };
 
 int tia_sh_start (const struct MachineSound *msound);
-void tia_sh_stop (void);
-void tia_sh_update (void);
 
 #endif
 

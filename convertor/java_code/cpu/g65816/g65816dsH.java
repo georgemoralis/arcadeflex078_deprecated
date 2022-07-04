@@ -21,12 +21,16 @@ int g65816_disassemble(char* buff, unsigned int pc, unsigned int pb, int m_flag,
 
 unsigned int g65816_read_8_disassembler(unsigned int address);
 
-#include "cpuintrf.h"
-#include "memory.h"
-#include "driver.h"
-#include "state.h"
-#include "mamedbg.h"
-#define g65816_read_8_disassembler(addr)				cpu_readmem24(addr)
+/*
+ * ported to v0.78
+ * using automatic conversion tool v0.01
+ */ 
+package cpu.g65816;
 
-
-#endif /* HEADER__G65816DS */
+public class g65816dsH
+{
+	#define g65816_read_8_disassembler(addr)				cpu_readmem24(addr)
+	
+	
+	#endif /* HEADER__G65816DS */
+}

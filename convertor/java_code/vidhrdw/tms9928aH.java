@@ -21,7 +21,6 @@ typedef enum
 /*
 ** reset function
 */
-extern void TMS9928A_reset (void);
 
 /*
 ** The I/O functions
@@ -40,7 +39,6 @@ extern VIDEO_UPDATE( tms9928a );
 ** This next function must be called 50 (tms9929a) or 60 (tms99x8a) times per second,
 ** to generate the necessary interrupts
 */
-int TMS9928A_interrupt (void);
 
 /*
 ** The parameter is a function pointer. This function is called whenever
@@ -56,7 +54,6 @@ void TMS9928A_set_spriteslimit (int);
 /*
 ** After loading a state, call this function 
 */
-void TMS9928A_post_load (void);
 
 /*
 ** MachineDriver video declarations for the TMS9928A chip
@@ -69,6 +66,5 @@ typedef struct TMS9928a_interface
 								** of the INT output of the TMS9918A changes (may be NULL)*/
 } TMS9928a_interface;
 
-extern void mdrv_tms9928a(struct InternalMachineDriver *machine, const TMS9928a_interface *intf);
 
 #define MDRV_TMS9928A(intf)		mdrv_tms9928a(machine, (intf));

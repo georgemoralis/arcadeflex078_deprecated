@@ -21,12 +21,16 @@ int spc700_disassemble(char* buff, unsigned int pc);
 
 unsigned int spc700_read_8_disassembler(unsigned int address);
 
-#include "cpuintrf.h"
-#include "memory.h"
-#include "driver.h"
-#include "state.h"
-#include "mamedbg.h"
-#define spc700_read_8_disassembler(addr)				cpu_readmem16(addr)
+/*
+ * ported to v0.78
+ * using automatic conversion tool v0.01
+ */ 
+package cpu.spc700;
 
-
-#endif /* HEADER__SPC700DS */
+public class spc700dsH
+{
+	#define spc700_read_8_disassembler(addr)				cpu_readmem16(addr)
+	
+	
+	#endif /* HEADER__SPC700DS */
+}

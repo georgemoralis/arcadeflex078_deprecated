@@ -1,12 +1,7 @@
 #ifndef __MACH_KONAMIGX_H
 #define __MACH_KONAMIGX_H
 
-void tms57002_init(void);
 
-READ_HANDLER( tms57002_data_r );
-READ_HANDLER( tms57002_status_r );
-WRITE_HANDLER( tms57002_control_w );
-WRITE_HANDLER( tms57002_data_w );
 
 READ16_HANDLER( tms57002_data_word_r );
 READ16_HANDLER( tms57002_status_word_r );
@@ -27,7 +22,6 @@ void K053936GP_1_zoom_draw(struct mame_bitmap *bitmap, const struct rectangle *c
 
 
 // 1st-Tier GX/MW Variables and Functions
-extern int konamigx_cfgport;
 extern data8_t  konamigx_wrport1_0, konamigx_wrport1_1;
 extern data16_t konamigx_wrport2;
 
@@ -93,7 +87,6 @@ int konamigx_mixer_init(int objdma);
 void konamigx_mixer_primode(int mode);
 
 
-void konamigx_objdma(void);
 
 
 // K055550/K053990/ESC protection devices handlers

@@ -115,7 +115,7 @@
  *   it will automatically compute and add SHA1 checksum for you if
  *   it can find the romset. 
  *
- * - Given a romset (ZIP file), it will prepare a ROM definition 
+ * - Given a romset (ZIP file); it will prepare a ROM definition 
  *   skeleton for a driver, containing already rom names, lengths, and 
  *   checksums (both CRC and SHA1). 
  *
@@ -124,578 +124,573 @@
  *
  */
 
-#include <stddef.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
-#include <zlib.h>
-#include "hash.h"
-#include "md5.h"
-#include "sha1.h"
-#include "osd_cpu.h"
-#include "mame.h"
-#include "common.h"
+/*
+ * ported to v0.78
+ * using automatic conversion tool v0.01
+ */ 
+package mame;
 
-#define ASSERT(x)
-
-#ifndef TRUE
-#define TRUE    1
-#endif
-
-#ifndef FALSE
-#define FALSE   0
-#endif
-
-typedef struct 
+public class hash
 {
-	const char* name;           // human-readable name
-	char code;                  // single-char code used within the hash string
-	unsigned int size;          // checksum size in bytes
 	
-	// Functions used to calculate the hash of a memory block
-	void (*calculate_begin)(void);
-	void (*calculate_buffer)(const void* mem, unsigned long len);
-	void (*calculate_end)(UINT8* bin_chksum);
-
-} hash_function_desc;
-
-static void h_crc_begin(void);
-static void h_crc_buffer(const void* mem, unsigned long len);
-static void h_crc_end(UINT8* chksum);
-
-static void h_sha1_begin(void);
-static void h_sha1_buffer(const void* mem, unsigned long len);
-static void h_sha1_end(UINT8* chksum);
-
-static void h_md5_begin(void);
-static void h_md5_buffer(const void* mem, unsigned long len);
-static void h_md5_end(UINT8* chksum);
-
-static hash_function_desc hash_descs[HASH_NUM_FUNCTIONS] =
-{
-	{
-		"crc", 'c', 4,
-		h_crc_begin,
-		h_crc_buffer,
-		h_crc_end
-	},
-
-	{
-		"sha1", 's', 20,
-		h_sha1_begin,
-		h_sha1_buffer,
-		h_sha1_end
-	},
-
-	{
-		"md5", 'm', 16,
-		h_md5_begin,
-		h_md5_buffer,
-		h_md5_end
-	},
-};
-
-const char* info_strings[] =
-{
-	"$ND$",       // No dump
-	"$BD$"        // Bad dump
-};
-
-static const char* binToStr = "0123456789abcdef";
-
-
-static hash_function_desc* hash_get_function_desc(unsigned int function)
-{
-	unsigned int idx = 0;
-
-	// Calling with zero in here is mostly an internal error
-	ASSERT(function != 0);
-
-	// Compute the index of only one function
-	while (!(function & 1))
-	{
-		idx++;
-		function >>= 1;
-	}
-
-	// Specify only one bit or die
-	ASSERT(function == 1);
-
-	return &hash_descs[idx];
-}
-
-const char* hash_function_name(unsigned int function)
-{
-	hash_function_desc* info = hash_get_function_desc(function);
-
-	return info->name;
-}
-
-int hash_data_has_checksum(const char* data, unsigned int function)
-{
-	hash_function_desc* info = hash_get_function_desc(function);
-	char str[3];
-	const char* res;
-
-	str[0] = info->code; 
-	str[1] = ':'; 
-	str[2] = '\0';
-
-	// Check if the specified hash function is used within this data
-	res = strstr(data, str);
-
-	if (!res)
-		return 0;
-
-	// Return the offset within the string where the checksum begins
-	return (res - data + 2);
-}
-
-static int hash_data_add_binary_checksum(char* d, unsigned int function, UINT8* checksum)
-{
-	hash_function_desc* desc = hash_get_function_desc(function);
-	char* start = d;
-	unsigned i;
+	#define ASSERT(x)
 	
-	*d++ = desc->code;
-	*d++ = ':';
-
-	for (i=0;i<desc->size;i++)
-	{
-		UINT8 c = *checksum++;
-
-		*d++ = binToStr[(c >> 4) & 0xF];
-		*d++ = binToStr[(c >> 0) & 0xF];
-	}
+	#ifndef TRUE
+	#define TRUE    1
+	#endif
 	
-	*d++ = '#';
-
-	// Return the number of written bytes
-	return (d - start);
-}
-
-
-static int hash_compare_checksum(const char* chk1, const char* chk2, int length)
-{
-	char c1, c2;
-
-	// The printable format is twice as longer
-	length *= 2;
-
-	// This is basically a case-insensitive string compare
-	while (length--)
-	{
-		c1 = *chk1++;
-		c2 = *chk2++;
-
-		if (tolower(c1) != tolower(c2))
-			return 0;
-		if (!c1)
-			return 0;
-	}
-
-	return 1;
-}
-
-
-// Compare two hashdata
-int hash_data_is_equal(const char* d1, const char* d2, unsigned int functions)
-{
-	int i;
-	char incomplete = 0;
-	char ok = 0;
+	#ifndef FALSE
+	#define FALSE   0
+	#endif
 	
-	// If no function is specified, it means we need to check for all
-	//  of them
-	if (!functions)
-		functions = ~functions;
-
-	for (i=1; i != (1<<HASH_NUM_FUNCTIONS); i<<=1)
-		if (functions & i)
+	typedef struct 
+	{
+		const char* name;           // human-readable name
+		char code;                  // single-char code used within the hash string
+		unsigned int size;          // checksum size in bytes
+		
+		// Functions used to calculate the hash of a memory block
+		void (*calculate_begin)(void);
+		void (*calculate_buffer)(const void* mem, unsigned long len);
+		void (*calculate_end)(UINT8* bin_chksum);
+	
+	} hash_function_desc;
+	
+	static static void h_crc_buffer(const void* mem, unsigned long len);
+	static void h_crc_end(UINT8* chksum);
+	
+	static static void h_sha1_buffer(const void* mem, unsigned long len);
+	static void h_sha1_end(UINT8* chksum);
+	
+	static static void h_md5_buffer(const void* mem, unsigned long len);
+	static void h_md5_end(UINT8* chksum);
+	
+	static hash_function_desc hash_descs[HASH_NUM_FUNCTIONS] =
+	{
 		{
-			int offs1, offs2;
-
-			// Check if both hashdata contain the current function's checksum
-			offs1 = hash_data_has_checksum(d1, i);
-			offs2 = hash_data_has_checksum(d2, i);
-
-			if (offs1 && offs2)
-			{
-				hash_function_desc* info = hash_get_function_desc(i);
-
-				if (!hash_compare_checksum(d1+offs1, d2+offs2, info->size))
-					return 0;
-
-				ok = 1;
-			}
-			// If the function was contained only in one, remember that our comparison
-			//  is incomplete
-			else if (offs1 || offs2)
-			{
-				incomplete = 1;
-			}
-		}
-
-	// If we could not compare any function, return error
-	if (!ok)
-		return 0;
-
-	// Return success code
-	return (incomplete ? 2 : 1);
-}
-
-
-int hash_data_extract_printable_checksum(const char* data, unsigned int function, char* checksum)
-{
-	unsigned int i;
-	hash_function_desc* info;
-	int offs;
+			"crc", 'c', 4,
+			h_crc_begin,
+			h_crc_buffer,
+			h_crc_end
+		},
 	
-	// Check if the hashdata contains the requested function
-	offs = hash_data_has_checksum(data, function);
+		{
+			"sha1", 's', 20,
+			h_sha1_begin,
+			h_sha1_buffer,
+			h_sha1_end
+		},
 	
-	if (!offs)
-		return 0;
+		{
+			"md5", 'm', 16,
+			h_md5_begin,
+			h_md5_buffer,
+			h_md5_end
+		},
+	};
 	
-	// Move to the beginning of the checksum
-	data += offs;
-	
-	info = hash_get_function_desc(function);
-
-	// Return the number of required bytes
-	if (!checksum)
-		return info->size*2+1;
-
-	// If the terminator is not found at the right position,
-	//  return a full-zero checksum and warn about it. This is mainly
-	//  for developers putting checksums of '0' or '1' to ask MAME
-	//  to compute the correct values for them.
-	if (data[info->size*2] != '#')
+	const char* info_strings[] =
 	{
-		memset(checksum, '0', info->size*2);
-		checksum[info->size*2] = '\0';
-		return 2;
+		"$ND$",       // No dump
+		"$BD$"        // Bad dump
+	};
+	
+	static const char* binToStr = "0123456789abcdef";
+	
+	
+	static hash_function_desc* hash_get_function_desc(unsigned int function)
+	{
+		unsigned int idx = 0;
+	
+		// Calling with zero in here is mostly an internal error
+		ASSERT(function != 0);
+	
+		// Compute the index of only one function
+		while (!(function & 1))
+		{
+			idx++;
+			function >>= 1;
+		}
+	
+		// Specify only one bit or die
+		ASSERT(function == 1);
+	
+		return &hash_descs[idx];
 	}
-
-	// If it contains invalid hexadecimal characters,
-	//  treat the checksum as zero and return warning
-	for (i=0;i<info->size*2;i++)
-		if (!(data[i]>='0' && data[i]<='9') &&
-			!(data[i]>='a' && data[i]<='f') &&
-			!(data[i]>='A' && data[i]<='F'))
+	
+	const char* hash_function_name(unsigned int function)
+	{
+		hash_function_desc* info = hash_get_function_desc(function);
+	
+		return info->name;
+	}
+	
+	int hash_data_has_checksum(const char* data, unsigned int function)
+	{
+		hash_function_desc* info = hash_get_function_desc(function);
+		char str[3];
+		const char* res;
+	
+		str[0] = info->code; 
+		str[1] = ':'; 
+		str[2] = '\0';
+	
+		// Check if the specified hash function is used within this data
+		res = strstr(data, str);
+	
+		if (res == 0)
+			return 0;
+	
+		// Return the offset within the string where the checksum begins
+		return (res - data + 2);
+	}
+	
+	static int hash_data_add_binary_checksum(char* d, unsigned int function, UINT8* checksum)
+	{
+		hash_function_desc* desc = hash_get_function_desc(function);
+		char* start = d;
+		unsigned i;
+		
+		*d++ = desc->code;
+		*d++ = ':';
+	
+		for (i=0;i<desc->size;i++)
+		{
+			UINT8 c = *checksum++;
+	
+			*d++ = binToStr[(c >> 4) & 0xF];
+			*d++ = binToStr[(c >> 0) & 0xF];
+		}
+		
+		*d++ = '#';
+	
+		// Return the number of written bytes
+		return (d - start);
+	}
+	
+	
+	static int hash_compare_checksum(const char* chk1, const char* chk2, int length)
+	{
+		char c1, c2;
+	
+		// The printable format is twice as longer
+		length *= 2;
+	
+		// This is basically a case-insensitive string compare
+		while (length--)
+		{
+			c1 = *chk1++;
+			c2 = *chk2++;
+	
+			if (tolower(c1) != tolower(c2))
+				return 0;
+			if (c1 == 0)
+				return 0;
+		}
+	
+		return 1;
+	}
+	
+	
+	// Compare two hashdata
+	int hash_data_is_equal(const char* d1, const char* d2, unsigned int functions)
+	{
+		int i;
+		char incomplete = 0;
+		char ok = 0;
+		
+		// If no function is specified, it means we need to check for all
+		//  of them
+		if (functions == 0)
+			functions = ~functions;
+	
+		for (i=1; i != (1<<HASH_NUM_FUNCTIONS); i<<=1)
+			if (functions & i)
+			{
+				int offs1, offs2;
+	
+				// Check if both hashdata contain the current function's checksum
+				offs1 = hash_data_has_checksum(d1, i);
+				offs2 = hash_data_has_checksum(d2, i);
+	
+				if (offs1 && offs2)
+				{
+					hash_function_desc* info = hash_get_function_desc(i);
+	
+					if (!hash_compare_checksum(d1+offs1, d2+offs2, info->size))
+						return 0;
+	
+					ok = 1;
+				}
+				// If the function was contained only in one, remember that our comparison
+				//  is incomplete
+				else if (offs1 || offs2)
+				{
+					incomplete = 1;
+				}
+			}
+	
+		// If we could not compare any function, return error
+		if (ok == 0)
+			return 0;
+	
+		// Return success code
+		return (incomplete ? 2 : 1);
+	}
+	
+	
+	int hash_data_extract_printable_checksum(const char* data, unsigned int function, char* checksum)
+	{
+		unsigned int i;
+		hash_function_desc* info;
+		int offs;
+		
+		// Check if the hashdata contains the requested function
+		offs = hash_data_has_checksum(data, function);
+		
+		if (offs == 0)
+			return 0;
+		
+		// Move to the beginning of the checksum
+		data += offs;
+		
+		info = hash_get_function_desc(function);
+	
+		// Return the number of required bytes
+		if (checksum == 0)
+			return info->size*2+1;
+	
+		// If the terminator is not found at the right position,
+		//  return a full-zero checksum and warn about it. This is mainly
+		//  for developers putting checksums of '0' or '1' to ask MAME
+		//  to compute the correct values for them.
+		if (data[info->size*2] != '#')
 		{
 			memset(checksum, '0', info->size*2);
 			checksum[info->size*2] = '\0';
 			return 2;
 		}
 	
-	// Copy the checksum (and make it lowercase)
-	for (i=0;i<info->size*2;i++)
-		checksum[i] = tolower(data[i]);
-
-	checksum[info->size*2] = '\0';
-
-	return 1;
-}
-
-int hash_data_extract_binary_checksum(const char* data, unsigned int function, unsigned char* checksum)
-{
-	unsigned int i;
-	hash_function_desc* info;
-	int offs;
+		// If it contains invalid hexadecimal characters,
+		//  treat the checksum as zero and return warning
+		for (i=0;i<info->size*2;i++)
+			if (!(data[i]>='0' && data[i]<='9') &&
+				!(data[i]>='a' && data[i]<='f') &&
+				!(data[i]>='A' && data[i]<='F'))
+			{
+				memset(checksum, '0', info->size*2);
+				checksum[info->size*2] = '\0';
+				return 2;
+			}
+		
+		// Copy the checksum (and make it lowercase)
+		for (i=0;i<info->size*2;i++)
+			checksum[i] = tolower(data[i]);
 	
-	// Check if the hashdata contains the requested function
-	offs = hash_data_has_checksum(data, function);
-
-	if (!offs)
-		return 0;
-
-	// Move to the beginning of the checksum
-	data += offs;
-
-	info = hash_get_function_desc(function);
-
-	// Return the number of required bytes
-	if (!checksum)
-		return info->size;
-
-	// Clear the checksum array
-	memset(checksum, 0, info->size);
-
-	// If the terminator is not found at the right position,
-	//  return a full-zero checksum and warn about it. This is mainly
-	//  for developers putting checksums of '0' or '1' to ask MAME
-	//  to compute the correct values for them.
-	if (data[info->size*2] != '#')
-	{
-		memset(checksum, '\0', info->size);
-		return 2;
+		checksum[info->size*2] = '\0';
+	
+		return 1;
 	}
 	
-	// Convert hex string into binary
-	for (i=0;i<info->size*2;i++)
+	int hash_data_extract_binary_checksum(const char* data, unsigned int function, unsigned char* checksum)
 	{
-		char c = tolower(*data++);
+		unsigned int i;
+		hash_function_desc* info;
+		int offs;
 		
-		if (c >= '0' && c <= '9')
-			c -= '0';
-		else if (c >= 'a' && c <= 'f')
-			c -= 'a' - 10;
-		else if (c >= 'A' && c <= 'F')
-			c -= 'A' - 10;
-		else
+		// Check if the hashdata contains the requested function
+		offs = hash_data_has_checksum(data, function);
+	
+		if (offs == 0)
+			return 0;
+	
+		// Move to the beginning of the checksum
+		data += offs;
+	
+		info = hash_get_function_desc(function);
+	
+		// Return the number of required bytes
+		if (checksum == 0)
+			return info->size;
+	
+		// Clear the checksum array
+		memset(checksum, 0, info->size);
+	
+		// If the terminator is not found at the right position,
+		//  return a full-zero checksum and warn about it. This is mainly
+		//  for developers putting checksums of '0' or '1' to ask MAME
+		//  to compute the correct values for them.
+		if (data[info->size*2] != '#')
 		{
-			// Invalid character: the checksum is treated as zero,
-			//  and a warning is returned
 			memset(checksum, '\0', info->size);
 			return 2;
 		}
-
-		if (i % 2 == 0)
-			checksum[i / 2] = c * 16;
-		else
-			checksum[i / 2] += c;
-	}
-
-	return 1;
-}
-
-int hash_data_has_info(const char* data, unsigned int info)
-{
-	char* res = strstr(data, info_strings[info]);
-
-	if (!res)
-		return 0;
-
-	return 1;
-}
-
-void hash_data_copy(char* dst, const char* src)
-{
-	// Copying string is enough
-	strcpy(dst, src);
-}
-
-void hash_data_clear(char* dst)
-{
-	// Clear the buffer
-	memset(dst, 0, HASH_BUF_SIZE);
-}
-
-unsigned int hash_data_used_functions(const char* data)
-{
-	int i;
-	unsigned int res = 0;
-
-	if (!data)
-		return 0;
-
-	for (i=0;i<HASH_NUM_FUNCTIONS;i++)
-		if (hash_data_has_checksum(data, 1<<i))
-			res |= 1<<i;
-
-	return res;
-}
-
-int hash_data_insert_binary_checksum(char* d, unsigned int function, UINT8* checksum)
-{
-	int offset;
+		
+		// Convert hex string into binary
+		for (i=0;i<info->size*2;i++)
+		{
+			char c = tolower(*data++);
+			
+			if (c >= '0' && c <= '9')
+				c -= '0';
+			else if (c >= 'a' && c <= 'f')
+				c -= 'a' - 10;
+			else if (c >= 'A' && c <= 'F')
+				c -= 'A' - 10;
+			else
+			{
+				// Invalid character: the checksum is treated as zero,
+				//  and a warning is returned
+				memset(checksum, '\0', info->size);
+				return 2;
+			}
 	
-	offset = hash_data_has_checksum(d, function);
-
-	if (!offset)
-	{
-		d += strlen(d);
-		d += hash_data_add_binary_checksum(d, function, checksum);
-		*d = '\0';
-
+			if (i % 2 == 0)
+				checksum[i / 2] = c * 16;
+			else
+				checksum[i / 2] += c;
+		}
+	
 		return 1;
 	}
-	else
+	
+	int hash_data_has_info(const char* data, unsigned int info)
 	{
-		// Move to the start of the whole checksum signature, not only to the checksum
-		// itself
-		d += offset - 2;
+		char* res = strstr(data, info_strings[info]);
+	
+		if (res == 0)
+			return 0;
+	
+		return 1;
+	}
+	
+	void hash_data_copy(char* dst, const char* src)
+	{
+		// Copying string is enough
+		strcpy(dst, src);
+	}
+	
+	void hash_data_clear(char* dst)
+	{
+		// Clear the buffer
+		memset(dst, 0, HASH_BUF_SIZE);
+	}
+	
+	unsigned int hash_data_used_functions(const char* data)
+	{
+		int i;
+		unsigned int res = 0;
+	
+		if (data == 0)
+			return 0;
+	
+		for (i=0;i<HASH_NUM_FUNCTIONS;i++)
+			if (hash_data_has_checksum(data, 1<<i))
+				res |= 1<<i;
+	
+		return res;
+	}
+	
+	int hash_data_insert_binary_checksum(char* d, unsigned int function, UINT8* checksum)
+	{
+		int offset;
 		
-		// Overwrite previous checksum with new one
-		hash_data_add_binary_checksum(d, function, checksum);
-
-		return 2;
-	}
-}
-
-void hash_compute(char* dst, const unsigned char* data, unsigned long length, unsigned int functions)
-{
-	int i;
-
-	hash_data_clear(dst);	
-
-	// Zero means use all the functions
-	if (functions == 0)
-		functions = ~functions;
-
-	for (i=0;i<HASH_NUM_FUNCTIONS;i++)
-	{
-		unsigned func = 1 << i;
-		
-		if (functions & func)
+		offset = hash_data_has_checksum(d, function);
+	
+		if (offset == 0)
 		{
-			hash_function_desc* desc = hash_get_function_desc(func);
-			UINT8 chksum[256];
-
-			desc->calculate_begin();
-			desc->calculate_buffer(data, length);
-			desc->calculate_end(chksum);
-
-			dst += hash_data_add_binary_checksum(dst, func, chksum);
-		}
-	}
-
-	*dst = '\0';
-}
-
-void hash_data_print(const char* data, unsigned int functions, char* buffer)
-{
-	int i, j;
-	char first = 1;
-
-	if (functions == 0)
-		functions = ~functions;
-
-	buffer[0] = '\0';
-
-	for (i=0;i<HASH_NUM_FUNCTIONS;i++)
-	{
-		unsigned func = 1 << i;
-
-		if ((functions & func) && hash_data_has_checksum(data, func))
-		{
-			char temp[256];
-
-			if (!first)
-				strcat(buffer, " ");
-			first = 0;
-			
-			strcpy(temp, hash_function_name(func));
-			for (j = 0; temp[j]; j++)
-				temp[j] = toupper(temp[j]);
-			strcat(buffer, temp);
-			strcat(buffer, "(");
-            
-			hash_data_extract_printable_checksum(data, func, temp);
-			strcat(buffer, temp);
-			strcat(buffer, ")");
-		}	
-	}
-}
-
-int hash_verify_string(const char *hash)
-{
-	int len, i;
-
-	if (!hash)
-		return FALSE;
-
-	while(*hash)
-	{
-		if (*hash == '$')
-		{
-			if (memcmp(hash, NO_DUMP, 4) && memcmp(hash, BAD_DUMP, 4))
-				return FALSE;
-			hash += 4;
+			d += strlen(d);
+			d += hash_data_add_binary_checksum(d, function, checksum);
+			*d = '\0';
+	
+			return 1;
 		}
 		else
 		{
-			/* first make sure that the next char is a colon */
-			if (hash[1] != ':')
-				return FALSE;
-
-			/* search for a hash function for this code */
-			for (i = 0; i < sizeof(hash_descs) / sizeof(hash_descs[0]); i++)
-			{
-				if (*hash == hash_descs[i].code)
-					break;
-			}
-			if (i >= sizeof(hash_descs) / sizeof(hash_descs[0]))
-				return FALSE;
-
-			/* we have a proper code */
-			len = hash_descs[i].size * 2;
-			hash += 2;
+			// Move to the start of the whole checksum signature, not only to the checksum
+			// itself
+			d += offset - 2;
 			
-			for (i = 0; (hash[i] != '#') && (i < len); i++)
-			{
-				if (!isxdigit(hash[i]))
-					return FALSE;
-			}
-			if (hash[i] != '#')
-				return FALSE;
-
-			hash += i+1;
+			// Overwrite previous checksum with new one
+			hash_data_add_binary_checksum(d, function, checksum);
+	
+			return 2;
 		}
 	}
-	return TRUE;
-}
-
-
-
-/*********************************************************************
-	Hash functions - Wrappers
- *********************************************************************/
-
-static UINT32 crc;
-
-static void h_crc_begin(void)
-{
-	crc = 0;
-}
-
-static void h_crc_buffer(const void* mem, unsigned long len)
-{
-	crc = crc32(crc, (UINT8*)mem, len);
-}
-
-static void h_crc_end(UINT8* bin_chksum)
-{
-	bin_chksum[0] = (UINT8)(crc >> 24);
-	bin_chksum[1] = (UINT8)(crc >> 16);
-	bin_chksum[2] = (UINT8)(crc >> 8);
-	bin_chksum[3] = (UINT8)(crc >> 0);
-}
-
-
-struct sha1_ctx sha1ctx;
-
-static void h_sha1_begin(void)
-{
-	sha1_init(&sha1ctx);
-}
-
-static void h_sha1_buffer(const void* mem, unsigned long len)
-{
-	sha1_update(&sha1ctx, len, (UINT8*)mem);
-}
-
-static void h_sha1_end(UINT8* bin_chksum)
-{
-	sha1_final(&sha1ctx);
-	sha1_digest(&sha1ctx, 20, bin_chksum);
-}
-
-
-static struct MD5Context md5_ctx;
-
-static void h_md5_begin(void)
-{
-	MD5Init(&md5_ctx);		
-}
-
-static void h_md5_buffer(const void* mem, unsigned long len)
-{
-	MD5Update(&md5_ctx, (md5byte*)mem, len);
-}
-
-static void h_md5_end(UINT8* bin_chksum)
-{
-	MD5Final(bin_chksum, &md5_ctx);
+	
+	void hash_compute(char* dst, const unsigned char* data, unsigned long length, unsigned int functions)
+	{
+		int i;
+	
+		hash_data_clear(dst);	
+	
+		// Zero means use all the functions
+		if (functions == 0)
+			functions = ~functions;
+	
+		for (i=0;i<HASH_NUM_FUNCTIONS;i++)
+		{
+			unsigned func = 1 << i;
+			
+			if (functions & func)
+			{
+				hash_function_desc* desc = hash_get_function_desc(func);
+				UINT8 chksum[256];
+	
+				desc->calculate_begin();
+				desc->calculate_buffer(data, length);
+				desc->calculate_end(chksum);
+	
+				dst += hash_data_add_binary_checksum(dst, func, chksum);
+			}
+		}
+	
+		*dst = '\0';
+	}
+	
+	void hash_data_print(const char* data, unsigned int functions, char* buffer)
+	{
+		int i, j;
+		char first = 1;
+	
+		if (functions == 0)
+			functions = ~functions;
+	
+		buffer[0] = '\0';
+	
+		for (i=0;i<HASH_NUM_FUNCTIONS;i++)
+		{
+			unsigned func = 1 << i;
+	
+			if ((functions & func) && hash_data_has_checksum(data, func))
+			{
+				char temp[256];
+	
+				if (first == 0)
+					strcat(buffer, " ");
+				first = 0;
+				
+				strcpy(temp, hash_function_name(func));
+				for (j = 0; temp[j]; j++)
+					temp[j] = toupper(temp[j]);
+				strcat(buffer, temp);
+				strcat(buffer, "(");
+	            
+				hash_data_extract_printable_checksum(data, func, temp);
+				strcat(buffer, temp);
+				strcat(buffer, ")");
+			}	
+		}
+	}
+	
+	int hash_verify_string(const char *hash)
+	{
+		int len, i;
+	
+		if (hash == 0)
+			return FALSE;
+	
+		while(*hash)
+		{
+			if (*hash == '$')
+			{
+				if (memcmp(hash, NO_DUMP, 4) && memcmp(hash, BAD_DUMP, 4))
+					return FALSE;
+				hash += 4;
+			}
+			else
+			{
+				/* first make sure that the next char is a colon */
+				if (hash[1] != ':')
+					return FALSE;
+	
+				/* search for a hash function for this code */
+				for (i = 0; i < sizeof(hash_descs) / sizeof(hash_descs[0]); i++)
+				{
+					if (*hash == hash_descs[i].code)
+						break;
+				}
+				if (i >= sizeof(hash_descs) / sizeof(hash_descs[0]))
+					return FALSE;
+	
+				/* we have a proper code */
+				len = hash_descs[i].size * 2;
+				hash += 2;
+				
+				for (i = 0; (hash[i] != '#') && (i < len); i++)
+				{
+					if (!isxdigit(hash[i]))
+						return FALSE;
+				}
+				if (hash[i] != '#')
+					return FALSE;
+	
+				hash += i+1;
+			}
+		}
+		return TRUE;
+	}
+	
+	
+	
+	/*********************************************************************
+		Hash functions - Wrappers
+	 *********************************************************************/
+	
+	static UINT32 crc;
+	
+	static void h_crc_begin(void)
+	{
+		crc = 0;
+	}
+	
+	static void h_crc_buffer(const void* mem, unsigned long len)
+	{
+		crc = crc32(crc, (UINT8*)mem, len);
+	}
+	
+	static void h_crc_end(UINT8* bin_chksum)
+	{
+		bin_chksum[0] = (UINT8)(crc >> 24);
+		bin_chksum[1] = (UINT8)(crc >> 16);
+		bin_chksum[2] = (UINT8)(crc >> 8);
+		bin_chksum[3] = (UINT8)(crc >> 0);
+	}
+	
+	
+	struct sha1_ctx sha1ctx;
+	
+	static void h_sha1_begin(void)
+	{
+		sha1_init(&sha1ctx);
+	}
+	
+	static void h_sha1_buffer(const void* mem, unsigned long len)
+	{
+		sha1_update(&sha1ctx, len, (UINT8*)mem);
+	}
+	
+	static void h_sha1_end(UINT8* bin_chksum)
+	{
+		sha1_final(&sha1ctx);
+		sha1_digest(&sha1ctx, 20, bin_chksum);
+	}
+	
+	
+	static struct MD5Context md5_ctx;
+	
+	static void h_md5_begin(void)
+	{
+		MD5Init(&md5_ctx);		
+	}
+	
+	static void h_md5_buffer(const void* mem, unsigned long len)
+	{
+		MD5Update(&md5_ctx, (md5byte*)mem, len);
+	}
+	
+	static void h_md5_end(UINT8* bin_chksum)
+	{
+		MD5Final(bin_chksum, &md5_ctx);
+	}
 }
