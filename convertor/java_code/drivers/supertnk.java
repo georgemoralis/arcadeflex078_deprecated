@@ -400,22 +400,22 @@ public class supertnk
 	
 	static RomLoadPtr rom_supertnk = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for TMS9980 code - normal and banked ROM */
-		ROM_LOAD( "supertan.2d",	0x0000, 0x0800, CRC(1656a2c1);SHA1(1d49945aed105003a051cfbf646af7a4be1b7e86) )
-		ROM_LOAD( "supertnk.3d",	0x4800, 0x0800, CRC(8b023a9a);SHA1(1afdc8d75f2ca04153bac20c0e3e123e2a7acdb7) )
+		ROM_LOAD( "supertan.2d",	0x0000, 0x0800, CRC(1656a2c1),SHA1(1d49945aed105003a051cfbf646af7a4be1b7e86) )
+		ROM_LOAD( "supertnk.3d",	0x4800, 0x0800, CRC(8b023a9a),SHA1(1afdc8d75f2ca04153bac20c0e3e123e2a7acdb7) )
 			ROM_CONTINUE(		0x4000, 0x0800);
-		ROM_LOAD( "supertnk.4d",	0x5800, 0x0800, CRC(b8249e5c);SHA1(ef4bb714b0c1b97890a067f05fc50ab3426ce37f) )
+		ROM_LOAD( "supertnk.4d",	0x5800, 0x0800, CRC(b8249e5c),SHA1(ef4bb714b0c1b97890a067f05fc50ab3426ce37f) )
 			ROM_CONTINUE(		0x5000, 0x0800);
-		ROM_LOAD( "supertnk.8d",	0x6800, 0x0800, CRC(d8175a4f);SHA1(cba7b426773ac86c81a9eac81087a2db268cd0f9) )
+		ROM_LOAD( "supertnk.8d",	0x6800, 0x0800, CRC(d8175a4f),SHA1(cba7b426773ac86c81a9eac81087a2db268cd0f9) )
 			ROM_CONTINUE(		0x6000, 0x0800);
-		ROM_LOAD( "supertnk.9d",	0x7800, 0x0800, CRC(a34a494a);SHA1(9b7f0560e9d569ee25eae56f31886d50a3153dcc) )
+		ROM_LOAD( "supertnk.9d",	0x7800, 0x0800, CRC(a34a494a),SHA1(9b7f0560e9d569ee25eae56f31886d50a3153dcc) )
 			ROM_CONTINUE(		0x7000, 0x0800);
 	
 		ROM_REGION( 0x0060, REGION_PROMS, 0 );/* color PROM */
-		ROM_LOAD( "supertnk.clr",	0x0000, 0x0020, CRC(9ae1faee);SHA1(19de4bb8bc389d98c8f8e35c755fad96e1a6a0cd) )
+		ROM_LOAD( "supertnk.clr",	0x0000, 0x0020, CRC(9ae1faee),SHA1(19de4bb8bc389d98c8f8e35c755fad96e1a6a0cd) )
 	 	/* unknown */
-		ROM_LOAD( "supertnk.s",		0x0020, 0x0020, CRC(91722fcf);SHA1(f77386014b459cc151d2990ac823b91c04e8d319) )
+		ROM_LOAD( "supertnk.s",		0x0020, 0x0020, CRC(91722fcf),SHA1(f77386014b459cc151d2990ac823b91c04e8d319) )
 		/* unknown */
-		ROM_LOAD( "supertnk.t",		0x0040, 0x0020, CRC(154390bd);SHA1(4dc0fd7bd8999d2670c8d93aaada835d2a84d4db) )
+		ROM_LOAD( "supertnk.t",		0x0040, 0x0020, CRC(154390bd),SHA1(4dc0fd7bd8999d2670c8d93aaada835d2a84d4db) )
 	ROM_END(); }}; 
 	
 	

@@ -368,27 +368,27 @@ public class compgolf
 	
 	static RomLoadPtr rom_compgolf = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "cv06.bin",     0x04000, 0x4000, CRC(8f76979d);SHA1(432f6a1402fd3276669f5f45f03fd12380900178) )
+		ROM_LOAD( "cv06.bin",     0x04000, 0x4000, CRC(8f76979d),SHA1(432f6a1402fd3276669f5f45f03fd12380900178) )
 		ROM_CONTINUE(             0x04000, 0x4000 );
-		ROM_LOAD( "cv05.bin",     0x08000, 0x8000, CRC(3cef62c9);SHA1(c4827b45faf7aa4c80ddd3c57f1ed6ba76b5c49b) )
+		ROM_LOAD( "cv05.bin",     0x08000, 0x8000, CRC(3cef62c9),SHA1(c4827b45faf7aa4c80ddd3c57f1ed6ba76b5c49b) )
 	
 		ROM_REGION( 0x18000, REGION_GFX1, ROMREGION_DISPOSE );// Sprites
-		ROM_LOAD( "cv00.bin",     0x00000, 0x8000, CRC(aa3d3b99);SHA1(eb968e40bcc7e7dd1acc0bbe885fd3f7d70d4bb5) )
-		ROM_LOAD( "cv01.bin",     0x08000, 0x8000, CRC(f68c2ff6);SHA1(dda9159fb59d3855025b98c272722b031617c89a) )
-		ROM_LOAD( "cv02.bin",     0x10000, 0x8000, CRC(979cdb5a);SHA1(25c1f3e6ddf50168c7e1a967bfa2753bea6106ec) )
+		ROM_LOAD( "cv00.bin",     0x00000, 0x8000, CRC(aa3d3b99),SHA1(eb968e40bcc7e7dd1acc0bbe885fd3f7d70d4bb5) )
+		ROM_LOAD( "cv01.bin",     0x08000, 0x8000, CRC(f68c2ff6),SHA1(dda9159fb59d3855025b98c272722b031617c89a) )
+		ROM_LOAD( "cv02.bin",     0x10000, 0x8000, CRC(979cdb5a),SHA1(25c1f3e6ddf50168c7e1a967bfa2753bea6106ec) )
 	
 		ROM_REGION( 0x10000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "cv03.bin",    0x00000, 0x8000, CRC(cc7ed6d8);SHA1(4ffcfa3f720414e1b7e929bdf29359ebcd8717c3) )
+		ROM_LOAD( "cv03.bin",    0x00000, 0x8000, CRC(cc7ed6d8),SHA1(4ffcfa3f720414e1b7e929bdf29359ebcd8717c3) )
 		/* we expand rom cv04.bin to 0x8000 - 0xffff */
 	
 		ROM_REGION( 0x8000,  REGION_GFX3, ROMREGION_DISPOSE );
-		ROM_LOAD( "cv07.bin",     0x0000, 0x8000, CRC(ed5441ba);SHA1(69d50695e8b92544f9857c6f3de0efb399899a2c) )
+		ROM_LOAD( "cv07.bin",     0x0000, 0x8000, CRC(ed5441ba),SHA1(69d50695e8b92544f9857c6f3de0efb399899a2c) )
 	
 		ROM_REGION( 0x4000, REGION_GFX4, ROMREGION_DISPOSE );
-		ROM_LOAD( "cv04.bin",    0x00000, 0x4000, CRC(df693a04);SHA1(45bef98c7e66881f8c62affecc1ab90dd2707240) )
+		ROM_LOAD( "cv04.bin",    0x00000, 0x4000, CRC(df693a04),SHA1(45bef98c7e66881f8c62affecc1ab90dd2707240) )
 	
 		ROM_REGION( 0x100, REGION_PROMS, 0 );
-		ROM_LOAD( "cv08-1.bpr",   0x00000, 0x0100, CRC(b7c43db9);SHA1(418b11e4c8a9bce6873b0624ac53a5011c5807d0) )
+		ROM_LOAD( "cv08-1.bpr",   0x00000, 0x0100, CRC(b7c43db9),SHA1(418b11e4c8a9bce6873b0624ac53a5011c5807d0) )
 	ROM_END(); }}; 
 	
 	static void compgolf_expand_bg(void)

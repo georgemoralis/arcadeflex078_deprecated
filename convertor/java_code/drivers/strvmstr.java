@@ -306,29 +306,29 @@ public class strvmstr
 	
 	static RomLoadPtr rom_strvmstr = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "stm16.u16",    0x0000, 0x8000, CRC(ae734db9);SHA1(1bacdfdebaa1f250bfbd49053c3910f1396afe11) ) 
+		ROM_LOAD( "stm16.u16",    0x0000, 0x8000, CRC(ae734db9),SHA1(1bacdfdebaa1f250bfbd49053c3910f1396afe11) ) 
 		
 		ROM_REGION( 0x02000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "stm44.rom",    0x0000, 0x1000, CRC(e69da710);SHA1(218a9d7600d67858d1f21282a0cebec0ae93e0ff) ) 
-		ROM_LOAD( "stm46.rom",    0x1000, 0x1000, CRC(d927a1f1);SHA1(63a49a61107deaf7a9f28b9653c310c5331f5143) ) 
+		ROM_LOAD( "stm44.rom",    0x0000, 0x1000, CRC(e69da710),SHA1(218a9d7600d67858d1f21282a0cebec0ae93e0ff) ) 
+		ROM_LOAD( "stm46.rom",    0x1000, 0x1000, CRC(d927a1f1),SHA1(63a49a61107deaf7a9f28b9653c310c5331f5143) ) 
 	
 		ROM_REGION( 0x02000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "stm48.rom",    0x0000, 0x1000, CRC(51719714);SHA1(fdecbd22ea65eec7b4b5138f89ddc5876b05def6) ) 
-		ROM_LOAD( "stm50.rom",    0x1000, 0x1000, CRC(cfc1a1d1);SHA1(9ef38f12360dd946651e67770742ca72fa6846f1) ) 
+		ROM_LOAD( "stm48.rom",    0x0000, 0x1000, CRC(51719714),SHA1(fdecbd22ea65eec7b4b5138f89ddc5876b05def6) ) 
+		ROM_LOAD( "stm50.rom",    0x1000, 0x1000, CRC(cfc1a1d1),SHA1(9ef38f12360dd946651e67770742ca72fa6846f1) ) 
 	
 		ROM_REGION( 0x00200, REGION_PROMS, 0 );
-		ROM_LOAD( "stm63.prm",    0x0000, 0x0100, CRC(305271cf);SHA1(6fd5fe085d79ca7aa57010cffbdb2a85b9c24701) ) 
-		ROM_LOAD( "stm64.prm",    0x0100, 0x0100, CRC(69ebc0b8);SHA1(de2b936e3246e3bfc7e2ff9546c1854ec3504cc2) ) 
+		ROM_LOAD( "stm63.prm",    0x0000, 0x0100, CRC(305271cf),SHA1(6fd5fe085d79ca7aa57010cffbdb2a85b9c24701) ) 
+		ROM_LOAD( "stm64.prm",    0x0100, 0x0100, CRC(69ebc0b8),SHA1(de2b936e3246e3bfc7e2ff9546c1854ec3504cc2) ) 
 	
 		ROM_REGION( 0x40000, REGION_USER1, 0 );/* Question roms */
-		ROM_LOAD( "sex2.lo0",     0x00000, 0x8000, CRC(9c68b277);SHA1(34bc9d7b973fe482abd5e34a058b72eb5ec8db64) ) 
-		ROM_LOAD( "movies.lo1",   0x08000, 0x8000, CRC(16cba1b7);SHA1(8aa3eff72d1ec8dac906f2e803a88578a9fe763c) ) 
-		ROM_LOAD( "sci-fi.lo2",   0x10000, 0x8000, CRC(b5595f81);SHA1(5e7fa334f6541860a5c04e5f345673ea12efafb4) ) 
-		ROM_LOAD( "potprri.lo3",  0x18000, 0x8000, CRC(427eada9);SHA1(bac29ec637a17db95507c68fd73a8ce52744bf8e) ) 
-		ROM_LOAD( "sports.hi0",   0x20000, 0x8000, CRC(3678fb79);SHA1(4e40cc20707195c0e88e595f752a2982b531b57e) ) 
-		ROM_LOAD( "rock-pop.hi1", 0x28000, 0x8000, CRC(e2954db6);SHA1(d545236a844b63c85937ee8fb8e65bcd74b1bf43) ) 
-		ROM_LOAD( "cars.hi2",     0x30000, 0x8000, CRC(50310557);SHA1(7559c603625e4df442b440b8b08e6efef06e2781) ) 
-		ROM_LOAD( "entrtn.hi3",   0x38000, 0x8000, CRC(a8cf603b);SHA1(6efa5753d8d252452b3f5be8635a28364e4d8de1) ) 
+		ROM_LOAD( "sex2.lo0",     0x00000, 0x8000, CRC(9c68b277),SHA1(34bc9d7b973fe482abd5e34a058b72eb5ec8db64) ) 
+		ROM_LOAD( "movies.lo1",   0x08000, 0x8000, CRC(16cba1b7),SHA1(8aa3eff72d1ec8dac906f2e803a88578a9fe763c) ) 
+		ROM_LOAD( "sci-fi.lo2",   0x10000, 0x8000, CRC(b5595f81),SHA1(5e7fa334f6541860a5c04e5f345673ea12efafb4) ) 
+		ROM_LOAD( "potprri.lo3",  0x18000, 0x8000, CRC(427eada9),SHA1(bac29ec637a17db95507c68fd73a8ce52744bf8e) ) 
+		ROM_LOAD( "sports.hi0",   0x20000, 0x8000, CRC(3678fb79),SHA1(4e40cc20707195c0e88e595f752a2982b531b57e) ) 
+		ROM_LOAD( "rock-pop.hi1", 0x28000, 0x8000, CRC(e2954db6),SHA1(d545236a844b63c85937ee8fb8e65bcd74b1bf43) ) 
+		ROM_LOAD( "cars.hi2",     0x30000, 0x8000, CRC(50310557),SHA1(7559c603625e4df442b440b8b08e6efef06e2781) ) 
+		ROM_LOAD( "entrtn.hi3",   0x38000, 0x8000, CRC(a8cf603b),SHA1(6efa5753d8d252452b3f5be8635a28364e4d8de1) ) 
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_strvmstr	   = new GameDriver("1986"	,"strvmstr"	,"strvmstr.java"	,rom_strvmstr,null	,machine_driver_strvmstr	,input_ports_strvmstr	,null	,ROT90	,	"Enerdyne Technologies Inc.", "Super Trivia Master", GAME_WRONG_COLORS | GAME_IMPERFECT_SOUND | GAME_NO_COCKTAIL )

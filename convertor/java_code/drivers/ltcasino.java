@@ -548,29 +548,29 @@ public class ltcasino
 	
 	static RomLoadPtr rom_ltcasino = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "a",			0x8000, 0x1000, CRC(14909fee);SHA1(bf53fa65da7f013ea1ac6b4942cdfdb34ef16252) )
-		ROM_LOAD( "b",			0x9800, 0x0800, CRC(1473f854);SHA1(eadaec1f6d653e61458bc262945c20140f4530eb) )
-		ROM_LOAD( "c",			0xa800, 0x0800, CRC(7a07004b);SHA1(62bd0f3d12b7eada6fc271abea60569aca7262b0) )
-		ROM_LOAD( "d",			0xb800, 0x0800, CRC(5148cafc);SHA1(124039f48784bf032f612714db73fb67a216a1e7) )
-		ROM_LOAD( "e",			0xc800, 0x0800, CRC(5f9e103a);SHA1(b0e9ace4c3962c06e5250fac16a245dca711350f) )
-		ROM_LOAD( "f",			0xf000, 0x1000, CRC(7345aada);SHA1(6640f5eb1130c8f1cb197eb12b8e6403c7f8d34d) )
+		ROM_LOAD( "a",			0x8000, 0x1000, CRC(14909fee),SHA1(bf53fa65da7f013ea1ac6b4942cdfdb34ef16252) )
+		ROM_LOAD( "b",			0x9800, 0x0800, CRC(1473f854),SHA1(eadaec1f6d653e61458bc262945c20140f4530eb) )
+		ROM_LOAD( "c",			0xa800, 0x0800, CRC(7a07004b),SHA1(62bd0f3d12b7eada6fc271abea60569aca7262b0) )
+		ROM_LOAD( "d",			0xb800, 0x0800, CRC(5148cafc),SHA1(124039f48784bf032f612714db73fb67a216a1e7) )
+		ROM_LOAD( "e",			0xc800, 0x0800, CRC(5f9e103a),SHA1(b0e9ace4c3962c06e5250fac16a245dca711350f) )
+		ROM_LOAD( "f",			0xf000, 0x1000, CRC(7345aada),SHA1(6640f5eb1130c8f1cb197eb12b8e6403c7f8d34d) )
 	
 		ROM_REGION( 0x0800, REGION_GFX1, 0 );
-		ROM_LOAD( "v",			0x0000, 0x0800, CRC(f1f75675);SHA1(8f3777e6b2a3f824f94b28669cac501ec02bbf36) )
+		ROM_LOAD( "v",			0x0000, 0x0800, CRC(f1f75675),SHA1(8f3777e6b2a3f824f94b28669cac501ec02bbf36) )
 	ROM_END(); }}; 
 	
 	
 	static RomLoadPtr rom_ltcasin2 = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "lc2_ra.bin", 0x8000, 0x1000, CRC(1a595442);SHA1(b8fe3e5ed2024a57187c0ce547c1bbef2429ed63) )
-		ROM_LOAD( "lc2_rb.bin", 0x9000, 0x1000, CRC(4f5502c1);SHA1(cd1b7c08d26fed71c45e44ebd208bd18dc262e8f) )
-		ROM_LOAD( "lc2_rc.bin", 0xa000, 0x1000, CRC(990283b8);SHA1(8a3fe5be8381894b8e8dd14c7d42190e60a25600) )
-		ROM_LOAD( "lc2_rd.bin", 0xb000, 0x1000, CRC(884f39dc);SHA1(fe149faf118279205e82760c5052cefb88a2f5be) )
-		ROM_LOAD( "lc2_re.bin", 0xc000, 0x1000, CRC(fae38204);SHA1(e5908734cee0a89d873ab3761ded285f8ae138d3) )
-		ROM_LOAD( "lc2_rf.bin", 0xf000, 0x1000, CRC(7e8ad9d3);SHA1(8cbe342af7d9f32b2214664db318edd3d2e75630) )
+		ROM_LOAD( "lc2_ra.bin", 0x8000, 0x1000, CRC(1a595442),SHA1(b8fe3e5ed2024a57187c0ce547c1bbef2429ed63) )
+		ROM_LOAD( "lc2_rb.bin", 0x9000, 0x1000, CRC(4f5502c1),SHA1(cd1b7c08d26fed71c45e44ebd208bd18dc262e8f) )
+		ROM_LOAD( "lc2_rc.bin", 0xa000, 0x1000, CRC(990283b8),SHA1(8a3fe5be8381894b8e8dd14c7d42190e60a25600) )
+		ROM_LOAD( "lc2_rd.bin", 0xb000, 0x1000, CRC(884f39dc),SHA1(fe149faf118279205e82760c5052cefb88a2f5be) )
+		ROM_LOAD( "lc2_re.bin", 0xc000, 0x1000, CRC(fae38204),SHA1(e5908734cee0a89d873ab3761ded285f8ae138d3) )
+		ROM_LOAD( "lc2_rf.bin", 0xf000, 0x1000, CRC(7e8ad9d3),SHA1(8cbe342af7d9f32b2214664db318edd3d2e75630) )
 	
 		ROM_REGION( 0x1000, REGION_GFX1, 0 );
-		ROM_LOAD( "lc2_rv.bin", 0x0000, 0x1000, CRC(84cbee7b);SHA1(742831d5ae0db6c7c644a18a837831ee0474d472) )
+		ROM_LOAD( "lc2_rv.bin", 0x0000, 0x1000, CRC(84cbee7b),SHA1(742831d5ae0db6c7c644a18a837831ee0474d472) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_ltcasino	   = new GameDriver("1982"	,"ltcasino"	,"ltcasino.java"	,rom_ltcasino,null	,machine_driver_ltcasino	,input_ports_ltcasino	,null	,ROT0	,	"Digital Controls Inc.", "Little Casino", GAME_NOT_WORKING )

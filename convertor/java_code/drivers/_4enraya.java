@@ -222,16 +222,16 @@ public class _4enraya
 	
 	static RomLoadPtr rom_4enraya = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "5.bin",   0x0000, 0x8000, CRC(cf1cd151);SHA1(3920b0a6ed5798859158871b578b01ec742b0d13) )
-		ROM_LOAD( "4.bin",   0x8000, 0x4000, CRC(f9ec1be7);SHA1(189159129ecbc4f6909c086867b0e02821f5b976) )
+		ROM_LOAD( "5.bin",   0x0000, 0x8000, CRC(cf1cd151),SHA1(3920b0a6ed5798859158871b578b01ec742b0d13) )
+		ROM_LOAD( "4.bin",   0x8000, 0x4000, CRC(f9ec1be7),SHA1(189159129ecbc4f6909c086867b0e02821f5b976) )
 	
 		ROM_REGION( 0x20000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "1.bin",   0x0000, 0x2000, CRC(87f92552);SHA1(d16afd963c30f2e60951876b843e5c1dcbee1cfc) )
-		ROM_LOAD( "2.bin",   0x2000, 0x2000, CRC(2b0a3793);SHA1(2c3d224251557824bb9641dc2f98a000ab72c4a2) )
-		ROM_LOAD( "3.bin",   0x4000, 0x2000, CRC(f6940836);SHA1(afde21ffa0c141cf73243e50da62ecfd474aaac2) )
+		ROM_LOAD( "1.bin",   0x0000, 0x2000, CRC(87f92552),SHA1(d16afd963c30f2e60951876b843e5c1dcbee1cfc) )
+		ROM_LOAD( "2.bin",   0x2000, 0x2000, CRC(2b0a3793),SHA1(2c3d224251557824bb9641dc2f98a000ab72c4a2) )
+		ROM_LOAD( "3.bin",   0x4000, 0x2000, CRC(f6940836),SHA1(afde21ffa0c141cf73243e50da62ecfd474aaac2) )
 	
 		ROM_REGION( 0x0020,  REGION_PROMS, 0 );
-		ROM_LOAD( "1.bpr",   0x0000, 0x0020, CRC(dcbd2352);SHA1(ce72e84129ed1b455aaf648e1dfaa4333e7e7628) )	/* not used */
+		ROM_LOAD( "1.bpr",   0x0000, 0x0020, CRC(dcbd2352),SHA1(ce72e84129ed1b455aaf648e1dfaa4333e7e7628) )	/* not used */
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_4enraya	   = new GameDriver("1990"	,"4enraya"	,"_4enraya.java"	,rom_4enraya,null	,machine_driver_4enraya	,input_ports_4enraya	,null	,ROT0	,	"IDSA", "4 En Raya" )

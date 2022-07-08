@@ -459,24 +459,24 @@ public class crospang
 	
 	static RomLoadPtr rom_crospang = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x40000, REGION_CPU1, 0 );/* 68k */
-		ROM_LOAD16_BYTE( "p1.bin", 0x00001, 0x20000, CRC(0bcbbaad);SHA1(807f07be340d7af0aad8d49461b5a7f0221ea3b7) )
-		ROM_LOAD16_BYTE( "p2.bin", 0x00000, 0x20000, CRC(0947d204);SHA1(35e7e277c51888a66d305994bf05c3f6bfc3c29e) )
+		ROM_LOAD16_BYTE( "p1.bin", 0x00001, 0x20000, CRC(0bcbbaad),SHA1(807f07be340d7af0aad8d49461b5a7f0221ea3b7) )
+		ROM_LOAD16_BYTE( "p2.bin", 0x00000, 0x20000, CRC(0947d204),SHA1(35e7e277c51888a66d305994bf05c3f6bfc3c29e) )
 	
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );/* z80  */
-		ROM_LOAD( "s1.bin", 0x00000, 0x10000, CRC(d61a224c);SHA1(5cd1b2d136ad58ab550c7ba135558d6c8a4cd8f6) )/* rom s1 */
+		ROM_LOAD( "s1.bin", 0x00000, 0x10000, CRC(d61a224c),SHA1(5cd1b2d136ad58ab550c7ba135558d6c8a4cd8f6) )/* rom s1 */
 	
 		ROM_REGION( 0x20000, REGION_SOUND1, 0 );/* samples? */
-		ROM_LOAD( "s2.bin", 0x00000, 0x20000, CRC(9f9ecd22);SHA1(631ffe14018ba39658c435b8ecb23b19a14569ee) ) /* rom s2 */  // sample rom contains oksan?
+		ROM_LOAD( "s2.bin", 0x00000, 0x20000, CRC(9f9ecd22),SHA1(631ffe14018ba39658c435b8ecb23b19a14569ee) ) /* rom s2 */  // sample rom contains oksan?
 	
 		ROM_REGION( 0x200000, REGION_GFX1, 0 );/* sprites */
-		ROM_LOAD( "rom6.bin", 0x000000, 0x80000, CRC(9c633082);SHA1(18b8591b695ee429c9c9855d8cbba6249a4bd809) )
-		ROM_LOAD( "rom5.bin", 0x080000, 0x80000, CRC(53a34dc5);SHA1(2e5cf8093bf507e81d7447736b7727c3fd20c471) )
-		ROM_LOAD( "rom4.bin", 0x100000, 0x80000, CRC(9a91d494);SHA1(1c6280f662f1cf53f7f6defb7e215da75b573fdf) )
-		ROM_LOAD( "rom3.bin", 0x180000, 0x80000, CRC(cc6e1fce);SHA1(eb5b3ca7222f48916dc6206f987b2669fe7e7c6b) )
+		ROM_LOAD( "rom6.bin", 0x000000, 0x80000, CRC(9c633082),SHA1(18b8591b695ee429c9c9855d8cbba6249a4bd809) )
+		ROM_LOAD( "rom5.bin", 0x080000, 0x80000, CRC(53a34dc5),SHA1(2e5cf8093bf507e81d7447736b7727c3fd20c471) )
+		ROM_LOAD( "rom4.bin", 0x100000, 0x80000, CRC(9a91d494),SHA1(1c6280f662f1cf53f7f6defb7e215da75b573fdf) )
+		ROM_LOAD( "rom3.bin", 0x180000, 0x80000, CRC(cc6e1fce),SHA1(eb5b3ca7222f48916dc6206f987b2669fe7e7c6b) )
 	
 		ROM_REGION( 0x80000, REGION_GFX2, 0 );/* bg tiles */
-		ROM_LOAD( "rom1.bin", 0x00000, 0x40000, CRC(905042bb);SHA1(ed5b97e88d24e55f8fcfaaa34251582976cb2527) )
-		ROM_LOAD( "rom2.bin", 0x40000, 0x40000, CRC(bc4381e9);SHA1(af0690c253bead3448db5ec8fb258d8284646e89) )
+		ROM_LOAD( "rom1.bin", 0x00000, 0x40000, CRC(905042bb),SHA1(ed5b97e88d24e55f8fcfaaa34251582976cb2527) )
+		ROM_LOAD( "rom2.bin", 0x40000, 0x40000, CRC(bc4381e9),SHA1(af0690c253bead3448db5ec8fb258d8284646e89) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_crospang	   = new GameDriver("199?"	,"crospang"	,"crospang.java"	,rom_crospang,null	,machine_driver_crospang	,input_ports_crospang	,null	,ROT0	,	"Oksan?", "Cross Pang", GAME_IMPERFECT_GRAPHICS | GAME_NO_SOUND)

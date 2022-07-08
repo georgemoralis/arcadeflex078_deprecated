@@ -416,17 +416,17 @@ public class malzak
 	
 	static RomLoadPtr rom_malzak = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x8000, REGION_CPU1, 0 );
-		ROM_LOAD( "malzak.5",     0x0000, 0x0800, CRC(75355c98);SHA1(7036ed5d9ee38585b1a6bc204d410d5fb5ddd81f) )
+		ROM_LOAD( "malzak.5",     0x0000, 0x0800, CRC(75355c98),SHA1(7036ed5d9ee38585b1a6bc204d410d5fb5ddd81f) )
 		ROM_CONTINUE( 0x2000, 0x0800 );
-		ROM_LOAD( "malzak.4",     0x0800, 0x0400, CRC(744c81e3);SHA1(c08d6df3cf2808a5f99d8247fc19a59be88121a9) )
+		ROM_LOAD( "malzak.4",     0x0800, 0x0400, CRC(744c81e3),SHA1(c08d6df3cf2808a5f99d8247fc19a59be88121a9) )
 		ROM_CONTINUE( 0x4000, 0x0c00 );
-		ROM_LOAD( "malzak.2",     0x0c00, 0x0800, CRC(2a12ad67);SHA1(f89a50b62311a170004c061abd8dedc3ebd84748) )
-		ROM_LOAD( "malzak.3",     0x4400, 0x0800, CRC(b947229e);SHA1(37b88b5aa91a483fcfe60a9bdd67a66f6378c487) )
+		ROM_LOAD( "malzak.2",     0x0c00, 0x0800, CRC(2a12ad67),SHA1(f89a50b62311a170004c061abd8dedc3ebd84748) )
+		ROM_LOAD( "malzak.3",     0x4400, 0x0800, CRC(b947229e),SHA1(37b88b5aa91a483fcfe60a9bdd67a66f6378c487) )
 	
 		ROM_REGION(0x0800, REGION_USER1, 0);
 	
 		ROM_REGION( 0x0800, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "malzak.1",     0x0000, 0x0800, CRC(74d5ff7b);SHA1(cae326370dc83b86542f9d070e2dc91b1b833356) )
+		ROM_LOAD( "malzak.1",     0x0000, 0x0800, CRC(74d5ff7b),SHA1(cae326370dc83b86542f9d070e2dc91b1b833356) )
 	
 		ROM_REGION(0x01000, REGION_GFX2,0);// internal character set?
 		ROM_LOAD("p2000.chr", 0x0140, 0x08c0, BAD_DUMP CRC(78c17e3e);

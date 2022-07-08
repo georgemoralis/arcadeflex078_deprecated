@@ -431,21 +431,21 @@ public class metlclsh
 	
 	static RomLoadPtr rom_metlclsh = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "cs04.bin",    0x00000, 0x8000, CRC(c2cc79a6);SHA1(0f586d4145afabbb45ea4865ed7a6590b14a2ab0) )
-		ROM_LOAD( "cs00.bin",    0x0a000, 0x2000, CRC(af0f2998);SHA1(09dd2516406168660d5cd3a36be1e5f0adbcdb8a) )
+		ROM_LOAD( "cs04.bin",    0x00000, 0x8000, CRC(c2cc79a6),SHA1(0f586d4145afabbb45ea4865ed7a6590b14a2ab0) )
+		ROM_LOAD( "cs00.bin",    0x0a000, 0x2000, CRC(af0f2998),SHA1(09dd2516406168660d5cd3a36be1e5f0adbcdb8a) )
 		ROM_COPY( REGION_CPU1, 0x7ff0, 0xfff0, 0x10 );
 	
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "cs03.bin",    0x00000, 0x8000, CRC(51c4720c);SHA1(7fd93bdcf029e7d2509b73b32f61fddf85f3453f) )
+		ROM_LOAD( "cs03.bin",    0x00000, 0x8000, CRC(51c4720c),SHA1(7fd93bdcf029e7d2509b73b32f61fddf85f3453f) )
 		ROM_COPY( REGION_CPU2, 0x7ff0, 0xfff0, 0x10 );
 	
 		ROM_REGION( 0x18000, REGION_GFX1, ROMREGION_DISPOSE );// Sprites
-		ROM_LOAD( "cs06.bin",    0x00000, 0x8000, CRC(9f61403f);SHA1(0ebb1cb9d4983746b6b32ec948e7b9efd90783d1) )
-		ROM_LOAD( "cs07.bin",    0x08000, 0x8000, CRC(d0610ea5);SHA1(3dfa16cbe93a4c08993111f78a8dd22c874fdd28) )
-		ROM_LOAD( "cs08.bin",    0x10000, 0x8000, CRC(a8b02125);SHA1(145a22b2910b2fbfb28925f58968ee2bdeae1dda) )
+		ROM_LOAD( "cs06.bin",    0x00000, 0x8000, CRC(9f61403f),SHA1(0ebb1cb9d4983746b6b32ec948e7b9efd90783d1) )
+		ROM_LOAD( "cs07.bin",    0x08000, 0x8000, CRC(d0610ea5),SHA1(3dfa16cbe93a4c08993111f78a8dd22c874fdd28) )
+		ROM_LOAD( "cs08.bin",    0x10000, 0x8000, CRC(a8b02125),SHA1(145a22b2910b2fbfb28925f58968ee2bdeae1dda) )
 	
 		ROM_REGION( 0x10000, REGION_GFX2, ROMREGION_DISPOSE );// Background
-		ROM_LOAD( "cs01.bin",    0x00000, 0x1000, CRC(9c72343d);SHA1(c5618be7874ab6c930b0e68935c93f1958a1916d) )
+		ROM_LOAD( "cs01.bin",    0x00000, 0x1000, CRC(9c72343d),SHA1(c5618be7874ab6c930b0e68935c93f1958a1916d) )
 		ROM_CONTINUE(            0x04000, 0x1000 );
 		ROM_CONTINUE(            0x08000, 0x1000 );
 		ROM_CONTINUE(            0x0c000, 0x1000 );
@@ -453,7 +453,7 @@ public class metlclsh
 		ROM_CONTINUE(            0x05000, 0x1000 );
 		ROM_CONTINUE(            0x09000, 0x1000 );
 		ROM_CONTINUE(            0x0d000, 0x1000 );
-		ROM_LOAD( "cs02.bin",    0x02000, 0x1000, CRC(3674673e);SHA1(8ba8864cefcb79afe5fe6821005a9d19742756e9) )
+		ROM_LOAD( "cs02.bin",    0x02000, 0x1000, CRC(3674673e),SHA1(8ba8864cefcb79afe5fe6821005a9d19742756e9) )
 		ROM_CONTINUE(            0x06000, 0x1000 );
 		ROM_CONTINUE(            0x0a000, 0x1000 );
 		ROM_CONTINUE(            0x0e000, 0x1000 );
@@ -463,11 +463,11 @@ public class metlclsh
 		ROM_CONTINUE(            0x0f000, 0x1000 );
 	
 		ROM_REGION( 0x04000, REGION_GFX3, ROMREGION_DISPOSE );// Foreground
-		ROM_LOAD( "cs05.bin",    0x00000, 0x4000, CRC(f90c9c6b);SHA1(ca8e497e9c388078343dd1303beef6ee38748d6a) )
+		ROM_LOAD( "cs05.bin",    0x00000, 0x4000, CRC(f90c9c6b),SHA1(ca8e497e9c388078343dd1303beef6ee38748d6a) )
 		ROM_CONTINUE(            0x00000, 0x4000 );// first half is empty
 	
 		ROM_REGION( 0x020, REGION_PROMS, 0 );// ?
-		ROM_LOAD( "82s123.prm",   0x0000, 0x20, CRC(6844cc88);SHA1(89d23367aa6ff541205416e82781fe938dfeeb52) )
+		ROM_LOAD( "82s123.prm",   0x0000, 0x20, CRC(6844cc88),SHA1(89d23367aa6ff541205416e82781fe938dfeeb52) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_metlclsh	   = new GameDriver("1985"	,"metlclsh"	,"metlclsh.java"	,rom_metlclsh,null	,machine_driver_metlclsh	,input_ports_metlclsh	,null	,ROT0	,	"Data East", "Metal Clash (Japan)" )

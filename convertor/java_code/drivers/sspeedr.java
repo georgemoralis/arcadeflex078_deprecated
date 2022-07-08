@@ -258,17 +258,17 @@ public class sspeedr
 	
 	static RomLoadPtr rom_sspeedr = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "ssr0000.pgm", 0x0000, 0x0800, CRC(bfc7069a);SHA1(2f7aa3d3c7cfd804ba4b625c6a8338534a204855) )
-		ROM_LOAD( "ssr0800.pgm", 0x0800, 0x0800, CRC(ec46b59a);SHA1(d5727efecb32ad3d034b885e4a57d7373368ca9e) )
+		ROM_LOAD( "ssr0000.pgm", 0x0000, 0x0800, CRC(bfc7069a),SHA1(2f7aa3d3c7cfd804ba4b625c6a8338534a204855) )
+		ROM_LOAD( "ssr0800.pgm", 0x0800, 0x0800, CRC(ec46b59a),SHA1(d5727efecb32ad3d034b885e4a57d7373368ca9e) )
 	
 		ROM_REGION( 0x0800, REGION_GFX1, ROMREGION_DISPOSE );/* driver */
-		ROM_LOAD( "ssrm762a.f3", 0x0000, 0x0800, CRC(de4653a9);SHA1(a6bbffb7eb60581eee43c74d20ca00b50c9a6e07) )
+		ROM_LOAD( "ssrm762a.f3", 0x0000, 0x0800, CRC(de4653a9),SHA1(a6bbffb7eb60581eee43c74d20ca00b50c9a6e07) )
 	
 		ROM_REGION( 0x0800, REGION_GFX2, ROMREGION_DISPOSE );/* drone */
-		ROM_LOAD( "ssrm762b.j3", 0x0000, 0x0800, CRC(ef6a1cd6);SHA1(77c31f14783e5ba90849bdc930b099c8360aeba7) )
+		ROM_LOAD( "ssrm762b.j3", 0x0000, 0x0800, CRC(ef6a1cd6),SHA1(77c31f14783e5ba90849bdc930b099c8360aeba7) )
 	
 		ROM_REGION( 0x0800, REGION_GFX3, 0 );/* track */
-		ROM_LOAD( "ssrm762c.l3", 0x0000, 0x0800, CRC(ebaad3ee);SHA1(54ac994b505d20c75cf07a4f68da12360ee00153) )
+		ROM_LOAD( "ssrm762c.l3", 0x0000, 0x0800, CRC(ebaad3ee),SHA1(54ac994b505d20c75cf07a4f68da12360ee00153) )
 	ROM_END(); }}; 
 	
 	

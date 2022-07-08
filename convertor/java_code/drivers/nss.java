@@ -276,10 +276,10 @@ public class nss
 		ROM_REGION(SNES_CGRAM_SIZE, REGION_USER1, 0);	/* CGRAM */ \
 		ROM_REGION(SNES_OAM_SIZE,   REGION_USER2, 0);	/* OAM */ \
 		ROM_REGION(0x10000,         REGION_CPU2,  0);	/* SPC700 */ \
-		ROM_LOAD("spc700.rom", 0xFFC0, 0x40, CRC(38000b6b);SHA1(9f3af3d51c229e67daa68041492afa27287aad31) )	/* boot rom */ \
+		ROM_LOAD("spc700.rom", 0xFFC0, 0x40, CRC(38000b6b),SHA1(9f3af3d51c229e67daa68041492afa27287aad31) )	/* boot rom */ \
 		ROM_REGION(0x10000,         REGION_CPU3,  0);	/* Bios CPU (what is it?) */ \
-		ROM_LOAD("nss-c.dat"  , 0, 0x8000, CRC(a8e202b3);SHA1(b7afcfe4f5cf15df53452dc04be81929ced1efb2) )	/* bios */ \
-		ROM_LOAD("nss-ic14.02", 0, 0x8000, CRC(e06cb58f);SHA1(62f507e91a2797919a78d627af53f029c7d81477) )	/* bios */ \
+		ROM_LOAD("nss-c.dat"  , 0, 0x8000, CRC(a8e202b3),SHA1(b7afcfe4f5cf15df53452dc04be81929ced1efb2) )	/* bios */ \
+		ROM_LOAD("nss-ic14.02", 0, 0x8000, CRC(e06cb58f),SHA1(62f507e91a2797919a78d627af53f029c7d81477) )	/* bios */ \
 	
 	static RomLoadPtr rom_nss = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
@@ -289,99 +289,99 @@ public class nss
 	static RomLoadPtr rom_nss_actr = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "act-rais.ic3", 0x00000, 0x80000, CRC(c9f788c2);SHA1(fba2331fd5bcbe51d74115528fd3a9becf072e8d) )
-		ROM_LOAD( "act-rais.ic2", 0x80000, 0x80000, CRC(4df9cc63);SHA1(3e98d9693d60d125a1257ba79701f27bda688261) )
+		ROM_LOAD( "act-rais.ic3", 0x00000, 0x80000, CRC(c9f788c2),SHA1(fba2331fd5bcbe51d74115528fd3a9becf072e8d) )
+		ROM_LOAD( "act-rais.ic2", 0x80000, 0x80000, CRC(4df9cc63),SHA1(3e98d9693d60d125a1257ba79701f27bda688261) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "act-rais.ic8", 0x0000, 0x8000, CRC(08b38ce6);SHA1(4cbb7fd28d98ffef0f17747201625883af954e3a) )
+		ROM_LOAD( "act-rais.ic8", 0x0000, 0x8000, CRC(08b38ce6),SHA1(4cbb7fd28d98ffef0f17747201625883af954e3a) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_con3 = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "contra3.ic3", 0x00000, 0x80000, CRC(33b03501);SHA1(c7f4835d5ec4983e487b00f0b4c49fede2f03b9c) )
-		ROM_LOAD( "contra3.ic2", 0x80000, 0x80000, CRC(2f3e3b5b);SHA1(0186b92f022701f6ae29984252e6d346acf6550b) )
+		ROM_LOAD( "contra3.ic3", 0x00000, 0x80000, CRC(33b03501),SHA1(c7f4835d5ec4983e487b00f0b4c49fede2f03b9c) )
+		ROM_LOAD( "contra3.ic2", 0x80000, 0x80000, CRC(2f3e3b5b),SHA1(0186b92f022701f6ae29984252e6d346acf6550b) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "contra3.ic8", 0x0000, 0x8000, CRC(0fbfa23b);SHA1(e7a1a78a58c64297e7b9623350ec57aed8035a4f) )
+		ROM_LOAD( "contra3.ic8", 0x0000, 0x8000, CRC(0fbfa23b),SHA1(e7a1a78a58c64297e7b9623350ec57aed8035a4f) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_adam = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "addams.ic3", 0x00000, 0x80000, CRC(44643930);SHA1(a45204b2eb13c6befca30d130061b5b8ba054270) )
-		ROM_LOAD( "addams.ic2", 0x80000, 0x80000, CRC(6196adcf);SHA1(a450f278a37d5822f607aa3631831a461e8b147e) )
+		ROM_LOAD( "addams.ic3", 0x00000, 0x80000, CRC(44643930),SHA1(a45204b2eb13c6befca30d130061b5b8ba054270) )
+		ROM_LOAD( "addams.ic2", 0x80000, 0x80000, CRC(6196adcf),SHA1(a450f278a37d5822f607aa3631831a461e8b147e) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "addams.ic8", 0x0000, 0x8000, CRC(57c7f72c);SHA1(2e3642b4b5438f6c535d6d1eb668e1663062cf78) )
+		ROM_LOAD( "addams.ic8", 0x0000, 0x8000, CRC(57c7f72c),SHA1(2e3642b4b5438f6c535d6d1eb668e1663062cf78) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_aten = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "amtennis.ic3", 0x00000, 0x80000, CRC(aeabaf2a);SHA1(b355e0a322b57454e767785a49c14d4c7f492488) )
-		ROM_LOAD( "amtennis.ic2", 0x80000, 0x80000, CRC(7738c5f2);SHA1(eb0089e9724c7b3834d9f6c47b92f5a1bb26fc77) )
+		ROM_LOAD( "amtennis.ic3", 0x00000, 0x80000, CRC(aeabaf2a),SHA1(b355e0a322b57454e767785a49c14d4c7f492488) )
+		ROM_LOAD( "amtennis.ic2", 0x80000, 0x80000, CRC(7738c5f2),SHA1(eb0089e9724c7b3834d9f6c47b92f5a1bb26fc77) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "amtennis.ic8", 0x0000, 0x8000, CRC(d2cd3926);SHA1(49fc253b1b9497ef1374c7db0bd72c163ffb07e7) )
+		ROM_LOAD( "amtennis.ic8", 0x0000, 0x8000, CRC(d2cd3926),SHA1(49fc253b1b9497ef1374c7db0bd72c163ffb07e7) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_rob3 = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "robocop3.ic3", 0x00000, 0x80000, CRC(60916c42);SHA1(462d9645210a58bfd5204bd209eae2cdadb4493e) )
-		ROM_LOAD( "robocop3.ic2", 0x80000, 0x80000, CRC(a94e1b56);SHA1(7403d70504310ad5949a3b45b4a1e71e7d2bce77) )
+		ROM_LOAD( "robocop3.ic3", 0x00000, 0x80000, CRC(60916c42),SHA1(462d9645210a58bfd5204bd209eae2cdadb4493e) )
+		ROM_LOAD( "robocop3.ic2", 0x80000, 0x80000, CRC(a94e1b56),SHA1(7403d70504310ad5949a3b45b4a1e71e7d2bce77) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "robocop3.ic8", 0x0000, 0x8000, CRC(90d13c51);SHA1(6751dab14b7d178350ac333f07dd2c3852e4ae23) )
+		ROM_LOAD( "robocop3.ic8", 0x0000, 0x8000, CRC(90d13c51),SHA1(6751dab14b7d178350ac333f07dd2c3852e4ae23) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_ncaa = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "ncaa.ic3", 0x00000, 0x80000, CRC(ef49ad8c);SHA1(4c40f3746b995b53f006434b9ccec06d8fe16e1f) )
-		ROM_LOAD( "ncaa.ic2", 0x80000, 0x80000, CRC(83ef6936);SHA1(8e0f38c763861e33684c6ddb742385b0522af78a) )
+		ROM_LOAD( "ncaa.ic3", 0x00000, 0x80000, CRC(ef49ad8c),SHA1(4c40f3746b995b53f006434b9ccec06d8fe16e1f) )
+		ROM_LOAD( "ncaa.ic2", 0x80000, 0x80000, CRC(83ef6936),SHA1(8e0f38c763861e33684c6ddb742385b0522af78a) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "ncaa.ic8", 0x0000, 0x8000, CRC(b9fa28d5);SHA1(bc538bcff5c19eae4becc6582b5c111d287b76fa) )
+		ROM_LOAD( "ncaa.ic8", 0x0000, 0x8000, CRC(b9fa28d5),SHA1(bc538bcff5c19eae4becc6582b5c111d287b76fa) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_skin = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "skins.ic3", 0x00000, 0x80000, CRC(ee1bb84d);SHA1(549ad9319e94a5d75cd4af017e63ea93ab407c87) )
-		ROM_LOAD( "skins.ic2", 0x80000, 0x80000, CRC(365fd19e);SHA1(f60d7ac39fe83fb98730e73fbef410c90a4ff35b) )
+		ROM_LOAD( "skins.ic3", 0x00000, 0x80000, CRC(ee1bb84d),SHA1(549ad9319e94a5d75cd4af017e63ea93ab407c87) )
+		ROM_LOAD( "skins.ic2", 0x80000, 0x80000, CRC(365fd19e),SHA1(f60d7ac39fe83fb98730e73fbef410c90a4ff35b) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "skins.ic8", 0x0000, 0x8000, CRC(9f33d5ce);SHA1(4d279ad3665bd94c7ca9cb2778572bed42c5b298) )
+		ROM_LOAD( "skins.ic8", 0x0000, 0x8000, CRC(9f33d5ce),SHA1(4d279ad3665bd94c7ca9cb2778572bed42c5b298) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_lwep = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "nss-lw.ic3", 0x00000, 0x80000, CRC(32564666);SHA1(bf371218fa303ce95eab09fb6017a522071dcd7e) )
-		ROM_LOAD( "nss-lw.ic2", 0x80000, 0x80000, CRC(86365042);SHA1(f818024c6f858fd2780396b6c83d3a37a97fa08a) )
+		ROM_LOAD( "nss-lw.ic3", 0x00000, 0x80000, CRC(32564666),SHA1(bf371218fa303ce95eab09fb6017a522071dcd7e) )
+		ROM_LOAD( "nss-lw.ic2", 0x80000, 0x80000, CRC(86365042),SHA1(f818024c6f858fd2780396b6c83d3a37a97fa08a) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "nss-lw.ic8", 0x0000, 0x8000, CRC(1acc1d5d);SHA1(4c8b100ac5847915aaf3b5bfbcb4f632606c97de) )
+		ROM_LOAD( "nss-lw.ic8", 0x0000, 0x8000, CRC(1acc1d5d),SHA1(4c8b100ac5847915aaf3b5bfbcb4f632606c97de) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_ssoc = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "s-soccer.ic1", 0x00000, 0x80000,  CRC(70b7f50e);SHA1(92856118528995e3a0b7d22340d440bef5fd61ac) )
+		ROM_LOAD( "s-soccer.ic1", 0x00000, 0x80000,  CRC(70b7f50e),SHA1(92856118528995e3a0b7d22340d440bef5fd61ac) )
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "s-soccer.ic3", 0x0000, 0x8000, CRC(c09211c3);SHA1(b274a57f93ae0a8774664df3d3615fb7dbecfa2e) )
+		ROM_LOAD( "s-soccer.ic3", 0x0000, 0x8000, CRC(c09211c3),SHA1(b274a57f93ae0a8774664df3d3615fb7dbecfa2e) )
 	ROM_END(); }}; 
 	
 	/* the ones below could be bad, smw certainly is */
@@ -389,31 +389,31 @@ public class nss
 	static RomLoadPtr rom_nss_smw = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "mw.ic1", 0x00000, 0x40000, BAD_DUMP CRC(cfa601e7);SHA1(5c9a9a9fccd4b4fcbbda06dfdee41e92dc4e9097) ) // half size?
+		ROM_LOAD( "mw.ic1", 0x00000, 0x40000, BAD_DUMP CRC(cfa601e7),SHA1(5c9a9a9fccd4b4fcbbda06dfdee41e92dc4e9097) ) // half size?
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "mw.ic3", 0x0000, 0x8000, CRC(f2c5466e);SHA1(e116f01342fcf359498ed8750741c139093b1fb2) )
+		ROM_LOAD( "mw.ic3", 0x0000, 0x8000, CRC(f2c5466e),SHA1(e116f01342fcf359498ed8750741c139093b1fb2) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_fzer = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "fz.ic2", 0x00000, 0x40000, BAD_DUMP CRC(cd281855);SHA1(c9f7895028bbeed3deaa82f4fb51f2569093124b) ) // maybe wrong size?
+		ROM_LOAD( "fz.ic2", 0x00000, 0x40000, BAD_DUMP CRC(cd281855),SHA1(c9f7895028bbeed3deaa82f4fb51f2569093124b) ) // maybe wrong size?
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "fz.ic7", 0x0000, 0x8000, CRC(48ae570d);SHA1(934f9fec47dcf9e49936388968d2db50c69950da) )
+		ROM_LOAD( "fz.ic7", 0x0000, 0x8000, CRC(48ae570d),SHA1(934f9fec47dcf9e49936388968d2db50c69950da) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_nss_sten = new RomLoadPtr(){ public void handler(){ 
 		NSS_BIOS
 		ROM_REGION( 0x100000, REGION_USER3, 0 );
-		ROM_LOAD( "st.ic1", 0x00000, 0x40000, BAD_DUMP CRC(e94b48d9);SHA1(1ce9c25f8fb62798bbe016b2d1de1724d52e5674) )// maybe wrong size?
+		ROM_LOAD( "st.ic1", 0x00000, 0x40000, BAD_DUMP CRC(e94b48d9),SHA1(1ce9c25f8fb62798bbe016b2d1de1724d52e5674) )// maybe wrong size?
 	
 		/* instruction / data rom for bios */
 		ROM_REGION( 0x8000, REGION_USER4, 0 );
-		ROM_LOAD( "st.ic3", 0x0000, 0x8000, CRC(8880596e);SHA1(ec6d68fc2f51f7d94f496cd72cf898db65324542) )
+		ROM_LOAD( "st.ic3", 0x0000, 0x8000, CRC(8880596e),SHA1(ec6d68fc2f51f7d94f496cd72cf898db65324542) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_nss	   = new GameDriver("199?"	,"nss"	,"nss.java"	,rom_nss,null	,machine_driver_snes	,input_ports_snes	,init_snes	,ROT0	,	"Nintendo",					"Nintendo Super System: BIOS", NOT_A_DRIVER )

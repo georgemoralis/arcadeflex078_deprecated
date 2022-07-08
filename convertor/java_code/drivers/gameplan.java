@@ -566,65 +566,65 @@ public class gameplan
 	
 	static RomLoadPtr rom_kaos = new RomLoadPtr(){ public void handler(){ 
 	    ROM_REGION( 0x10000, REGION_CPU1, 0 );
-	    ROM_LOAD( "kaosab.g2",    0x9000, 0x0800, CRC(b23d858f);SHA1(e31fa657ace34130211a0b9fc0d115fd89bb20dd) )
+	    ROM_LOAD( "kaosab.g2",    0x9000, 0x0800, CRC(b23d858f),SHA1(e31fa657ace34130211a0b9fc0d115fd89bb20dd) )
 	    ROM_CONTINUE(		   	  0xd000, 0x0800			 );
-	    ROM_LOAD( "kaosab.j2",    0x9800, 0x0800, CRC(4861e5dc);SHA1(96ca0b8625af3897bd4a50a45ea964715f9e4973) )
+	    ROM_LOAD( "kaosab.j2",    0x9800, 0x0800, CRC(4861e5dc),SHA1(96ca0b8625af3897bd4a50a45ea964715f9e4973) )
 	    ROM_CONTINUE(		   	  0xd800, 0x0800			 );
-	    ROM_LOAD( "kaosab.j1",    0xa000, 0x0800, CRC(e055db3f);SHA1(099176629723c1a9bdc59f440339b2e8c38c3261) )
+	    ROM_LOAD( "kaosab.j1",    0xa000, 0x0800, CRC(e055db3f),SHA1(099176629723c1a9bdc59f440339b2e8c38c3261) )
 	    ROM_CONTINUE(		   	  0xe000, 0x0800			 );
-	    ROM_LOAD( "kaosab.g1",    0xa800, 0x0800, CRC(35d7c467);SHA1(6d5bfd29ff7b96fed4b24c899ddd380e47e52bc5) )
+	    ROM_LOAD( "kaosab.g1",    0xa800, 0x0800, CRC(35d7c467),SHA1(6d5bfd29ff7b96fed4b24c899ddd380e47e52bc5) )
 	    ROM_CONTINUE(		   	  0xe800, 0x0800			 );
-	    ROM_LOAD( "kaosab.f1",    0xb000, 0x0800, CRC(995b9260);SHA1(580896aa8b6f0618dc532a12d0795b0d03f7cadd) )
+	    ROM_LOAD( "kaosab.f1",    0xb000, 0x0800, CRC(995b9260),SHA1(580896aa8b6f0618dc532a12d0795b0d03f7cadd) )
 	    ROM_CONTINUE(		   	  0xf000, 0x0800			 );
-	    ROM_LOAD( "kaosab.e1",    0xb800, 0x0800, CRC(3da5202a);SHA1(6b5aaf44377415763aa0895c64765a4b82086f25) )
+	    ROM_LOAD( "kaosab.e1",    0xb800, 0x0800, CRC(3da5202a),SHA1(6b5aaf44377415763aa0895c64765a4b82086f25) )
 	    ROM_CONTINUE(		   	  0xf800, 0x0800			 );
 	
 	    ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "kaossnd.e1",   0xf800, 0x800, CRC(ab23d52a);SHA1(505f3e4a56e78a3913010f5484891f01c9831480) )
+		ROM_LOAD( "kaossnd.e1",   0xf800, 0x800, CRC(ab23d52a),SHA1(505f3e4a56e78a3913010f5484891f01c9831480) )
 	ROM_END(); }}; 
 	
 	
 	static RomLoadPtr rom_killcom = new RomLoadPtr(){ public void handler(){ 
 	    ROM_REGION( 0x10000, REGION_CPU1, 0 );
-	    ROM_LOAD( "killcom.e2",   0xc000, 0x800, CRC(a01cbb9a);SHA1(a8769243adbdddedfda5f3c8f054e9281a0eca46) )
-	    ROM_LOAD( "killcom.f2",   0xc800, 0x800, CRC(bb3b4a93);SHA1(a0ea61ac30a4d191db619b7bfb697914e1500036) )
-	    ROM_LOAD( "killcom.g2",   0xd000, 0x800, CRC(86ec68b2);SHA1(a09238190d61684d943ce0acda25eb901d2580ac) )
-	    ROM_LOAD( "killcom.j2",   0xd800, 0x800, CRC(28d8c6a1);SHA1(d9003410a651221e608c0dd20d4c9c60c3b0febc) )
-	    ROM_LOAD( "killcom.j1",   0xe000, 0x800, CRC(33ef5ac5);SHA1(42f839ad295d3df457ced7886a0003eff7e6c4ae) )
-	    ROM_LOAD( "killcom.g1",   0xe800, 0x800, CRC(49cb13e2);SHA1(635e4665042ddd9b8c0b9f275d4bcc6830dc6a98) )
-	    ROM_LOAD( "killcom.f1",   0xf000, 0x800, CRC(ef652762);SHA1(414714e5a3f83916bd3ae54afe2cb2271ee9008b) )
-	    ROM_LOAD( "killcom.e1",   0xf800, 0x800, CRC(bc19dcb7);SHA1(eb983d2df010c12cb3ffb584fceafa54a4e956b3) )
+	    ROM_LOAD( "killcom.e2",   0xc000, 0x800, CRC(a01cbb9a),SHA1(a8769243adbdddedfda5f3c8f054e9281a0eca46) )
+	    ROM_LOAD( "killcom.f2",   0xc800, 0x800, CRC(bb3b4a93),SHA1(a0ea61ac30a4d191db619b7bfb697914e1500036) )
+	    ROM_LOAD( "killcom.g2",   0xd000, 0x800, CRC(86ec68b2),SHA1(a09238190d61684d943ce0acda25eb901d2580ac) )
+	    ROM_LOAD( "killcom.j2",   0xd800, 0x800, CRC(28d8c6a1),SHA1(d9003410a651221e608c0dd20d4c9c60c3b0febc) )
+	    ROM_LOAD( "killcom.j1",   0xe000, 0x800, CRC(33ef5ac5),SHA1(42f839ad295d3df457ced7886a0003eff7e6c4ae) )
+	    ROM_LOAD( "killcom.g1",   0xe800, 0x800, CRC(49cb13e2),SHA1(635e4665042ddd9b8c0b9f275d4bcc6830dc6a98) )
+	    ROM_LOAD( "killcom.f1",   0xf000, 0x800, CRC(ef652762),SHA1(414714e5a3f83916bd3ae54afe2cb2271ee9008b) )
+	    ROM_LOAD( "killcom.e1",   0xf800, 0x800, CRC(bc19dcb7),SHA1(eb983d2df010c12cb3ffb584fceafa54a4e956b3) )
 	
 	    ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "killsnd.e1",   0xf800, 0x800, CRC(77d4890d);SHA1(a3ed7e11dec5d404f022c521256ff50aa6940d3c) )
+		ROM_LOAD( "killsnd.e1",   0xf800, 0x800, CRC(77d4890d),SHA1(a3ed7e11dec5d404f022c521256ff50aa6940d3c) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_megatack = new RomLoadPtr(){ public void handler(){ 
 	    ROM_REGION( 0x10000, REGION_CPU1, 0 );
-	    ROM_LOAD( "megattac.e2",  0xc000, 0x800, CRC(33fa5104);SHA1(15693eb540563e03502b53ed8a83366e395ca529) )
-	    ROM_LOAD( "megattac.f2",  0xc800, 0x800, CRC(af5e96b1);SHA1(5f6ab47c12d051f6af446b08f3cd459fbd2c13bf) )
-	    ROM_LOAD( "megattac.g2",  0xd000, 0x800, CRC(670103ea);SHA1(e11f01e8843ed918c6ea5dda75319dc95105d345) )
-	    ROM_LOAD( "megattac.j2",  0xd800, 0x800, CRC(4573b798);SHA1(388db11ab114b3575fe26ed65bbf49174021939a) )
-	    ROM_LOAD( "megattac.j1",  0xe000, 0x800, CRC(3b1d01a1);SHA1(30bbf51885b1e510b8d21cdd82244a455c5dada0) )
-	    ROM_LOAD( "megattac.g1",  0xe800, 0x800, CRC(eed75ef4);SHA1(7c02337344f2716d2f2771229f7dee7b651eeb95) )
-	    ROM_LOAD( "megattac.f1",  0xf000, 0x800, CRC(c93a8ed4);SHA1(c87e2f13f2cc00055f4941c272a3126b165a6252) )
-	    ROM_LOAD( "megattac.e1",  0xf800, 0x800, CRC(d9996b9f);SHA1(e71d65b695000fdfd5fd1ce9ae39c0cb0b61669e) )
+	    ROM_LOAD( "megattac.e2",  0xc000, 0x800, CRC(33fa5104),SHA1(15693eb540563e03502b53ed8a83366e395ca529) )
+	    ROM_LOAD( "megattac.f2",  0xc800, 0x800, CRC(af5e96b1),SHA1(5f6ab47c12d051f6af446b08f3cd459fbd2c13bf) )
+	    ROM_LOAD( "megattac.g2",  0xd000, 0x800, CRC(670103ea),SHA1(e11f01e8843ed918c6ea5dda75319dc95105d345) )
+	    ROM_LOAD( "megattac.j2",  0xd800, 0x800, CRC(4573b798),SHA1(388db11ab114b3575fe26ed65bbf49174021939a) )
+	    ROM_LOAD( "megattac.j1",  0xe000, 0x800, CRC(3b1d01a1),SHA1(30bbf51885b1e510b8d21cdd82244a455c5dada0) )
+	    ROM_LOAD( "megattac.g1",  0xe800, 0x800, CRC(eed75ef4),SHA1(7c02337344f2716d2f2771229f7dee7b651eeb95) )
+	    ROM_LOAD( "megattac.f1",  0xf000, 0x800, CRC(c93a8ed4),SHA1(c87e2f13f2cc00055f4941c272a3126b165a6252) )
+	    ROM_LOAD( "megattac.e1",  0xf800, 0x800, CRC(d9996b9f),SHA1(e71d65b695000fdfd5fd1ce9ae39c0cb0b61669e) )
 	
 	    ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "megatsnd.e1",  0xf800, 0x800, CRC(0c186bdb);SHA1(233af9481a3979971f2d5aa75ec8df4333aa5e0d) )
+		ROM_LOAD( "megatsnd.e1",  0xf800, 0x800, CRC(0c186bdb),SHA1(233af9481a3979971f2d5aa75ec8df4333aa5e0d) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_challeng = new RomLoadPtr(){ public void handler(){ 
 	    ROM_REGION( 0x10000, REGION_CPU1, 0 );
-	    ROM_LOAD( "chall.6",      0xa000, 0x1000, CRC(b30fe7f5);SHA1(ce93a57d626f90d31ddedbc35135f70758949dfa) )
-	    ROM_LOAD( "chall.5",      0xb000, 0x1000, CRC(34c6a88e);SHA1(250577e2c8eb1d3a78cac679310ec38924ac1fe0) )
-	    ROM_LOAD( "chall.4",      0xc000, 0x1000, CRC(0ddc18ef);SHA1(9f1aa27c71d7e7533bddf7de420c06fb0058cf60) )
-	    ROM_LOAD( "chall.3",      0xd000, 0x1000, CRC(6ce03312);SHA1(69c047f501f327f568fe4ad1274168f9dda1ca70) )
-	    ROM_LOAD( "chall.2",      0xe000, 0x1000, CRC(948912ad);SHA1(e79738ab94501f858f4d5f218787267523611e92) )
-	    ROM_LOAD( "chall.1",      0xf000, 0x1000, CRC(7c71a9dc);SHA1(2530ada6390fb46c44bf7bf2636910ee54786493) )
+	    ROM_LOAD( "chall.6",      0xa000, 0x1000, CRC(b30fe7f5),SHA1(ce93a57d626f90d31ddedbc35135f70758949dfa) )
+	    ROM_LOAD( "chall.5",      0xb000, 0x1000, CRC(34c6a88e),SHA1(250577e2c8eb1d3a78cac679310ec38924ac1fe0) )
+	    ROM_LOAD( "chall.4",      0xc000, 0x1000, CRC(0ddc18ef),SHA1(9f1aa27c71d7e7533bddf7de420c06fb0058cf60) )
+	    ROM_LOAD( "chall.3",      0xd000, 0x1000, CRC(6ce03312),SHA1(69c047f501f327f568fe4ad1274168f9dda1ca70) )
+	    ROM_LOAD( "chall.2",      0xe000, 0x1000, CRC(948912ad),SHA1(e79738ab94501f858f4d5f218787267523611e92) )
+	    ROM_LOAD( "chall.1",      0xf000, 0x1000, CRC(7c71a9dc),SHA1(2530ada6390fb46c44bf7bf2636910ee54786493) )
 	
 	    ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "chall.snd",    0xf800, 0x800, CRC(1b2bffd2);SHA1(36ceb5abbc92a17576c375019f1c5900320398f9) )
+		ROM_LOAD( "chall.snd",    0xf800, 0x800, CRC(1b2bffd2),SHA1(36ceb5abbc92a17576c375019f1c5900320398f9) )
 	ROM_END(); }}; 
 	
 	

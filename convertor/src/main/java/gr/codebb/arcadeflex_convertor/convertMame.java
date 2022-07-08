@@ -1618,6 +1618,13 @@ public class convertMame {
                             Convertor.outbuf[(Convertor.outpos++)] = ';';
                             Convertor.inpos += 1;
                         }
+                        if (sUtil.getChar() == 'S')
+                        {
+                            Convertor.outpos -= 1;
+                            Convertor.outbuf[(Convertor.outpos++)] = ',';
+                            Convertor.outbuf[(Convertor.outpos++)] = 'S';
+                            Convertor.inpos += 1;
+                        }
                         type2 = -1;
                         continue;
                     }

@@ -324,18 +324,18 @@ public class ladyfrog
 	
 	static RomLoadPtr rom_ladyfrog = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "2.107",   0x0000, 0x10000, CRC(fa4466e6);SHA1(08e5cc8e1d3c845bc9c253267f2683671bffa9f2) )
+		ROM_LOAD( "2.107",   0x0000, 0x10000, CRC(fa4466e6),SHA1(08e5cc8e1d3c845bc9c253267f2683671bffa9f2) )
 	
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "1.115",   0x0000, 0x8000, CRC(b0932498);SHA1(13d90698f2682e64ff3597c9267ca9d33a6d62ba) ) /* NY Captor*/
+		ROM_LOAD( "1.115",   0x0000, 0x8000, CRC(b0932498),SHA1(13d90698f2682e64ff3597c9267ca9d33a6d62ba) ) /* NY Captor*/
 	
 		ROM_REGION( 0x60000, REGION_GFX1, ROMREGION_DISPOSE |ROMREGION_INVERT );
-		ROM_LOAD( "3.32",   0x30000, 0x10000, CRC(8a27fc0a);SHA1(36e0365776e61ef830451e6351eca6b6c742086f) )
-		ROM_LOAD( "4.33",   0x40000, 0x10000, CRC(e1a137d3);SHA1(add8140a9366a0d343b611ced10c804d3fb04c03) )
-		ROM_LOAD( "5.34",   0x50000, 0x10000, CRC(7816925f);SHA1(037a69243b35e1739e5d7288e279d0d4289c61ed) )
-		ROM_LOAD( "6.8",    0x00000, 0x10000, CRC(61b3baaa);SHA1(d65a235dbbb96c11e8307aa457d1c06f20eb8d5a) )
-		ROM_LOAD( "7.9",    0x10000, 0x10000, CRC(88aaff58);SHA1(dfb143ef452dec530adf8b35a50a82d08f47d107) )
-		ROM_LOAD( "8.10",   0x20000, 0x10000, CRC(8c73baa1);SHA1(50fb408be181ef3c125dee23b04daeb010c9f276) )
+		ROM_LOAD( "3.32",   0x30000, 0x10000, CRC(8a27fc0a),SHA1(36e0365776e61ef830451e6351eca6b6c742086f) )
+		ROM_LOAD( "4.33",   0x40000, 0x10000, CRC(e1a137d3),SHA1(add8140a9366a0d343b611ced10c804d3fb04c03) )
+		ROM_LOAD( "5.34",   0x50000, 0x10000, CRC(7816925f),SHA1(037a69243b35e1739e5d7288e279d0d4289c61ed) )
+		ROM_LOAD( "6.8",    0x00000, 0x10000, CRC(61b3baaa),SHA1(d65a235dbbb96c11e8307aa457d1c06f20eb8d5a) )
+		ROM_LOAD( "7.9",    0x10000, 0x10000, CRC(88aaff58),SHA1(dfb143ef452dec530adf8b35a50a82d08f47d107) )
+		ROM_LOAD( "8.10",   0x20000, 0x10000, CRC(8c73baa1),SHA1(50fb408be181ef3c125dee23b04daeb010c9f276) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_ladyfrog	   = new GameDriver("1990"	,"ladyfrog"	,"ladyfrog.java"	,rom_ladyfrog,null	,machine_driver_ladyfrog	,input_ports_ladyfrog	,null	,ORIENTATION_SWAP_XY	,	"Mondial Games", "Lady Frog")

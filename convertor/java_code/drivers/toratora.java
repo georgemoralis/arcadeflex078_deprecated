@@ -263,11 +263,11 @@ public class toratora
 	
 	static RomLoadPtr rom_toratora = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "tora.u1",      0x1000, 0x0800, CRC(413c743a);SHA1(a887dfaaee557327a1699bb424488b934dab8612) )
-		ROM_LOAD( "tora.u10",     0x1800, 0x0800, CRC(dc771b1c);SHA1(1bd81decb4d0a854878227c52d45ac0eea0602ec) )
-		ROM_LOAD( "tora.u2",      0x2000, 0x0800, CRC(c574c664);SHA1(9f41a53ca51d04e5bec7525fe83c5f4bdfcf128d) )
-		ROM_LOAD( "tora.u9",      0x2800, 0x0800, CRC(b67aa11f);SHA1(da9e77255640a4b32eed2be89b686b98a248bd72) )
-		ROM_LOAD( "tora.u11",     0xf800, 0x0800, CRC(55135d6f);SHA1(c48f180a9d6e894aafe87b2daf74e9a082f4600e) )
+		ROM_LOAD( "tora.u1",      0x1000, 0x0800, CRC(413c743a),SHA1(a887dfaaee557327a1699bb424488b934dab8612) )
+		ROM_LOAD( "tora.u10",     0x1800, 0x0800, CRC(dc771b1c),SHA1(1bd81decb4d0a854878227c52d45ac0eea0602ec) )
+		ROM_LOAD( "tora.u2",      0x2000, 0x0800, CRC(c574c664),SHA1(9f41a53ca51d04e5bec7525fe83c5f4bdfcf128d) )
+		ROM_LOAD( "tora.u9",      0x2800, 0x0800, CRC(b67aa11f),SHA1(da9e77255640a4b32eed2be89b686b98a248bd72) )
+		ROM_LOAD( "tora.u11",     0xf800, 0x0800, CRC(55135d6f),SHA1(c48f180a9d6e894aafe87b2daf74e9a082f4600e) )
 	ROM_END(); }}; 
 	
 	

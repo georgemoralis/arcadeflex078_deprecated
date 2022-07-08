@@ -181,7 +181,7 @@ public class namcos10
 		ROM_REGION( 0x0000400, REGION_USER1, 0 );/* scratchpad */
 	
 		ROM_REGION32_LE( 0x800000, REGION_USER2, 0 );/* main prg */
-		ROM_LOAD( "dr21vera.1a",  0x000000, 0x800000, CRC(f93532a2);SHA1(8b72f2868978be1f0e0abd11425a3c8b2b0c4e99) )
+		ROM_LOAD( "dr21vera.1a",  0x000000, 0x800000, CRC(f93532a2),SHA1(8b72f2868978be1f0e0abd11425a3c8b2b0c4e99) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_mrdrilr2	   = new GameDriver("2000"	,"mrdrilr2"	,"namcos10.java"	,rom_mrdrilr2,null	,machine_driver_namcos10	,input_ports_namcos10	,init_namcos10	,ROT0	,	"Namco", "Mr Driller 2", GAME_NOT_WORKING | GAME_NO_SOUND )

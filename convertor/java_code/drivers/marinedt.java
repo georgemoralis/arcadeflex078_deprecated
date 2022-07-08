@@ -642,30 +642,30 @@ public class marinedt
 	
 	static RomLoadPtr rom_marinedt = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "mg01",     0x0000, 0x0800, CRC(ad09f04d);SHA1(932fc973b4a2fbbebd7e6437ed30c8444e3d4afb))
-		ROM_LOAD( "mg02",     0x0800, 0x0800, CRC(555a2b0f);SHA1(143a8953ce5070c31dc4c1f623833b2a5a2cf657))
-		ROM_LOAD( "mg03",     0x1000, 0x0800, CRC(2abc79b3);SHA1(1afb331a2c0e320b6d026bc5cb47a53ac3356c2a))
-		ROM_LOAD( "mg04",     0x1800, 0x0800, CRC(be928364);SHA1(8d9ae71e2751c009187e41d84fbad9519ab551e1) )
-		ROM_LOAD( "mg05",     0x2000, 0x0800, CRC(44cd114a);SHA1(833165c5c00c6e505acf29fef4a3ae3f9647b443) )
-		ROM_LOAD( "mg06",     0x2800, 0x0800, CRC(a7e2c69b);SHA1(614fc479d13c1726382fe7b4b0379c1dd4915af0) )
-		ROM_LOAD( "mg07",     0x3000, 0x0800, CRC(b85d1f9a);SHA1(4fd3e76b1816912df84477dba4655d395f5e7072) )
+		ROM_LOAD( "mg01",     0x0000, 0x0800, CRC(ad09f04d),SHA1(932fc973b4a2fbbebd7e6437ed30c8444e3d4afb))
+		ROM_LOAD( "mg02",     0x0800, 0x0800, CRC(555a2b0f),SHA1(143a8953ce5070c31dc4c1f623833b2a5a2cf657))
+		ROM_LOAD( "mg03",     0x1000, 0x0800, CRC(2abc79b3),SHA1(1afb331a2c0e320b6d026bc5cb47a53ac3356c2a))
+		ROM_LOAD( "mg04",     0x1800, 0x0800, CRC(be928364),SHA1(8d9ae71e2751c009187e41d84fbad9519ab551e1) )
+		ROM_LOAD( "mg05",     0x2000, 0x0800, CRC(44cd114a),SHA1(833165c5c00c6e505acf29fef4a3ae3f9647b443) )
+		ROM_LOAD( "mg06",     0x2800, 0x0800, CRC(a7e2c69b),SHA1(614fc479d13c1726382fe7b4b0379c1dd4915af0) )
+		ROM_LOAD( "mg07",     0x3000, 0x0800, CRC(b85d1f9a),SHA1(4fd3e76b1816912df84477dba4655d395f5e7072) )
 	
 		ROM_REGION( 0x1800, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "mg09",     0x0000, 0x0800, CRC(f4c349ca);SHA1(077f65eeac616a778d6c42bb95677fa2892ab697) )
-		ROM_LOAD( "mg10",     0x0800, 0x0800, CRC(b41251e3);SHA1(e125a971b401c78efeb4b03d0fab43e392d3fc14) )
-		ROM_LOAD( "mg11",     0x1000, 0x0800, CRC(50d66dd7);SHA1(858d1d2a75e091b0e382d964c5e4ddcd8e6f07dd))
+		ROM_LOAD( "mg09",     0x0000, 0x0800, CRC(f4c349ca),SHA1(077f65eeac616a778d6c42bb95677fa2892ab697) )
+		ROM_LOAD( "mg10",     0x0800, 0x0800, CRC(b41251e3),SHA1(e125a971b401c78efeb4b03d0fab43e392d3fc14) )
+		ROM_LOAD( "mg11",     0x1000, 0x0800, CRC(50d66dd7),SHA1(858d1d2a75e091b0e382d964c5e4ddcd8e6f07dd))
 	
 		ROM_REGION( 0x1000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "mg12",     0x0000, 0x1000, CRC(7c6486d5);SHA1(a7f17a803937937f05fc90621883a0fd44b297a0) )
+		ROM_LOAD( "mg12",     0x0000, 0x1000, CRC(7c6486d5),SHA1(a7f17a803937937f05fc90621883a0fd44b297a0) )
 	
 		ROM_REGION( 0x1000, REGION_GFX3, ROMREGION_DISPOSE );
-		ROM_LOAD( "mg13",     0x0000, 0x1000, CRC(17817044);SHA1(8c9b96620e3c414952e6d85c6e81b0df85c88e7a) )
+		ROM_LOAD( "mg13",     0x0000, 0x1000, CRC(17817044),SHA1(8c9b96620e3c414952e6d85c6e81b0df85c88e7a) )
 	
 		ROM_REGION( 0x0080, REGION_PROMS, 0 );
-		ROM_LOAD( "mg14.bpr", 0x0000, 0x0020, CRC(f75f4e3a);SHA1(36e665987f475c57435fa8c224a2a3ce0c5e672b) )	//char clr
-		ROM_LOAD( "mg15.bpr", 0x0020, 0x0020, CRC(cd3ab489);SHA1(a77478fb94d0cf8f4317f89cc9579def7c294b4f) )	//obj clr
-		ROM_LOAD( "mg16.bpr", 0x0040, 0x0020, CRC(92c868bc);SHA1(483ae6f47845ddacb701528e82bd388d7d66a0fb) )	//?? collisions
-		ROM_LOAD( "mg17.bpr", 0x0060, 0x0020, CRC(13261a02);SHA1(050edd18e4f79d19d5206f55f329340432fd4099) )	//?? table of increasing values
+		ROM_LOAD( "mg14.bpr", 0x0000, 0x0020, CRC(f75f4e3a),SHA1(36e665987f475c57435fa8c224a2a3ce0c5e672b) )	//char clr
+		ROM_LOAD( "mg15.bpr", 0x0020, 0x0020, CRC(cd3ab489),SHA1(a77478fb94d0cf8f4317f89cc9579def7c294b4f) )	//obj clr
+		ROM_LOAD( "mg16.bpr", 0x0040, 0x0020, CRC(92c868bc),SHA1(483ae6f47845ddacb701528e82bd388d7d66a0fb) )	//?? collisions
+		ROM_LOAD( "mg17.bpr", 0x0060, 0x0020, CRC(13261a02),SHA1(050edd18e4f79d19d5206f55f329340432fd4099) )	//?? table of increasing values
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_marinedt	   = new GameDriver("1981"	,"marinedt"	,"marinedt.java"	,rom_marinedt,null	,machine_driver_marinedt	,input_ports_marinedt	,null	,ROT270	,	"Taito", "Marine Date", GAME_NO_SOUND | GAME_NOT_WORKING )

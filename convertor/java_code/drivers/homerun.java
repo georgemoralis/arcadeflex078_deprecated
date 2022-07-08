@@ -199,14 +199,14 @@ public class homerun
 	
 	static RomLoadPtr rom_homerun = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x30000, REGION_CPU1, 0 );  
-		ROM_LOAD( "homerun.43",        0x0000, 0x4000, CRC(e759e476);SHA1(ad4f356ff26209033320a3e6353e4d4d9beb59c1) )
+		ROM_LOAD( "homerun.43",        0x0000, 0x4000, CRC(e759e476),SHA1(ad4f356ff26209033320a3e6353e4d4d9beb59c1) )
 		ROM_CONTINUE(        0x10000,0x1c000);
 		
 		ROM_REGION( 0x010000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "homerun.60",  0x00000, 0x10000, CRC(69a720d1);SHA1(0f0a4877578f358e9e829ece8c31e23f01adcf83) ) 
+		ROM_LOAD( "homerun.60",  0x00000, 0x10000, CRC(69a720d1),SHA1(0f0a4877578f358e9e829ece8c31e23f01adcf83) ) 
 	
 		ROM_REGION( 0x020000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "homerun.120",  0x00000, 0x20000, CRC(52f0709b);SHA1(19e675bcccadb774f60ec5929fc1fb5cf0d3f617) ) 
+		ROM_LOAD( "homerun.120",  0x00000, 0x20000, CRC(52f0709b),SHA1(19e675bcccadb774f60ec5929fc1fb5cf0d3f617) ) 
 		
 		ROM_REGION( 0x01000, REGION_SOUND1, 0 );
 		ROM_LOAD( "homerun.snd",  0x00000, 0x1000, NO_DUMP );/* D7756C internal rom */

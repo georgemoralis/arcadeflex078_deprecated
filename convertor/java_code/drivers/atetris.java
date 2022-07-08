@@ -363,56 +363,56 @@ public class atetris
 	
 	static RomLoadPtr rom_atetris = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x18000, REGION_CPU1, 0 );
-		ROM_LOAD( "1100.45f",     0x10000, 0x8000, CRC(2acbdb09);SHA1(5e1189227f26563fd3e5372121ea5c915620f892) )
+		ROM_LOAD( "1100.45f",     0x10000, 0x8000, CRC(2acbdb09),SHA1(5e1189227f26563fd3e5372121ea5c915620f892) )
 		ROM_CONTINUE(             0x08000, 0x8000 );
 	
 		ROM_REGION( 0x10000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "1101.35a",     0x0000, 0x10000, CRC(84a1939f);SHA1(d8577985fc8ed4e74f74c68b7c00c4855b7c3270) )
+		ROM_LOAD( "1101.35a",     0x0000, 0x10000, CRC(84a1939f),SHA1(d8577985fc8ed4e74f74c68b7c00c4855b7c3270) )
 	ROM_END(); }}; 
 	
 	
 	static RomLoadPtr rom_atetrisa = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x18000, REGION_CPU1, 0 );
-		ROM_LOAD( "d1",           0x10000, 0x8000, CRC(2bcab107);SHA1(3cfb8df8cd3782f3ff7f6b32ff15c461352061ee) )
+		ROM_LOAD( "d1",           0x10000, 0x8000, CRC(2bcab107),SHA1(3cfb8df8cd3782f3ff7f6b32ff15c461352061ee) )
 		ROM_CONTINUE(             0x08000, 0x8000 );
 	
 		ROM_REGION( 0x10000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "1101.35a",     0x0000, 0x10000, CRC(84a1939f);SHA1(d8577985fc8ed4e74f74c68b7c00c4855b7c3270) )
+		ROM_LOAD( "1101.35a",     0x0000, 0x10000, CRC(84a1939f),SHA1(d8577985fc8ed4e74f74c68b7c00c4855b7c3270) )
 	ROM_END(); }}; 
 	
 	
 	static RomLoadPtr rom_atetrisb = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x18000, REGION_CPU1, 0 );
-		ROM_LOAD( "tetris.01",    0x10000, 0x8000, CRC(944d15f6);SHA1(926fa5cb26b6e6a50bea455eec1f6d3fb92aa95c) )
+		ROM_LOAD( "tetris.01",    0x10000, 0x8000, CRC(944d15f6),SHA1(926fa5cb26b6e6a50bea455eec1f6d3fb92aa95c) )
 		ROM_CONTINUE(             0x08000, 0x8000 );
 	
 		ROM_REGION( 0x10000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "tetris.02",    0x0000, 0x10000, CRC(5c4e7258);SHA1(58060681a728e74d69b2b6f5d02faa597ca6c226) )
+		ROM_LOAD( "tetris.02",    0x0000, 0x10000, CRC(5c4e7258),SHA1(58060681a728e74d69b2b6f5d02faa597ca6c226) )
 	
 		/* there's an extra EEPROM, maybe used for protection crack, which */
 		/* however doesn't seem to be required to run the game in this driver. */
 		ROM_REGION( 0x0800, REGION_USER1, 0 );
-		ROM_LOAD( "tetris.03",    0x0000, 0x0800, CRC(26618c0b);SHA1(4d6470bf3a79be3b0766e246abe00582d4c85a97) )
+		ROM_LOAD( "tetris.03",    0x0000, 0x0800, CRC(26618c0b),SHA1(4d6470bf3a79be3b0766e246abe00582d4c85a97) )
 	ROM_END(); }}; 
 	
 	
 	static RomLoadPtr rom_atetcktl = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x18000, REGION_CPU1, 0 );
-		ROM_LOAD( "tetcktl1.rom", 0x10000, 0x8000, CRC(9afd1f4a);SHA1(323d1576d92c905e8e95108b39cabf6fa0c10db6) )
+		ROM_LOAD( "tetcktl1.rom", 0x10000, 0x8000, CRC(9afd1f4a),SHA1(323d1576d92c905e8e95108b39cabf6fa0c10db6) )
 		ROM_CONTINUE(             0x08000, 0x8000 );
 	
 		ROM_REGION( 0x10000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "1103.35a",     0x0000, 0x10000, CRC(ec2a7f93);SHA1(cb850141ffd1504f940fa156a39e71a4146d7fea) )
+		ROM_LOAD( "1103.35a",     0x0000, 0x10000, CRC(ec2a7f93),SHA1(cb850141ffd1504f940fa156a39e71a4146d7fea) )
 	ROM_END(); }}; 
 	
 	
 	static RomLoadPtr rom_atetckt2 = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x18000, REGION_CPU1, 0 );
-		ROM_LOAD( "1102.45f",     0x10000, 0x8000, CRC(1bd28902);SHA1(ae8c34f082bce1f827bf60830f207c46cb282421) )
+		ROM_LOAD( "1102.45f",     0x10000, 0x8000, CRC(1bd28902),SHA1(ae8c34f082bce1f827bf60830f207c46cb282421) )
 		ROM_CONTINUE(             0x08000, 0x8000 );
 	
 		ROM_REGION( 0x10000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "1103.35a",     0x0000, 0x10000, CRC(ec2a7f93);SHA1(cb850141ffd1504f940fa156a39e71a4146d7fea) )
+		ROM_LOAD( "1103.35a",     0x0000, 0x10000, CRC(ec2a7f93),SHA1(cb850141ffd1504f940fa156a39e71a4146d7fea) )
 	ROM_END(); }}; 
 	
 	

@@ -550,149 +550,149 @@ public class ladybug
 	
 	static RomLoadPtr rom_ladybug = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for code */
-		ROM_LOAD( "lb1.cpu",      0x0000, 0x1000, CRC(d09e0adb);SHA1(ddc1f849cbcefb64b70a26c2a4c993f0516af814) )
-		ROM_LOAD( "lb2.cpu",      0x1000, 0x1000, CRC(88bc4a0a);SHA1(193c9f90b7550020c0923cb158dff7d5faa53bc6) )
-		ROM_LOAD( "lb3.cpu",      0x2000, 0x1000, CRC(53e9efce);SHA1(1960e9cd896b6a65197aefc3f10348103552b598) )
-		ROM_LOAD( "lb4.cpu",      0x3000, 0x1000, CRC(ffc424d7);SHA1(2a4b9533e61e265bdd38c126add8c26d5bc048d5) )
-		ROM_LOAD( "lb5.cpu",      0x4000, 0x1000, CRC(ad6af809);SHA1(276275d56c725b9d90eeb44c317ceb06bac27ae7) )
-		ROM_LOAD( "lb6.cpu",      0x5000, 0x1000, CRC(cf1acca4);SHA1(c05de7de4bd05d5c2af6aa752e057a9286f3effc) )
+		ROM_LOAD( "lb1.cpu",      0x0000, 0x1000, CRC(d09e0adb),SHA1(ddc1f849cbcefb64b70a26c2a4c993f0516af814) )
+		ROM_LOAD( "lb2.cpu",      0x1000, 0x1000, CRC(88bc4a0a),SHA1(193c9f90b7550020c0923cb158dff7d5faa53bc6) )
+		ROM_LOAD( "lb3.cpu",      0x2000, 0x1000, CRC(53e9efce),SHA1(1960e9cd896b6a65197aefc3f10348103552b598) )
+		ROM_LOAD( "lb4.cpu",      0x3000, 0x1000, CRC(ffc424d7),SHA1(2a4b9533e61e265bdd38c126add8c26d5bc048d5) )
+		ROM_LOAD( "lb5.cpu",      0x4000, 0x1000, CRC(ad6af809),SHA1(276275d56c725b9d90eeb44c317ceb06bac27ae7) )
+		ROM_LOAD( "lb6.cpu",      0x5000, 0x1000, CRC(cf1acca4),SHA1(c05de7de4bd05d5c2af6aa752e057a9286f3effc) )
 	
 		ROM_REGION( 0x2000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "lb9.vid",      0x0000, 0x1000, CRC(77b1da1e);SHA1(58cb82417396a3d96acfc864f091b1a5988f228d) )
-		ROM_LOAD( "lb10.vid",     0x1000, 0x1000, CRC(aa82e00b);SHA1(83a5b745e58844b6dd7d05dfe9dbb5959aaf5c40) )
+		ROM_LOAD( "lb9.vid",      0x0000, 0x1000, CRC(77b1da1e),SHA1(58cb82417396a3d96acfc864f091b1a5988f228d) )
+		ROM_LOAD( "lb10.vid",     0x1000, 0x1000, CRC(aa82e00b),SHA1(83a5b745e58844b6dd7d05dfe9dbb5959aaf5c40) )
 	
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "lb8.cpu",      0x0000, 0x1000, CRC(8b99910b);SHA1(0bc812cf872f04eacedb50feed53f1aa8a1f24b9) )
-		ROM_LOAD( "lb7.cpu",      0x1000, 0x1000, CRC(86a5b448);SHA1(f8585a6fcf921e3e21f112dd2de474cb53cef290) )
+		ROM_LOAD( "lb8.cpu",      0x0000, 0x1000, CRC(8b99910b),SHA1(0bc812cf872f04eacedb50feed53f1aa8a1f24b9) )
+		ROM_LOAD( "lb7.cpu",      0x1000, 0x1000, CRC(86a5b448),SHA1(f8585a6fcf921e3e21f112dd2de474cb53cef290) )
 	
 		ROM_REGION( 0x0060, REGION_PROMS, 0 );
-		ROM_LOAD( "10-2.vid",     0x0000, 0x0020, CRC(df091e52);SHA1(4d7fea6d9ab31e5f280b1dc198a325f00c3826ef) ) /* palette */
-		ROM_LOAD( "10-1.vid",     0x0020, 0x0020, CRC(40640d8f);SHA1(85d13a9b78c47174cff7c869f52b30263bae575e) ) /* sprite color lookup table */
-		ROM_LOAD( "10-3.vid",     0x0040, 0x0020, CRC(27fa3a50);SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
+		ROM_LOAD( "10-2.vid",     0x0000, 0x0020, CRC(df091e52),SHA1(4d7fea6d9ab31e5f280b1dc198a325f00c3826ef) ) /* palette */
+		ROM_LOAD( "10-1.vid",     0x0020, 0x0020, CRC(40640d8f),SHA1(85d13a9b78c47174cff7c869f52b30263bae575e) ) /* sprite color lookup table */
+		ROM_LOAD( "10-3.vid",     0x0040, 0x0020, CRC(27fa3a50),SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_ladybugb = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for code */
-		ROM_LOAD( "lb1a.cpu",     0x0000, 0x1000, CRC(ec135e54);SHA1(69fc6db04b28c25eda329fc88c235267ca93a09f) )
-		ROM_LOAD( "lb2a.cpu",     0x1000, 0x1000, CRC(3049c5c6);SHA1(51ceb70fa4789ff91c9bb1e157be5b6c09ff3c8e) )
-		ROM_LOAD( "lb3a.cpu",     0x2000, 0x1000, CRC(b0fef837);SHA1(37e9d8d157c3af12cd97534a42dd21f621ac501b) )
-		ROM_LOAD( "lb4.cpu",      0x3000, 0x1000, CRC(ffc424d7);SHA1(2a4b9533e61e265bdd38c126add8c26d5bc048d5) )
-		ROM_LOAD( "lb5.cpu",      0x4000, 0x1000, CRC(ad6af809);SHA1(276275d56c725b9d90eeb44c317ceb06bac27ae7) )
-		ROM_LOAD( "lb6a.cpu",     0x5000, 0x1000, CRC(88c8002a);SHA1(ffff1b8d4c1521710c988eee12081d28ed491ccf) )
+		ROM_LOAD( "lb1a.cpu",     0x0000, 0x1000, CRC(ec135e54),SHA1(69fc6db04b28c25eda329fc88c235267ca93a09f) )
+		ROM_LOAD( "lb2a.cpu",     0x1000, 0x1000, CRC(3049c5c6),SHA1(51ceb70fa4789ff91c9bb1e157be5b6c09ff3c8e) )
+		ROM_LOAD( "lb3a.cpu",     0x2000, 0x1000, CRC(b0fef837),SHA1(37e9d8d157c3af12cd97534a42dd21f621ac501b) )
+		ROM_LOAD( "lb4.cpu",      0x3000, 0x1000, CRC(ffc424d7),SHA1(2a4b9533e61e265bdd38c126add8c26d5bc048d5) )
+		ROM_LOAD( "lb5.cpu",      0x4000, 0x1000, CRC(ad6af809),SHA1(276275d56c725b9d90eeb44c317ceb06bac27ae7) )
+		ROM_LOAD( "lb6a.cpu",     0x5000, 0x1000, CRC(88c8002a),SHA1(ffff1b8d4c1521710c988eee12081d28ed491ccf) )
 	
 		ROM_REGION( 0x2000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "lb9.vid",      0x0000, 0x1000, CRC(77b1da1e);SHA1(58cb82417396a3d96acfc864f091b1a5988f228d) )
-		ROM_LOAD( "lb10.vid",     0x1000, 0x1000, CRC(aa82e00b);SHA1(83a5b745e58844b6dd7d05dfe9dbb5959aaf5c40) )
+		ROM_LOAD( "lb9.vid",      0x0000, 0x1000, CRC(77b1da1e),SHA1(58cb82417396a3d96acfc864f091b1a5988f228d) )
+		ROM_LOAD( "lb10.vid",     0x1000, 0x1000, CRC(aa82e00b),SHA1(83a5b745e58844b6dd7d05dfe9dbb5959aaf5c40) )
 	
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "lb8.cpu",      0x0000, 0x1000, CRC(8b99910b);SHA1(0bc812cf872f04eacedb50feed53f1aa8a1f24b9) )
-		ROM_LOAD( "lb7.cpu",      0x1000, 0x1000, CRC(86a5b448);SHA1(f8585a6fcf921e3e21f112dd2de474cb53cef290) )
+		ROM_LOAD( "lb8.cpu",      0x0000, 0x1000, CRC(8b99910b),SHA1(0bc812cf872f04eacedb50feed53f1aa8a1f24b9) )
+		ROM_LOAD( "lb7.cpu",      0x1000, 0x1000, CRC(86a5b448),SHA1(f8585a6fcf921e3e21f112dd2de474cb53cef290) )
 	
 		ROM_REGION( 0x0060, REGION_PROMS, 0 );
-		ROM_LOAD( "10-2.vid",     0x0000, 0x0020, CRC(df091e52);SHA1(4d7fea6d9ab31e5f280b1dc198a325f00c3826ef) ) /* palette */
-		ROM_LOAD( "10-1.vid",     0x0020, 0x0020, CRC(40640d8f);SHA1(85d13a9b78c47174cff7c869f52b30263bae575e) ) /* sprite color lookup table */
-		ROM_LOAD( "10-3.vid",     0x0040, 0x0020, CRC(27fa3a50);SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
+		ROM_LOAD( "10-2.vid",     0x0000, 0x0020, CRC(df091e52),SHA1(4d7fea6d9ab31e5f280b1dc198a325f00c3826ef) ) /* palette */
+		ROM_LOAD( "10-1.vid",     0x0020, 0x0020, CRC(40640d8f),SHA1(85d13a9b78c47174cff7c869f52b30263bae575e) ) /* sprite color lookup table */
+		ROM_LOAD( "10-3.vid",     0x0040, 0x0020, CRC(27fa3a50),SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_snapjack = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for code */
-		ROM_LOAD( "sj2a.bin",     0x0000, 0x1000, CRC(6b30fcda);SHA1(85e4ebbbe8e8d6c79a14387d7a6818abc9430037) )
-		ROM_LOAD( "sj2b.bin",     0x1000, 0x1000, CRC(1f1088d1);SHA1(0fd5204ea27e9bdd811e9ea21e9bbab84b916f4a) )
-		ROM_LOAD( "sj2c.bin",     0x2000, 0x1000, CRC(edd65f3a);SHA1(763d588f0755a22c0f24269e6f38979fd516693f) )
-		ROM_LOAD( "sj2d.bin",     0x3000, 0x1000, CRC(f4481192);SHA1(514bb124a1d75a622e2ca4c2175d819092d4638d) )
-		ROM_LOAD( "sj2e.bin",     0x4000, 0x1000, CRC(1bff7d05);SHA1(47246095313ebba30f42d715a9fb5fc1abb68ea6) )
-		ROM_LOAD( "sj2f.bin",     0x5000, 0x1000, CRC(21793edf);SHA1(11e259161bab3a32a8b52f7baa4fec17be6d4302) )
+		ROM_LOAD( "sj2a.bin",     0x0000, 0x1000, CRC(6b30fcda),SHA1(85e4ebbbe8e8d6c79a14387d7a6818abc9430037) )
+		ROM_LOAD( "sj2b.bin",     0x1000, 0x1000, CRC(1f1088d1),SHA1(0fd5204ea27e9bdd811e9ea21e9bbab84b916f4a) )
+		ROM_LOAD( "sj2c.bin",     0x2000, 0x1000, CRC(edd65f3a),SHA1(763d588f0755a22c0f24269e6f38979fd516693f) )
+		ROM_LOAD( "sj2d.bin",     0x3000, 0x1000, CRC(f4481192),SHA1(514bb124a1d75a622e2ca4c2175d819092d4638d) )
+		ROM_LOAD( "sj2e.bin",     0x4000, 0x1000, CRC(1bff7d05),SHA1(47246095313ebba30f42d715a9fb5fc1abb68ea6) )
+		ROM_LOAD( "sj2f.bin",     0x5000, 0x1000, CRC(21793edf),SHA1(11e259161bab3a32a8b52f7baa4fec17be6d4302) )
 	
 		ROM_REGION( 0x2000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "sj2i.bin",     0x0000, 0x1000, CRC(ff2011c7);SHA1(38409e2318dee3cc0678d4ee9e93d9b895883df6) )
-		ROM_LOAD( "sj2j.bin",     0x1000, 0x1000, CRC(f097babb);SHA1(461662719bc7f1cf21c41759f4832a92b0fdb4f2) )
+		ROM_LOAD( "sj2i.bin",     0x0000, 0x1000, CRC(ff2011c7),SHA1(38409e2318dee3cc0678d4ee9e93d9b895883df6) )
+		ROM_LOAD( "sj2j.bin",     0x1000, 0x1000, CRC(f097babb),SHA1(461662719bc7f1cf21c41759f4832a92b0fdb4f2) )
 	
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "sj2h.bin",     0x0000, 0x1000, CRC(b7f105b6);SHA1(1135c3188b41cb0ccb24079c613188209b624683) )
-		ROM_LOAD( "sj2g.bin",     0x1000, 0x1000, CRC(1cdb03a8);SHA1(5f390a672f3adf6392f8060bf7f0bcabc2eba139) )
+		ROM_LOAD( "sj2h.bin",     0x0000, 0x1000, CRC(b7f105b6),SHA1(1135c3188b41cb0ccb24079c613188209b624683) )
+		ROM_LOAD( "sj2g.bin",     0x1000, 0x1000, CRC(1cdb03a8),SHA1(5f390a672f3adf6392f8060bf7f0bcabc2eba139) )
 	
 		ROM_REGION( 0x0060, REGION_PROMS, 0 );
-		ROM_LOAD( "sj8t.bin",     0x0000, 0x0020, CRC(cbbd9dd1);SHA1(e267726ba59e9a42ac89dd22eb1508ad21fd32ac) ) /* palette */
-		ROM_LOAD( "sj9k.bin",     0x0020, 0x0020, CRC(5b16fbd2);SHA1(0a776aeca3947a6f29d527018f5182e758b50c5d) ) /* sprite color lookup table */
-		ROM_LOAD( "sj9h.bin",     0x0040, 0x0020, CRC(27fa3a50);SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
+		ROM_LOAD( "sj8t.bin",     0x0000, 0x0020, CRC(cbbd9dd1),SHA1(e267726ba59e9a42ac89dd22eb1508ad21fd32ac) ) /* palette */
+		ROM_LOAD( "sj9k.bin",     0x0020, 0x0020, CRC(5b16fbd2),SHA1(0a776aeca3947a6f29d527018f5182e758b50c5d) ) /* sprite color lookup table */
+		ROM_LOAD( "sj9h.bin",     0x0040, 0x0020, CRC(27fa3a50),SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_cavenger = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for code */
-		ROM_LOAD( "1",            0x0000, 0x1000, CRC(9e0cc781);SHA1(f23bd6b9f427c26ac996a5c8ba29f356cf45c78a) )
-		ROM_LOAD( "2",            0x1000, 0x1000, CRC(5ce5b950);SHA1(170e3f8be592dcccb8868474f40f8f2223e8a8b5) )
-		ROM_LOAD( "3",            0x2000, 0x1000, CRC(bc28218d);SHA1(4b0f1b38a5837b7ffc9aec6c28c6eb72cfa46226) )
-		ROM_LOAD( "4",            0x3000, 0x1000, CRC(2b32e9f5);SHA1(f8a7ea799d8ff9b4f830d064bb2f34a76729c336) )
-		ROM_LOAD( "5",            0x4000, 0x1000, CRC(d117153e);SHA1(622c90a6c3f0adc24fe8a1d4969075cbd55add4e) )
-		ROM_LOAD( "6",            0x5000, 0x1000, CRC(c7d366cb);SHA1(ec4981fe34abf992acbd6325b2c756c58ff80b04) )
+		ROM_LOAD( "1",            0x0000, 0x1000, CRC(9e0cc781),SHA1(f23bd6b9f427c26ac996a5c8ba29f356cf45c78a) )
+		ROM_LOAD( "2",            0x1000, 0x1000, CRC(5ce5b950),SHA1(170e3f8be592dcccb8868474f40f8f2223e8a8b5) )
+		ROM_LOAD( "3",            0x2000, 0x1000, CRC(bc28218d),SHA1(4b0f1b38a5837b7ffc9aec6c28c6eb72cfa46226) )
+		ROM_LOAD( "4",            0x3000, 0x1000, CRC(2b32e9f5),SHA1(f8a7ea799d8ff9b4f830d064bb2f34a76729c336) )
+		ROM_LOAD( "5",            0x4000, 0x1000, CRC(d117153e),SHA1(622c90a6c3f0adc24fe8a1d4969075cbd55add4e) )
+		ROM_LOAD( "6",            0x5000, 0x1000, CRC(c7d366cb),SHA1(ec4981fe34abf992acbd6325b2c756c58ff80b04) )
 	
 		ROM_REGION( 0x2000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "9",            0x0000, 0x1000, CRC(63357785);SHA1(20eaa866b7700535312fd415edaea94408ff3e3d) )
-		ROM_LOAD( "0",            0x1000, 0x1000, CRC(52ad1133);SHA1(bc8c52c6ba919287773ff6a4ec793ebd95176130) )
+		ROM_LOAD( "9",            0x0000, 0x1000, CRC(63357785),SHA1(20eaa866b7700535312fd415edaea94408ff3e3d) )
+		ROM_LOAD( "0",            0x1000, 0x1000, CRC(52ad1133),SHA1(bc8c52c6ba919287773ff6a4ec793ebd95176130) )
 	
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "8",            0x0000, 0x1000, CRC(b022bf2d);SHA1(85f78d5a1e5782587bb66ad101a94fd0d62fb790) )
+		ROM_LOAD( "8",            0x0000, 0x1000, CRC(b022bf2d),SHA1(85f78d5a1e5782587bb66ad101a94fd0d62fb790) )
 		/* 1000-1fff empty */
 	
 		ROM_REGION( 0x0060, REGION_PROMS, 0 );
-		ROM_LOAD( "t8.bpr",       0x0000, 0x0020, CRC(42a24dd5);SHA1(03175ee7f8e11896a89d7cc0d614a78a49923627) ) /* palette */
-		ROM_LOAD( "k9.bpr",       0x0020, 0x0020, CRC(d736b8de);SHA1(4c9c76826f3a2a631d01fd2531d55318172b0c12) ) /* sprite color lookup table */
-		ROM_LOAD( "h9.bpr",       0x0040, 0x0020, CRC(27fa3a50);SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
+		ROM_LOAD( "t8.bpr",       0x0000, 0x0020, CRC(42a24dd5),SHA1(03175ee7f8e11896a89d7cc0d614a78a49923627) ) /* palette */
+		ROM_LOAD( "k9.bpr",       0x0020, 0x0020, CRC(d736b8de),SHA1(4c9c76826f3a2a631d01fd2531d55318172b0c12) ) /* sprite color lookup table */
+		ROM_LOAD( "h9.bpr",       0x0040, 0x0020, CRC(27fa3a50),SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* ?? */
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_dorodon = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x20000, REGION_CPU1, 0 );/* 64K for data, 64K for encrypted opcodes */
-		ROM_LOAD( "dorodon.0",   0x0000, 0x2000, CRC(460aaf26);SHA1(c4ea41cba4ac2d93fedec3c117a4470fee2a910f) )
-		ROM_LOAD( "dorodon.1",   0x2000, 0x2000, CRC(d2451eb6);SHA1(4154bfe50b7f75444d3f0c9be6bd2475fdba1938) )
-		ROM_LOAD( "dorodon.2",   0x4000, 0x2000, CRC(d3c6ee6c);SHA1(6971ecdc968810c19f8601efc3d389450156bb22) )
+		ROM_LOAD( "dorodon.0",   0x0000, 0x2000, CRC(460aaf26),SHA1(c4ea41cba4ac2d93fedec3c117a4470fee2a910f) )
+		ROM_LOAD( "dorodon.1",   0x2000, 0x2000, CRC(d2451eb6),SHA1(4154bfe50b7f75444d3f0c9be6bd2475fdba1938) )
+		ROM_LOAD( "dorodon.2",   0x4000, 0x2000, CRC(d3c6ee6c),SHA1(6971ecdc968810c19f8601efc3d389450156bb22) )
 	
 		/* Characters */
 		ROM_REGION( 0x2000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "dorodon.5",   0x0000, 0x1000, CRC(5eee2b85);SHA1(55ac9566e805d103b6916f51c764e2601cc1f715) )
-		ROM_LOAD( "dorodon.6",   0x1000, 0x1000, CRC(395ac25a);SHA1(d8a55e42b8c5d957c2e6a3181d7ac10c6a448f46) )
+		ROM_LOAD( "dorodon.5",   0x0000, 0x1000, CRC(5eee2b85),SHA1(55ac9566e805d103b6916f51c764e2601cc1f715) )
+		ROM_LOAD( "dorodon.6",   0x1000, 0x1000, CRC(395ac25a),SHA1(d8a55e42b8c5d957c2e6a3181d7ac10c6a448f46) )
 	
 		/* Sprites */
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "dorodon.4",   0x0000, 0x1000, CRC(d70bb50a);SHA1(b9d46862f288c49bb8b660da87b63bd4ecb36379) )
-		ROM_LOAD( "dorodon.3",   0x1000, 0x1000, CRC(e44e59e6);SHA1(ff730152804d75ddb9fb19e8ec33cc764d8a50e8) )
+		ROM_LOAD( "dorodon.4",   0x0000, 0x1000, CRC(d70bb50a),SHA1(b9d46862f288c49bb8b660da87b63bd4ecb36379) )
+		ROM_LOAD( "dorodon.3",   0x1000, 0x1000, CRC(e44e59e6),SHA1(ff730152804d75ddb9fb19e8ec33cc764d8a50e8) )
 	
 		/* Opcode Decryption PROMS */
 		ROM_REGION( 0x0100, REGION_USER1, ROMREGION_DISPOSE );
-		ROM_LOAD_NIB_HIGH( "dorodon.bp4",0x0000,0x0100,CRC(f865c135);SHA1(1202f83bfa50afa5a5d24401efa8bf058e7e30b5) )
-		ROM_LOAD_NIB_LOW(  "dorodon.bp3",0x0000,0x0100,CRC(47b2f0bb);SHA1(640720aa5c1119080c6da928f6d1b0e76b989742) )
+		ROM_LOAD_NIB_HIGH( "dorodon.bp4",0x0000,0x0100,CRC(f865c135),SHA1(1202f83bfa50afa5a5d24401efa8bf058e7e30b5) )
+		ROM_LOAD_NIB_LOW(  "dorodon.bp3",0x0000,0x0100,CRC(47b2f0bb),SHA1(640720aa5c1119080c6da928f6d1b0e76b989742) )
 	
 		ROM_REGION( 0x0060, REGION_PROMS, 0 );
-		ROM_LOAD( "dorodon.bp0", 0x0000, 0x0020, CRC(8fcf0bc8);SHA1(392d22731b3e4bc663d6e4385f6069ee2b4ee029) ) /* palette */
-		ROM_LOAD( "dorodon.bp1", 0x0020, 0x0020, CRC(3f209be4);SHA1(f924494eed357a15ffc11331c163af24585d4ab9) ) /* sprite color lookup table */
-		ROM_LOAD( "dorodon.bp2", 0x0040, 0x0020, CRC(27fa3a50);SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* timing?? */
+		ROM_LOAD( "dorodon.bp0", 0x0000, 0x0020, CRC(8fcf0bc8),SHA1(392d22731b3e4bc663d6e4385f6069ee2b4ee029) ) /* palette */
+		ROM_LOAD( "dorodon.bp1", 0x0020, 0x0020, CRC(3f209be4),SHA1(f924494eed357a15ffc11331c163af24585d4ab9) ) /* sprite color lookup table */
+		ROM_LOAD( "dorodon.bp2", 0x0040, 0x0020, CRC(27fa3a50),SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* timing?? */
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_dorodon2 = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x20000, REGION_CPU1, 0 );/* 64K for data, 64K for encrypted opcodes */
-		ROM_LOAD( "1.3fg",        0x0000, 0x2000, CRC(4d05d6f8);SHA1(db12ad04295f0ce112b6e90fde94a53ed1d6c3b9) )
-		ROM_LOAD( "2.3h",         0x2000, 0x2000, CRC(27b43b09);SHA1(12a8a6b8665bb9d1967ec631a794aab564a50570) )
-		ROM_LOAD( "3.3k",         0x4000, 0x2000, CRC(38d2f295);SHA1(b4d2cfd6e9f03c3ef18dcf67326f4106749b62b1) )
+		ROM_LOAD( "1.3fg",        0x0000, 0x2000, CRC(4d05d6f8),SHA1(db12ad04295f0ce112b6e90fde94a53ed1d6c3b9) )
+		ROM_LOAD( "2.3h",         0x2000, 0x2000, CRC(27b43b09),SHA1(12a8a6b8665bb9d1967ec631a794aab564a50570) )
+		ROM_LOAD( "3.3k",         0x4000, 0x2000, CRC(38d2f295),SHA1(b4d2cfd6e9f03c3ef18dcf67326f4106749b62b1) )
 	
 		/* Characters */
 		ROM_REGION( 0x2000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "6.6a",        0x0000, 0x1000, CRC(2a2d8b9c);SHA1(ba3ce8ed6cafa711bf4c6ed260dd15b38adbd6cc) )
-		ROM_LOAD( "7.6bc",       0x1000, 0x1000, CRC(d14f95fa);SHA1(e9ba87602d779d833b8152c077c692e67ef696cc) )
+		ROM_LOAD( "6.6a",        0x0000, 0x1000, CRC(2a2d8b9c),SHA1(ba3ce8ed6cafa711bf4c6ed260dd15b38adbd6cc) )
+		ROM_LOAD( "7.6bc",       0x1000, 0x1000, CRC(d14f95fa),SHA1(e9ba87602d779d833b8152c077c692e67ef696cc) )
 	
 		/* Sprites */
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "5.3t",        0x0000, 0x1000, CRC(54c04f58);SHA1(342ef914e6f8bf37472d146bb5e9fb67056d7fc5) )
-		ROM_LOAD( "4.3r",        0x1000, 0x1000, CRC(1ebb6493);SHA1(30367d7594118e0fa8620e5d20c66a650ca82c86) )
+		ROM_LOAD( "5.3t",        0x0000, 0x1000, CRC(54c04f58),SHA1(342ef914e6f8bf37472d146bb5e9fb67056d7fc5) )
+		ROM_LOAD( "4.3r",        0x1000, 0x1000, CRC(1ebb6493),SHA1(30367d7594118e0fa8620e5d20c66a650ca82c86) )
 	
 		/* Opcode Decryption PROMS (from other romset) */
 		ROM_REGION( 0x0100, REGION_USER1, ROMREGION_DISPOSE );
-		ROM_LOAD_NIB_HIGH( "dorodon.bp4",0x0000,0x0100,CRC(f865c135);SHA1(1202f83bfa50afa5a5d24401efa8bf058e7e30b5) )
-		ROM_LOAD_NIB_LOW(  "dorodon.bp3",0x0000,0x0100,CRC(47b2f0bb);SHA1(640720aa5c1119080c6da928f6d1b0e76b989742) )
+		ROM_LOAD_NIB_HIGH( "dorodon.bp4",0x0000,0x0100,CRC(f865c135),SHA1(1202f83bfa50afa5a5d24401efa8bf058e7e30b5) )
+		ROM_LOAD_NIB_LOW(  "dorodon.bp3",0x0000,0x0100,CRC(47b2f0bb),SHA1(640720aa5c1119080c6da928f6d1b0e76b989742) )
 	
 		/* (from other romset - I think these are correct, they match the Starcade video) */
 		ROM_REGION( 0x0060, REGION_PROMS, 0 );
-		ROM_LOAD( "dorodon.bp0", 0x0000, 0x0020, CRC(8fcf0bc8);SHA1(392d22731b3e4bc663d6e4385f6069ee2b4ee029) ) /* palette */
-		ROM_LOAD( "dorodon.bp1", 0x0020, 0x0020, CRC(3f209be4);SHA1(f924494eed357a15ffc11331c163af24585d4ab9) ) /* sprite color lookup table */
-		ROM_LOAD( "dorodon.bp2", 0x0040, 0x0020, CRC(27fa3a50);SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* timing?? */
+		ROM_LOAD( "dorodon.bp0", 0x0000, 0x0020, CRC(8fcf0bc8),SHA1(392d22731b3e4bc663d6e4385f6069ee2b4ee029) ) /* palette */
+		ROM_LOAD( "dorodon.bp1", 0x0020, 0x0020, CRC(3f209be4),SHA1(f924494eed357a15ffc11331c163af24585d4ab9) ) /* sprite color lookup table */
+		ROM_LOAD( "dorodon.bp2", 0x0040, 0x0020, CRC(27fa3a50),SHA1(7cf59b7a37c156640d6ea91554d1c4276c1780e0) ) /* timing?? */
 	ROM_END(); }}; 
 	
 	

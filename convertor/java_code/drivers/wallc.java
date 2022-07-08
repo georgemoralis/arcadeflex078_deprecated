@@ -357,16 +357,16 @@ public class wallc
 	
 	static RomLoadPtr rom_wallc = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );    /* 64k for main CPU */
-		ROM_LOAD( "wac05.h7",   0x0000, 0x2000, CRC(ab6e472e);SHA1(a387fec24fb899df349a35d1d3a91e897b074712) )
-		ROM_LOAD( "wac1-52.h6", 0x2000, 0x2000, CRC(988eaa6d);SHA1(d5e5dbee6e7e0488fdecfb864198c686cbd5d59c) )
+		ROM_LOAD( "wac05.h7",   0x0000, 0x2000, CRC(ab6e472e),SHA1(a387fec24fb899df349a35d1d3a91e897b074712) )
+		ROM_LOAD( "wac1-52.h6", 0x2000, 0x2000, CRC(988eaa6d),SHA1(d5e5dbee6e7e0488fdecfb864198c686cbd5d59c) )
 	
 		ROM_REGION( 0x4000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "wc1.e3",		0x0000, 0x1000, CRC(ca5c4b53);SHA1(5d2e14fe81cca4ec7dbe0c98eaa26890fca28e58) )
-		ROM_LOAD( "wc2.e2",		0x1000, 0x1000, CRC(b7f52a59);SHA1(737e7616d7295762057fbdb69d65c8c1edc773dc) )
-		ROM_LOAD( "wc3.e1",		0x2000, 0x1000, CRC(f6854b3a);SHA1(bc1e7f785c338c1afa4ab61c07c61397b3de0b01) )
+		ROM_LOAD( "wc1.e3",		0x0000, 0x1000, CRC(ca5c4b53),SHA1(5d2e14fe81cca4ec7dbe0c98eaa26890fca28e58) )
+		ROM_LOAD( "wc2.e2",		0x1000, 0x1000, CRC(b7f52a59),SHA1(737e7616d7295762057fbdb69d65c8c1edc773dc) )
+		ROM_LOAD( "wc3.e1",		0x2000, 0x1000, CRC(f6854b3a),SHA1(bc1e7f785c338c1afa4ab61c07c61397b3de0b01) )
 	
 		ROM_REGION( 0x0020, REGION_PROMS, 0 );
-		ROM_LOAD( "74s288.c2",  0x0000, 0x0020, CRC(83e3e293);SHA1(a98c5e63b688de8d175adb6539e0cdc668f313fd) )
+		ROM_LOAD( "74s288.c2",  0x0000, 0x0020, CRC(83e3e293),SHA1(a98c5e63b688de8d175adb6539e0cdc668f313fd) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_wallc	   = new GameDriver("1984"	,"wallc"	,"wallc.java"	,rom_wallc,null	,machine_driver_wallc	,input_ports_wallc	,init_wallc	,ROT0	,	"Midcoin", "Wall Crash" )

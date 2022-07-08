@@ -688,74 +688,74 @@ public class gsword
 	
 	static RomLoadPtr rom_josvolly = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64K for main CPU */
-		ROM_LOAD( "aa2-1.2c",     0x0000, 0x2000, CRC(27f740a5);SHA1(3e038386e743fdf718e795a944ff4b631a492958) )
-		ROM_LOAD( "aa1-2.2d",     0x2000, 0x2000, CRC(3e02e3e1);SHA1(cc0aee321cf5232438cd6e38635c9060056ad361) )
-		ROM_LOAD( "aa0-3.2e",     0x4000, 0x2000, CRC(72843ffe);SHA1(fe70727bbcb0622df81eca2969c1a85398767479) )
-		ROM_LOAD( "aa1-4.2f",     0x6000, 0x2000, CRC(22c1466e);SHA1(d86093903e473252c35170e35d7f9ee34194086d) )
+		ROM_LOAD( "aa2-1.2c",     0x0000, 0x2000, CRC(27f740a5),SHA1(3e038386e743fdf718e795a944ff4b631a492958) )
+		ROM_LOAD( "aa1-2.2d",     0x2000, 0x2000, CRC(3e02e3e1),SHA1(cc0aee321cf5232438cd6e38635c9060056ad361) )
+		ROM_LOAD( "aa0-3.2e",     0x4000, 0x2000, CRC(72843ffe),SHA1(fe70727bbcb0622df81eca2969c1a85398767479) )
+		ROM_LOAD( "aa1-4.2f",     0x6000, 0x2000, CRC(22c1466e),SHA1(d86093903e473252c35170e35d7f9ee34194086d) )
 	
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );/* 64K for 2nd CPU */
-		ROM_LOAD( "aa3-12.2h",    0x0000, 0x1000, CRC(3796bbf6);SHA1(8741f556ddb06e7779d1e8abc3d06688881f8269) )
+		ROM_LOAD( "aa3-12.2h",    0x0000, 0x1000, CRC(3796bbf6),SHA1(8741f556ddb06e7779d1e8abc3d06688881f8269) )
 	
 		ROM_REGION( 0x04000, REGION_USER1, 0 );/* music data and samples - not sure where it's mapped */
-		ROM_LOAD( "aa0-13.2j",    0x0000, 0x2000, CRC(58cc89ac);SHA1(9785ec27e593b3e249da7a1b6b025c6d573e28f9) )
-		ROM_LOAD( "aa0-14.4j",    0x2000, 0x2000, CRC(436fe91f);SHA1(feb29501090c6db911e13ce6e9935ba004b0ce7e) )
+		ROM_LOAD( "aa0-13.2j",    0x0000, 0x2000, CRC(58cc89ac),SHA1(9785ec27e593b3e249da7a1b6b025c6d573e28f9) )
+		ROM_LOAD( "aa0-14.4j",    0x2000, 0x2000, CRC(436fe91f),SHA1(feb29501090c6db911e13ce6e9935ba004b0ce7e) )
 	
 		ROM_REGION( 0x4000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "aa0-10.9n",    0x0000, 0x2000, CRC(207c4f42);SHA1(4cf2922d55cfc9e68cc07c3252ea3b5619b8aca5) )	/* tiles */
-		ROM_LOAD( "aa1-11.9p",    0x2000, 0x1000, CRC(c130464a);SHA1(9d23577b8aaaffeefff3d8f93668d1b2bd0ba3d9) )
+		ROM_LOAD( "aa0-10.9n",    0x0000, 0x2000, CRC(207c4f42),SHA1(4cf2922d55cfc9e68cc07c3252ea3b5619b8aca5) )	/* tiles */
+		ROM_LOAD( "aa1-11.9p",    0x2000, 0x1000, CRC(c130464a),SHA1(9d23577b8aaaffeefff3d8f93668d1b2bd0ba3d9) )
 	
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "aa0-6.9e",     0x0000, 0x2000, CRC(c2c2401a);SHA1(ef987d53d9e502277086f39b455174d3539572e6) )	/* sprites */
+		ROM_LOAD( "aa0-6.9e",     0x0000, 0x2000, CRC(c2c2401a),SHA1(ef987d53d9e502277086f39b455174d3539572e6) )	/* sprites */
 	
 		ROM_REGION( 0x4000, REGION_GFX3, ROMREGION_DISPOSE );
-		ROM_LOAD( "aa0-7.9f",     0x0000, 0x2000, CRC(da836231);SHA1(209723778b705dba8206b56c3b8f0996f02ba8d5) )
-		ROM_LOAD( "aa0-8.9h",     0x2000, 0x2000, CRC(a0426d57);SHA1(d029408e005ea57f4902c081203f3d3980a5f927) )
+		ROM_LOAD( "aa0-7.9f",     0x0000, 0x2000, CRC(da836231),SHA1(209723778b705dba8206b56c3b8f0996f02ba8d5) )
+		ROM_LOAD( "aa0-8.9h",     0x2000, 0x2000, CRC(a0426d57),SHA1(d029408e005ea57f4902c081203f3d3980a5f927) )
 	
 		ROM_REGION( 0x0460, REGION_PROMS, 0 );
-		ROM_LOAD( "a1.10k",       0x0000, 0x0100, CRC(09f7b56a);SHA1(9b82d1d4ebab14b366dc0ca95c933e37811ac155) )	/* palette red? */
-		ROM_LOAD( "a2.9k",        0x0100, 0x0100, CRC(852eceac);SHA1(6ed7011b45cf767d6503b92d29a14a7b8e099a76) )	/* palette green? */
-		ROM_LOAD( "a3.9j",        0x0200, 0x0100, CRC(1312718b);SHA1(4a7d7eae4d8ea085eead46758832fddac7aff0b0) )	/* palette blue? */
-		ROM_LOAD( "a4.8c",        0x0300, 0x0100, CRC(1dcec967);SHA1(4d36842c2fd929a6508a58bc8ea7e0372296e575) )	/* sprite lookup table */
-		ROM_LOAD( "003.4e",       0x0400, 0x0020, CRC(43a548b8);SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
-		ROM_LOAD( "004.4d",       0x0420, 0x0020, CRC(43a548b8);SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
-		ROM_LOAD( "005.3h",       0x0440, 0x0020, CRC(e8d6dec0);SHA1(d15cba9a4b24255d41046b15c2409391ab13ce95) )	/* address decoder? not used */
+		ROM_LOAD( "a1.10k",       0x0000, 0x0100, CRC(09f7b56a),SHA1(9b82d1d4ebab14b366dc0ca95c933e37811ac155) )	/* palette red? */
+		ROM_LOAD( "a2.9k",        0x0100, 0x0100, CRC(852eceac),SHA1(6ed7011b45cf767d6503b92d29a14a7b8e099a76) )	/* palette green? */
+		ROM_LOAD( "a3.9j",        0x0200, 0x0100, CRC(1312718b),SHA1(4a7d7eae4d8ea085eead46758832fddac7aff0b0) )	/* palette blue? */
+		ROM_LOAD( "a4.8c",        0x0300, 0x0100, CRC(1dcec967),SHA1(4d36842c2fd929a6508a58bc8ea7e0372296e575) )	/* sprite lookup table */
+		ROM_LOAD( "003.4e",       0x0400, 0x0020, CRC(43a548b8),SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
+		ROM_LOAD( "004.4d",       0x0420, 0x0020, CRC(43a548b8),SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
+		ROM_LOAD( "005.3h",       0x0440, 0x0020, CRC(e8d6dec0),SHA1(d15cba9a4b24255d41046b15c2409391ab13ce95) )	/* address decoder? not used */
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_gsword = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64K for main CPU */
-		ROM_LOAD( "gs1",          0x0000, 0x2000, CRC(565c4d9e);SHA1(17b86e86ab95aeb458b8368c8c04666a1ccd9eee) )
-		ROM_LOAD( "gs2",          0x2000, 0x2000, CRC(d772accf);SHA1(08028c6f026c118cc375ecff5c24dcb549475633) )
-		ROM_LOAD( "gs3",          0x4000, 0x2000, CRC(2cee1871);SHA1(df099209c56f2807e4fdb83c625368f5e7e583e5) )
-		ROM_LOAD( "gs4",          0x6000, 0x2000, CRC(ca9d206d);SHA1(887eedc4e10218bf149c84399edd5d1e32c85051) )
-		ROM_LOAD( "gs5",          0x8000, 0x1000, CRC(2a892326);SHA1(a2cd91263714480c2569d3bbc73d62d222175e89) )
+		ROM_LOAD( "gs1",          0x0000, 0x2000, CRC(565c4d9e),SHA1(17b86e86ab95aeb458b8368c8c04666a1ccd9eee) )
+		ROM_LOAD( "gs2",          0x2000, 0x2000, CRC(d772accf),SHA1(08028c6f026c118cc375ecff5c24dcb549475633) )
+		ROM_LOAD( "gs3",          0x4000, 0x2000, CRC(2cee1871),SHA1(df099209c56f2807e4fdb83c625368f5e7e583e5) )
+		ROM_LOAD( "gs4",          0x6000, 0x2000, CRC(ca9d206d),SHA1(887eedc4e10218bf149c84399edd5d1e32c85051) )
+		ROM_LOAD( "gs5",          0x8000, 0x1000, CRC(2a892326),SHA1(a2cd91263714480c2569d3bbc73d62d222175e89) )
 	
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );/* 64K for 2nd CPU */
-		ROM_LOAD( "gs15",         0x0000, 0x2000, CRC(1aa4690e);SHA1(7b0dbc38f3e6af2c9efa44b6759a3cdd9adc992d) )
-		ROM_LOAD( "gs16",         0x2000, 0x2000, CRC(10accc10);SHA1(311961bfe852582a9c66aaecf9bc4c8f0ac7fccf) )
+		ROM_LOAD( "gs15",         0x0000, 0x2000, CRC(1aa4690e),SHA1(7b0dbc38f3e6af2c9efa44b6759a3cdd9adc992d) )
+		ROM_LOAD( "gs16",         0x2000, 0x2000, CRC(10accc10),SHA1(311961bfe852582a9c66aaecf9bc4c8f0ac7fccf) )
 	
 		ROM_REGION( 0x10000, REGION_CPU3, 0 );/* 64K for 3nd z80 */
-		ROM_LOAD( "gs12",         0x0000, 0x2000, CRC(a6589068);SHA1(9385abe2449c5c5bac8f49d2afd140acea1791c3) )
-		ROM_LOAD( "gs13",         0x2000, 0x2000, CRC(4ee79796);SHA1(3353625903f63910a18fae0a9568a96d75592328) )
-		ROM_LOAD( "gs14",         0x4000, 0x2000, CRC(455364b6);SHA1(ebabf077d1ba113c13e7620d61720ed141acb5ad) )
+		ROM_LOAD( "gs12",         0x0000, 0x2000, CRC(a6589068),SHA1(9385abe2449c5c5bac8f49d2afd140acea1791c3) )
+		ROM_LOAD( "gs13",         0x2000, 0x2000, CRC(4ee79796),SHA1(3353625903f63910a18fae0a9568a96d75592328) )
+		ROM_LOAD( "gs14",         0x4000, 0x2000, CRC(455364b6),SHA1(ebabf077d1ba113c13e7620d61720ed141acb5ad) )
 	
 		ROM_REGION( 0x4000, REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "gs10",         0x0000, 0x2000, CRC(517c571b);SHA1(05572a8ea416922da50143936fda9ba038f0b91e) )	/* tiles */
-		ROM_LOAD( "gs11",         0x2000, 0x2000, CRC(7a1d8a3a);SHA1(3f90be9ddba3cf7a879fd69ac67c2b67fd63b9ee) )
+		ROM_LOAD( "gs10",         0x0000, 0x2000, CRC(517c571b),SHA1(05572a8ea416922da50143936fda9ba038f0b91e) )	/* tiles */
+		ROM_LOAD( "gs11",         0x2000, 0x2000, CRC(7a1d8a3a),SHA1(3f90be9ddba3cf7a879fd69ac67c2b67fd63b9ee) )
 	
 		ROM_REGION( 0x2000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "gs6",          0x0000, 0x2000, CRC(1b0a3cb7);SHA1(0b0f17b9844d7310b46110559e09cfc3b50bb38b) )	/* sprites */
+		ROM_LOAD( "gs6",          0x0000, 0x2000, CRC(1b0a3cb7),SHA1(0b0f17b9844d7310b46110559e09cfc3b50bb38b) )	/* sprites */
 	
 		ROM_REGION( 0x4000, REGION_GFX3, ROMREGION_DISPOSE );
-		ROM_LOAD( "gs7",          0x0000, 0x2000, CRC(ef5f28c6);SHA1(85d943e5c5136d9458118f676b0c79fcf3aaf0c4) )
-		ROM_LOAD( "gs8",          0x2000, 0x2000, CRC(46824b30);SHA1(f6880b1c31ae795e3781d16ee96145df1db60328) )
+		ROM_LOAD( "gs7",          0x0000, 0x2000, CRC(ef5f28c6),SHA1(85d943e5c5136d9458118f676b0c79fcf3aaf0c4) )
+		ROM_LOAD( "gs8",          0x2000, 0x2000, CRC(46824b30),SHA1(f6880b1c31ae795e3781d16ee96145df1db60328) )
 	
 		ROM_REGION( 0x0360, REGION_PROMS, 0 );
-		ROM_LOAD( "ac0-1.bpr",    0x0000, 0x0100, CRC(5c4b2adc);SHA1(0a6fdd60bdbd56bb7573147e4a976e5d0ddf43b5) )	/* palette low bits */
-		ROM_LOAD( "ac0-2.bpr",    0x0100, 0x0100, CRC(966bda66);SHA1(05439508113b3e51a16ee87d3f4691aa8901ebcb) )	/* palette high bits */
-		ROM_LOAD( "ac0-3.bpr",    0x0200, 0x0100, CRC(dae13f77);SHA1(d4d105542955e806311987dd3c4ffce1e13caf91) )	/* sprite lookup table */
-		ROM_LOAD( "003",          0x0300, 0x0020, CRC(43a548b8);SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
-		ROM_LOAD( "004",          0x0320, 0x0020, CRC(43a548b8);SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
-		ROM_LOAD( "005",          0x0340, 0x0020, CRC(e8d6dec0);SHA1(d15cba9a4b24255d41046b15c2409391ab13ce95) )	/* address decoder? not used */
+		ROM_LOAD( "ac0-1.bpr",    0x0000, 0x0100, CRC(5c4b2adc),SHA1(0a6fdd60bdbd56bb7573147e4a976e5d0ddf43b5) )	/* palette low bits */
+		ROM_LOAD( "ac0-2.bpr",    0x0100, 0x0100, CRC(966bda66),SHA1(05439508113b3e51a16ee87d3f4691aa8901ebcb) )	/* palette high bits */
+		ROM_LOAD( "ac0-3.bpr",    0x0200, 0x0100, CRC(dae13f77),SHA1(d4d105542955e806311987dd3c4ffce1e13caf91) )	/* sprite lookup table */
+		ROM_LOAD( "003",          0x0300, 0x0020, CRC(43a548b8),SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
+		ROM_LOAD( "004",          0x0320, 0x0020, CRC(43a548b8),SHA1(d01529d7f8f5101232cdf3490fdb2c61bf179181) )	/* address decoder? not used */
+		ROM_LOAD( "005",          0x0340, 0x0020, CRC(e8d6dec0),SHA1(d15cba9a4b24255d41046b15c2409391ab13ce95) )	/* address decoder? not used */
 	ROM_END(); }}; 
 	
 	

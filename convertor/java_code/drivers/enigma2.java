@@ -269,39 +269,39 @@ public class enigma2
 	
 	static RomLoadPtr rom_enigma2a = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "36_en1.bin",   0x0000, 0x0800, CRC(15f44806);SHA1(4a2f7bc91d4edf7a069e0865d964371c97af0a0a) )
-		ROM_LOAD( "35_en2.bin",   0x0800, 0x0800, CRC(e841072f);SHA1(6ab02fd9fdeac5ab887cd25eee3d6b70ab01f849) )
-		ROM_LOAD( "34_en3.bin",   0x1000, 0x0800, CRC(43d06cf4);SHA1(495af05d54c0325efb67347f691e64d194645d85) )
-		ROM_LOAD( "33_en4.bin",   0x1800, 0x0800, CRC(8879a430);SHA1(c97f44bef3741eef74e137d2459e79f1b3a90457) )
-		ROM_LOAD( "5.11d",        0x4000, 0x0800, CRC(098ac15b);SHA1(cce28a2540a9eabb473391fff92895129ae41751) )
-		ROM_LOAD( "6.13d",   	  0x4800, 0x0800, CRC(240a9d4b);SHA1(ca1c69fafec0471141ce1254ddfaef54fecfcbf0) )
+		ROM_LOAD( "36_en1.bin",   0x0000, 0x0800, CRC(15f44806),SHA1(4a2f7bc91d4edf7a069e0865d964371c97af0a0a) )
+		ROM_LOAD( "35_en2.bin",   0x0800, 0x0800, CRC(e841072f),SHA1(6ab02fd9fdeac5ab887cd25eee3d6b70ab01f849) )
+		ROM_LOAD( "34_en3.bin",   0x1000, 0x0800, CRC(43d06cf4),SHA1(495af05d54c0325efb67347f691e64d194645d85) )
+		ROM_LOAD( "33_en4.bin",   0x1800, 0x0800, CRC(8879a430),SHA1(c97f44bef3741eef74e137d2459e79f1b3a90457) )
+		ROM_LOAD( "5.11d",        0x4000, 0x0800, CRC(098ac15b),SHA1(cce28a2540a9eabb473391fff92895129ae41751) )
+		ROM_LOAD( "6.13d",   	  0x4800, 0x0800, CRC(240a9d4b),SHA1(ca1c69fafec0471141ce1254ddfaef54fecfcbf0) )
 	
 		/* the length of the correct rom should be 0x1000 */
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "sound.bin",    0x0000, 0x0800, BAD_DUMP CRC(5f092d3c);SHA1(17c70f6af1b5560a45e6b1bdb330a98b27570fe9) )
+		ROM_LOAD( "sound.bin",    0x0000, 0x0800, BAD_DUMP CRC(5f092d3c),SHA1(17c70f6af1b5560a45e6b1bdb330a98b27570fe9) )
 	
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_enigma2 = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "1.5d",         0x0000, 0x0800, CRC(499749de);SHA1(401928ff41d3b4cbb68e6ad3bf3be4a10ae1781f) )
-		ROM_LOAD( "2.7d",         0x0800, 0x0800, CRC(173c1329);SHA1(3f1ad46d0e58ab236e4ff2b385d09fbf113627da) )
-		ROM_LOAD( "3.8d",         0x1000, 0x0800, CRC(c7d3e6b1);SHA1(43f7c3a02b46747998260d5469248f21714fe12b) )
-		ROM_LOAD( "4.10d",        0x1800, 0x0800, CRC(c6a7428c);SHA1(3503f09856655c5973fb89f60d1045fe41012aa9) )
-		ROM_LOAD( "5.11d",   	  0x4000, 0x0800, CRC(098ac15b);SHA1(cce28a2540a9eabb473391fff92895129ae41751) )
-		ROM_LOAD( "6.13d",   	  0x4800, 0x0800, CRC(240a9d4b);SHA1(ca1c69fafec0471141ce1254ddfaef54fecfcbf0) )
+		ROM_LOAD( "1.5d",         0x0000, 0x0800, CRC(499749de),SHA1(401928ff41d3b4cbb68e6ad3bf3be4a10ae1781f) )
+		ROM_LOAD( "2.7d",         0x0800, 0x0800, CRC(173c1329),SHA1(3f1ad46d0e58ab236e4ff2b385d09fbf113627da) )
+		ROM_LOAD( "3.8d",         0x1000, 0x0800, CRC(c7d3e6b1),SHA1(43f7c3a02b46747998260d5469248f21714fe12b) )
+		ROM_LOAD( "4.10d",        0x1800, 0x0800, CRC(c6a7428c),SHA1(3503f09856655c5973fb89f60d1045fe41012aa9) )
+		ROM_LOAD( "5.11d",   	  0x4000, 0x0800, CRC(098ac15b),SHA1(cce28a2540a9eabb473391fff92895129ae41751) )
+		ROM_LOAD( "6.13d",   	  0x4800, 0x0800, CRC(240a9d4b),SHA1(ca1c69fafec0471141ce1254ddfaef54fecfcbf0) )
 	
 		// the length of the correct rom should be 0x1000
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );
-		ROM_LOAD( "s.2f",         0x0000, 0x0800, BAD_DUMP CRC(9bceb714);SHA1(c3d9301cc93d073d7b2694346c26eddd36f94aae) )
+		ROM_LOAD( "s.2f",         0x0000, 0x0800, BAD_DUMP CRC(9bceb714),SHA1(c3d9301cc93d073d7b2694346c26eddd36f94aae) )
 	
 	 /* Color Map */
 		ROM_REGION( 0x800, REGION_PROMS, 0 );
-		ROM_LOAD( "7.11f",        0x0000, 0x0800, CRC(409b5aad);SHA1(1b774a70f725637458ed68df9ed42476291b0e43) )
+		ROM_LOAD( "7.11f",        0x0000, 0x0800, CRC(409b5aad),SHA1(1b774a70f725637458ed68df9ed42476291b0e43) )
 	
 		/* Unknown */
 		ROM_REGION( 0x10000, REGION_USER1, 0 );
-		ROM_LOAD( "8.13f",        0x0000, 0x0800, CRC(e9cb116d);SHA1(41da4f46c5614ec3345c233467ebad022c6b0bf5) )
+		ROM_LOAD( "8.13f",        0x0000, 0x0800, CRC(e9cb116d),SHA1(41da4f46c5614ec3345c233467ebad022c6b0bf5) )
 	ROM_END(); }}; 
 	
 	static DRIVER_INIT(enigma2) {	cmap=1;}

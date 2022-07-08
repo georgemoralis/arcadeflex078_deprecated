@@ -179,16 +179,16 @@ public class sg1000a
 	
 	static RomLoadPtr rom_chwrestl = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 2*0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "5732",	0x0000, 0x4000, CRC(a4e44370);SHA1(a9dbf60e77327dd2bec6816f3142b42ad9ca4d09) ) /* encrypted */
-		ROM_LOAD( "5733",	0x4000, 0x4000, CRC(4f493538);SHA1(467862fe9337497e3cdebb29bf28f6cfe3066ccd) ) /* encrypted */
-		ROM_LOAD( "5734",	0x8000, 0x4000, CRC(d99b6301);SHA1(5e762ed45cde08d5223828c6b1d3569b2240462c) )
+		ROM_LOAD( "5732",	0x0000, 0x4000, CRC(a4e44370),SHA1(a9dbf60e77327dd2bec6816f3142b42ad9ca4d09) ) /* encrypted */
+		ROM_LOAD( "5733",	0x4000, 0x4000, CRC(4f493538),SHA1(467862fe9337497e3cdebb29bf28f6cfe3066ccd) ) /* encrypted */
+		ROM_LOAD( "5734",	0x8000, 0x4000, CRC(d99b6301),SHA1(5e762ed45cde08d5223828c6b1d3569b2240462c) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_chboxing = new RomLoadPtr(){ public void handler(){ 
 	  ROM_REGION( 0x10000, REGION_CPU1, 0 );
-	  ROM_LOAD( "cb6105.bin",	0x0000, 0x4000, CRC(43516f2e);SHA1(e3a9bbe914b5bfdcd1f85ca5fae922c4cae3c106) )
-		ROM_LOAD( "cb6106.bin",	0x4000, 0x4000, CRC(65e2c750);SHA1(843466b8d6baebb4d5e434fbdafe3ae8fed03475) )
-		ROM_LOAD( "cb6107.bin",	0x8000, 0x2000, CRC(c2f8e522);SHA1(932276e7ad33aa9efbb4cd10bc3071d88cb082cb) )
+	  ROM_LOAD( "cb6105.bin",	0x0000, 0x4000, CRC(43516f2e),SHA1(e3a9bbe914b5bfdcd1f85ca5fae922c4cae3c106) )
+		ROM_LOAD( "cb6106.bin",	0x4000, 0x4000, CRC(65e2c750),SHA1(843466b8d6baebb4d5e434fbdafe3ae8fed03475) )
+		ROM_LOAD( "cb6107.bin",	0x8000, 0x2000, CRC(c2f8e522),SHA1(932276e7ad33aa9efbb4cd10bc3071d88cb082cb) )
 	ROM_END(); }}; 
 	
 	

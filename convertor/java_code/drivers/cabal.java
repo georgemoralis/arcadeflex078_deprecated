@@ -620,77 +620,77 @@ public class cabal
 	
 	static RomLoadPtr rom_cabal = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x50000, REGION_CPU1, 0 );/* 64k for cpu code */
-		ROM_LOAD16_BYTE( "h7_512.bin",      0x00000, 0x10000, CRC(8fe16fb4);SHA1(fedb2d0c6c21516f68cfa99093772fe8fa862389) )
-		ROM_LOAD16_BYTE( "h6_512.bin",      0x00001, 0x10000, CRC(6968101c);SHA1(d65005ac235dae5c32bbcd182cb365e8fa067fe7) )
-		ROM_LOAD16_BYTE( "k7_512.bin",      0x20000, 0x10000, CRC(562031a2);SHA1(ed5ef50a66c7797a7f345e479162cf83d6777f7c) )
-		ROM_LOAD16_BYTE( "k6_512.bin",      0x20001, 0x10000, CRC(4fda2856);SHA1(a213cb7443cdccbad3f2610e8d42b2e149cbedb9) )
+		ROM_LOAD16_BYTE( "h7_512.bin",      0x00000, 0x10000, CRC(8fe16fb4),SHA1(fedb2d0c6c21516f68cfa99093772fe8fa862389) )
+		ROM_LOAD16_BYTE( "h6_512.bin",      0x00001, 0x10000, CRC(6968101c),SHA1(d65005ac235dae5c32bbcd182cb365e8fa067fe7) )
+		ROM_LOAD16_BYTE( "k7_512.bin",      0x20000, 0x10000, CRC(562031a2),SHA1(ed5ef50a66c7797a7f345e479162cf83d6777f7c) )
+		ROM_LOAD16_BYTE( "k6_512.bin",      0x20001, 0x10000, CRC(4fda2856),SHA1(a213cb7443cdccbad3f2610e8d42b2e149cbedb9) )
 	
 		ROM_REGION( 0x10000*2, REGION_CPU2, 0 );/* 64k for sound cpu code */
-		ROM_LOAD( "4-3n",         0x0000, 0x2000, CRC(4038eff2);SHA1(0bcafc1b78c3bef9a0e9b822c482ea4a942fd180) )
-		ROM_LOAD( "3-3p",         0x8000, 0x8000, CRC(d9defcbf);SHA1(f26b10b1dbe5aa6446f70fd18e5f1379455578ec) )
+		ROM_LOAD( "4-3n",         0x0000, 0x2000, CRC(4038eff2),SHA1(0bcafc1b78c3bef9a0e9b822c482ea4a942fd180) )
+		ROM_LOAD( "3-3p",         0x8000, 0x8000, CRC(d9defcbf),SHA1(f26b10b1dbe5aa6446f70fd18e5f1379455578ec) )
 	
 		ROM_REGION( 0x4000,  REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "t6_128.bin",     0x00000, 0x04000, CRC(1ccee214);SHA1(7c842bc1c6002ec90693160fd5407345092420bb) ) /* characters */
+		ROM_LOAD( "t6_128.bin",     0x00000, 0x04000, CRC(1ccee214),SHA1(7c842bc1c6002ec90693160fd5407345092420bb) ) /* characters */
 	
 		ROM_REGION( 0x80000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "tad-2.7s",       0x00000, 0x80000, CRC(13ca7ae1);SHA1(b26bb4876a6518e3809e0fa4d442616508b3e7e8) ) /* tiles */
+		ROM_LOAD( "tad-2.7s",       0x00000, 0x80000, CRC(13ca7ae1),SHA1(b26bb4876a6518e3809e0fa4d442616508b3e7e8) ) /* tiles */
 	
 		ROM_REGION( 0x80000, REGION_GFX3, ROMREGION_DISPOSE );
-		ROM_LOAD( "tad-1.5e",       0x00000, 0x80000, CRC(8324a7fe);SHA1(aed4470df35ec18e65e35bddc9c217a5019fdcbf) ) /* sprites */
+		ROM_LOAD( "tad-1.5e",       0x00000, 0x80000, CRC(8324a7fe),SHA1(aed4470df35ec18e65e35bddc9c217a5019fdcbf) ) /* sprites */
 	
 		ROM_REGION( 0x20000, REGION_SOUND1, 0 );/* Samples? */
-		ROM_LOAD( "2-1s",           0x00000, 0x10000, CRC(850406b4);SHA1(23ac1650c6d6f35607a5264b3aa89868401a645a) )
-		ROM_LOAD( "1-1u",           0x10000, 0x10000, CRC(8b3e0789);SHA1(b1450db1b1bada237c90930623e4def321099f13) )
+		ROM_LOAD( "2-1s",           0x00000, 0x10000, CRC(850406b4),SHA1(23ac1650c6d6f35607a5264b3aa89868401a645a) )
+		ROM_LOAD( "1-1u",           0x10000, 0x10000, CRC(8b3e0789),SHA1(b1450db1b1bada237c90930623e4def321099f13) )
 	
 		ROM_REGION( 0x0200, REGION_PROMS, 0 );/* unknown */
-		ROM_LOAD( "prom05.8e",      0x0000, 0x0100, CRC(a94b18c2);SHA1(e7db4c1efc9e313e36eef3f53ae5b2e573a38920) )
-		ROM_LOAD( "prom10.4j",      0x0100, 0x0100, CRC(261c93bc);SHA1(942470198143d584d3766f28587d1879abd912c1) )
+		ROM_LOAD( "prom05.8e",      0x0000, 0x0100, CRC(a94b18c2),SHA1(e7db4c1efc9e313e36eef3f53ae5b2e573a38920) )
+		ROM_LOAD( "prom10.4j",      0x0100, 0x0100, CRC(261c93bc),SHA1(942470198143d584d3766f28587d1879abd912c1) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_cabal2 = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x50000, REGION_CPU1, 0 );/* 64k for cpu code */
-		ROM_LOAD16_BYTE( "9-7h",            0x00000, 0x10000, CRC(ebbb9484);SHA1(2c77d5b4acdc37720dc7ccab526862981bf8da51) )
-		ROM_LOAD16_BYTE( "7-6h",            0x00001, 0x10000, CRC(51aeb49e);SHA1(df38dc58d8c6fa3d35904bf34e29111e7bd523ad) )
-		ROM_LOAD16_BYTE( "8-7k",            0x20000, 0x10000, CRC(4c24ed9a);SHA1(f0fc25c3e7dc8ac71fdad3e91ab618cd7a037123) )
-		ROM_LOAD16_BYTE( "6-6k",            0x20001, 0x10000, CRC(681620e8);SHA1(c9eacfb55059986dbecc2fae1339069a852f917b) )
+		ROM_LOAD16_BYTE( "9-7h",            0x00000, 0x10000, CRC(ebbb9484),SHA1(2c77d5b4acdc37720dc7ccab526862981bf8da51) )
+		ROM_LOAD16_BYTE( "7-6h",            0x00001, 0x10000, CRC(51aeb49e),SHA1(df38dc58d8c6fa3d35904bf34e29111e7bd523ad) )
+		ROM_LOAD16_BYTE( "8-7k",            0x20000, 0x10000, CRC(4c24ed9a),SHA1(f0fc25c3e7dc8ac71fdad3e91ab618cd7a037123) )
+		ROM_LOAD16_BYTE( "6-6k",            0x20001, 0x10000, CRC(681620e8),SHA1(c9eacfb55059986dbecc2fae1339069a852f917b) )
 	
 		ROM_REGION( 0x10000*2, REGION_CPU2, 0 );/* 64k for sound cpu code */
-		ROM_LOAD( "4-3n",         0x0000, 0x2000, CRC(4038eff2);SHA1(0bcafc1b78c3bef9a0e9b822c482ea4a942fd180) )
-		ROM_LOAD( "3-3p",         0x8000, 0x8000, CRC(d9defcbf);SHA1(f26b10b1dbe5aa6446f70fd18e5f1379455578ec) )
+		ROM_LOAD( "4-3n",         0x0000, 0x2000, CRC(4038eff2),SHA1(0bcafc1b78c3bef9a0e9b822c482ea4a942fd180) )
+		ROM_LOAD( "3-3p",         0x8000, 0x8000, CRC(d9defcbf),SHA1(f26b10b1dbe5aa6446f70fd18e5f1379455578ec) )
 	
 		ROM_REGION( 0x4000,  REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "5-6s",           0x00000, 0x04000, CRC(6a76955a);SHA1(733cb4b862b5dac97c2641b58f2362471e62fcf2) ) /* characters */
+		ROM_LOAD( "5-6s",           0x00000, 0x04000, CRC(6a76955a),SHA1(733cb4b862b5dac97c2641b58f2362471e62fcf2) ) /* characters */
 	
 		ROM_REGION( 0x80000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "tad-2.7s",       0x00000, 0x80000, CRC(13ca7ae1);SHA1(b26bb4876a6518e3809e0fa4d442616508b3e7e8) ) /* tiles */
+		ROM_LOAD( "tad-2.7s",       0x00000, 0x80000, CRC(13ca7ae1),SHA1(b26bb4876a6518e3809e0fa4d442616508b3e7e8) ) /* tiles */
 	
 		ROM_REGION( 0x80000, REGION_GFX3, ROMREGION_DISPOSE );
-		ROM_LOAD( "tad-1.5e",       0x00000, 0x80000, CRC(8324a7fe);SHA1(aed4470df35ec18e65e35bddc9c217a5019fdcbf) ) /* sprites */
+		ROM_LOAD( "tad-1.5e",       0x00000, 0x80000, CRC(8324a7fe),SHA1(aed4470df35ec18e65e35bddc9c217a5019fdcbf) ) /* sprites */
 	
 		ROM_REGION( 0x20000, REGION_SOUND1, 0 );/* Samples? */
-		ROM_LOAD( "2-1s",           0x00000, 0x10000, CRC(850406b4);SHA1(23ac1650c6d6f35607a5264b3aa89868401a645a) )
-		ROM_LOAD( "1-1u",           0x10000, 0x10000, CRC(8b3e0789);SHA1(b1450db1b1bada237c90930623e4def321099f13) )
+		ROM_LOAD( "2-1s",           0x00000, 0x10000, CRC(850406b4),SHA1(23ac1650c6d6f35607a5264b3aa89868401a645a) )
+		ROM_LOAD( "1-1u",           0x10000, 0x10000, CRC(8b3e0789),SHA1(b1450db1b1bada237c90930623e4def321099f13) )
 	
 		ROM_REGION( 0x0200, REGION_PROMS, 0 );/* unknown */
-		ROM_LOAD( "prom05.8e",      0x0000, 0x0100, CRC(a94b18c2);SHA1(e7db4c1efc9e313e36eef3f53ae5b2e573a38920) )
-		ROM_LOAD( "prom10.4j",      0x0100, 0x0100, CRC(261c93bc);SHA1(942470198143d584d3766f28587d1879abd912c1) )
+		ROM_LOAD( "prom05.8e",      0x0000, 0x0100, CRC(a94b18c2),SHA1(e7db4c1efc9e313e36eef3f53ae5b2e573a38920) )
+		ROM_LOAD( "prom10.4j",      0x0100, 0x0100, CRC(261c93bc),SHA1(942470198143d584d3766f28587d1879abd912c1) )
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_cabalbl = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x50000, REGION_CPU1, 0 );/* 64k for cpu code */
-		ROM_LOAD16_BYTE( "cabal_24.bin",    0x00000, 0x10000, CRC(00abbe0c);SHA1(bacf17444abfb4f56248ff56e37b0aa2b1a3800d) )
-		ROM_LOAD16_BYTE( "cabal_22.bin",    0x00001, 0x10000, CRC(78c4af27);SHA1(31049d1ec76d76284682de7a0592f63d97019240) )
-		ROM_LOAD16_BYTE( "cabal_23.bin",    0x20000, 0x10000, CRC(d763a47c);SHA1(146d8082a404b6eddaf2dc9ba41a997949c17f8a) )
-		ROM_LOAD16_BYTE( "cabal_21.bin",    0x20001, 0x10000, CRC(96d5e8af);SHA1(ed7d854f08e87db5ae6cf526eafa029dfd2bfb9f) )
+		ROM_LOAD16_BYTE( "cabal_24.bin",    0x00000, 0x10000, CRC(00abbe0c),SHA1(bacf17444abfb4f56248ff56e37b0aa2b1a3800d) )
+		ROM_LOAD16_BYTE( "cabal_22.bin",    0x00001, 0x10000, CRC(78c4af27),SHA1(31049d1ec76d76284682de7a0592f63d97019240) )
+		ROM_LOAD16_BYTE( "cabal_23.bin",    0x20000, 0x10000, CRC(d763a47c),SHA1(146d8082a404b6eddaf2dc9ba41a997949c17f8a) )
+		ROM_LOAD16_BYTE( "cabal_21.bin",    0x20001, 0x10000, CRC(96d5e8af),SHA1(ed7d854f08e87db5ae6cf526eafa029dfd2bfb9f) )
 	
 		ROM_REGION( 0x10000, REGION_CPU2, 0 );/* 64k for sound cpu code */
-		ROM_LOAD( "cabal_11.bin",    0x0000, 0x10000, CRC(d308a543);SHA1(4f45db42512f83266001daee55d06f49e7908e35) )
+		ROM_LOAD( "cabal_11.bin",    0x0000, 0x10000, CRC(d308a543),SHA1(4f45db42512f83266001daee55d06f49e7908e35) )
 	
 		ROM_REGION( 0x4000,  REGION_GFX1, ROMREGION_DISPOSE );
-		ROM_LOAD( "5-6s",           0x00000, 0x04000, CRC(6a76955a);SHA1(733cb4b862b5dac97c2641b58f2362471e62fcf2) ) /* characters */
+		ROM_LOAD( "5-6s",           0x00000, 0x04000, CRC(6a76955a),SHA1(733cb4b862b5dac97c2641b58f2362471e62fcf2) ) /* characters */
 	
 		ROM_REGION( 0x80000, REGION_GFX2, ROMREGION_DISPOSE );
-		ROM_LOAD( "tad-2.7s",       0x00000, 0x80000, CRC(13ca7ae1);SHA1(b26bb4876a6518e3809e0fa4d442616508b3e7e8) ) /* tiles */
+		ROM_LOAD( "tad-2.7s",       0x00000, 0x80000, CRC(13ca7ae1),SHA1(b26bb4876a6518e3809e0fa4d442616508b3e7e8) ) /* tiles */
 	#if 0	/* same data, different layout */
 		ROM_LOAD16_BYTE( "cabal_17.bin",   0x00000, 0x10000, CRC(3b6d2b09));
 		ROM_LOAD16_BYTE( "cabal_15.bin",   0x00001, 0x10000, CRC(1023319b));
@@ -703,7 +703,7 @@ public class cabal
 	#endif
 	
 		ROM_REGION( 0x80000, REGION_GFX3, ROMREGION_DISPOSE );
-		ROM_LOAD( "tad-1.5e",       0x00000, 0x80000, CRC(8324a7fe);SHA1(aed4470df35ec18e65e35bddc9c217a5019fdcbf) ) /* sprites */
+		ROM_LOAD( "tad-1.5e",       0x00000, 0x80000, CRC(8324a7fe),SHA1(aed4470df35ec18e65e35bddc9c217a5019fdcbf) ) /* sprites */
 	#if 0	/* same data, different layout */
 		ROM_LOAD16_BYTE( "cabal_05.bin",   0x00000, 0x10000, CRC(4e49c28e));
 		ROM_LOAD16_BYTE( "cabal_04.bin",   0x00001, 0x10000, CRC(34d3cac8));
@@ -716,8 +716,8 @@ public class cabal
 	#endif
 	
 		ROM_REGION( 0x20000, REGION_SOUND1, 0 );
-		ROM_LOAD( "cabal_09.bin",   0x00000, 0x10000, CRC(4ffa7fe3);SHA1(381d8e765a7b94678fb3308965c748bbe9f8e247) ) /* Z80 code/adpcm data */
-		ROM_LOAD( "cabal_10.bin",   0x10000, 0x10000, CRC(958789b6);SHA1(344c3ee8a1e272b56499e5c0415bb714aec0ddcf) ) /* Z80 code/adpcm data */
+		ROM_LOAD( "cabal_09.bin",   0x00000, 0x10000, CRC(4ffa7fe3),SHA1(381d8e765a7b94678fb3308965c748bbe9f8e247) ) /* Z80 code/adpcm data */
+		ROM_LOAD( "cabal_10.bin",   0x10000, 0x10000, CRC(958789b6),SHA1(344c3ee8a1e272b56499e5c0415bb714aec0ddcf) ) /* Z80 code/adpcm data */
 	ROM_END(); }}; 
 	
 	

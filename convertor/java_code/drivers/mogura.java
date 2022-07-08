@@ -258,13 +258,13 @@ public class mogura
 	
 	static RomLoadPtr rom_mogura = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x10000, REGION_CPU1, 0 );
-		ROM_LOAD( "gx141.5n", 0x00000, 0x08000, CRC(98e6120d);SHA1(45cdb2d78224a7c44fff8cd3487f33c57669a06c)  )
+		ROM_LOAD( "gx141.5n", 0x00000, 0x08000, CRC(98e6120d),SHA1(45cdb2d78224a7c44fff8cd3487f33c57669a06c)  )
 	
 		ROM_REGION( 0x1000, REGION_GFX1, 0 );
 		/* allocate ram here for ram based characters */
 	
 		ROM_REGION( 0x20, REGION_PROMS, 0 );
-		ROM_LOAD( "gx141.7j", 0x00, 0x20,  CRC(b21c5d5f);SHA1(6913c840dd69a7d4687f4c4cbe3ff12300f62bc2) )
+		ROM_LOAD( "gx141.7j", 0x00, 0x20,  CRC(b21c5d5f),SHA1(6913c840dd69a7d4687f4c4cbe3ff12300f62bc2) )
 	ROM_END(); }}; 
 	
 	public static GameDriver driver_mogura	   = new GameDriver("1991"	,"mogura"	,"mogura.java"	,rom_mogura,null	,machine_driver_mogura	,input_ports_mogura	,null	,ROT0	,	"Konami", "Mogura Desse" )
