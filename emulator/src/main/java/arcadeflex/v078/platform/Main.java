@@ -1,8 +1,10 @@
 package arcadeflex.v078.platform;
 
+import static common.util.*;
+
 public class Main {
     public static void main(String[] args) {
-/*TODO*///        ConvertArguments("arcadeflex", args);
-/*TODO*///        System.exit(osdepend.main(argc, argv));
+        ConvertArguments("arcadeflex", args);
+        System.exit(winmain.main(argc, argv));
     }    
 }

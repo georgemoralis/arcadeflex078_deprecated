@@ -3,6 +3,8 @@
  */
 package arcadeflex.v078.platform;
 
+import static arcadeflex.v078.platform.fronthlp.frontend_help;
+
 public class config {
 /*TODO*///
 /*TODO*////*
@@ -67,14 +69,14 @@ public class config {
 /*TODO*////* fix me - need to have the core call osd_set_mastervolume with this value */
 /*TODO*////* instead of relying on the name of an osd variable */
 /*TODO*///extern int attenuation;
-/*TODO*///
+
 /*TODO*///static char *debugres;
 /*TODO*///static char *playbackname;
 /*TODO*///static char *recordname;
-/*TODO*///static char *gamename;
-/*TODO*///
+    static String gamename;
+
 /*TODO*///char *rompath_extra;
-/*TODO*///
+
 /*TODO*///static float f_beam;
 /*TODO*///static float f_flicker;
 /*TODO*///static float f_intensity;
@@ -400,16 +402,16 @@ public class config {
 /*TODO*///	return result;
 /*TODO*///}
 /*TODO*///
-/*TODO*///int cli_frontend_init (int argc, char **argv)
-/*TODO*///{
+    public static int cli_frontend_init (int argc, String[] argv)
+    {
 /*TODO*///	struct InternalMachineDriver drv;
 /*TODO*///	char buffer[128];
-/*TODO*///	char *cmd_name;
-/*TODO*///	int game_index;
-/*TODO*///	int i;
-/*TODO*///
-/*TODO*///	gamename = NULL;
-/*TODO*///	game_index = -1;
+	String cmd_name = null;
+	int game_index;
+	int i;
+
+	gamename = null;
+	game_index = -1;
 /*TODO*///
 /*TODO*///	/* clear all core options */
 /*TODO*///	memset(&options,0,sizeof(options));
@@ -526,11 +528,15 @@ public class config {
 /*TODO*///			}
 /*TODO*///		}
 /*TODO*///	}
-/*TODO*///
-/*TODO*///	/* check for frontend options, horrible 1234 hack */
-/*TODO*///	if (frontend_help(gamename) != 1234)
-/*TODO*///		exit(0);
-/*TODO*///
+
+	/* check for frontend options, horrible 1234 hack */
+        int res = frontend_help(gamename);
+        /* if frontend options were used, return */
+        if (res != 1234) {
+            return res;
+        }
+	
+
 /*TODO*///	gamename = win_basename(gamename);
 /*TODO*///	gamename = win_strip_extension(gamename);
 /*TODO*///
@@ -747,9 +753,9 @@ public class config {
 /*TODO*///	}
 /*TODO*///}
 /*TODO*///
-/*TODO*///	return game_index;
-/*TODO*///}
-/*TODO*///
+	return game_index;
+    }
+
 /*TODO*///void cli_frontend_exit(void)
 /*TODO*///{
 /*TODO*///	/* close open files */

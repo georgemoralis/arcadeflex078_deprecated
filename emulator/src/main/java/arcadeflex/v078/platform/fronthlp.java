@@ -3,6 +3,10 @@
  */
 package arcadeflex.v078.platform;
 
+import static common.libc.cstdio.printf;
+import static arcadeflex.v078.mame.common.*;
+import static arcadeflex.v078.mame.version.build_version;
+
 public class fronthlp {
 /*TODO*///#include "driver.h"
 /*TODO*///#include "info.h"
@@ -53,14 +57,14 @@ public class fronthlp {
 /*TODO*///#define YEAR_BEGIN 1950
 /*TODO*///#define YEAR_END   2000
 /*TODO*///#endif
-/*TODO*///
-/*TODO*///static int list = 0;
-/*TODO*///static int listclones = 1;
-/*TODO*///static int verify = 0;
-/*TODO*///static int ident = 0;
-/*TODO*///static int help = 0;
-/*TODO*///static int sortby = 0;
-/*TODO*///
+
+    static int list = 0;
+    static int listclones = 1;
+    static int verify = 0;
+    static int ident = 0;
+    static int help = 0;
+    static int sortby = 0;
+
 /*TODO*///struct rc_option frontend_opts[] = {
 /*TODO*///	{ "Frontend Related", NULL,	rc_seperator, NULL, NULL, 0, 0,	NULL, NULL },
 /*TODO*///
@@ -459,39 +463,39 @@ public class fronthlp {
 /*TODO*///	struct GameDriver *drv2 = *(struct GameDriver **)elem2;
 /*TODO*///	return strcmp(drv1->name, drv2->name);
 /*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///int frontend_help (const char *gamename)
-/*TODO*///{
+
+
+    public static int frontend_help (String gamename)
+    {
 /*TODO*///	struct InternalMachineDriver drv;
 /*TODO*///	int i, j;
 /*TODO*///	const char *all_games = "*";
-/*TODO*///
-/*TODO*///	/* display help unless a game or an utility are specified */
-/*TODO*///	if (!gamename && !help && !list && !ident && !verify)
-/*TODO*///		help = 1;
-/*TODO*///
-/*TODO*///	if (help)  /* brief help - useful to get current version info */
-/*TODO*///	{
+
+	/* display help unless a game or an utility are specified */
+	if (gamename==null && help==0 && list==0 && ident==0 && verify==0)
+		help = 1;
+
+	if (help!=0)  /* brief help - useful to get current version info */
+	{
 /*TODO*///		#ifndef MESS
-/*TODO*///		printf("M.A.M.E. v%s - Multiple Arcade Machine Emulator\n"
-/*TODO*///				"Copyright (C) 1997-2003 by Nicola Salmoria and the MAME Team\n\n",build_version);
-/*TODO*///		showdisclaimer();
-/*TODO*///		printf("Usage:  MAME gamename [options]\n\n"
-/*TODO*///				"        MAME -list         for a brief list of supported games\n"
-/*TODO*///				"        MAME -listfull     for a full list of supported games\n"
-/*TODO*///				"        MAME -showusage    for a brief list of options\n"
-/*TODO*///				"        MAME -showconfig   for a list of configuration options\n"
-/*TODO*///				"        MAME -createconfig to create a mame.ini\n\n"
-/*TODO*///				"For usage instructions, please consult the corresponding readme.\n\n"
-/*TODO*///				"MS-DOS:   msdos.txt\n"
-/*TODO*///				"Windows:  windows.txt\n");
+		printf("M.A.M.E. v%s - Multiple Arcade Machine Emulator\n" +
+				"Copyright (C) 1997-2003 by Nicola Salmoria and the MAME Team\n\n",build_version);
+		showdisclaimer();
+		printf("Usage:  MAME gamename [options]\n\n" +
+				"        MAME -list         for a brief list of supported games\n" +
+				"        MAME -listfull     for a full list of supported games\n" +
+				"        MAME -showusage    for a brief list of options\n" +
+				"        MAME -showconfig   for a list of configuration options\n" +
+				"        MAME -createconfig to create a mame.ini\n\n" +
+				"For usage instructions, please consult the corresponding readme.\n\n" +
+				"MS-DOS:   msdos.txt\n" +
+				"Windows:  windows.txt\n");
 /*TODO*///		#else
 /*TODO*///		showmessinfo();
 /*TODO*///		#endif
-/*TODO*///		return 0;
-/*TODO*///	}
-/*TODO*///
+		return 0;
+	}
+
 /*TODO*///	/* HACK: some options REQUIRE gamename field to work: default to "*" */
 /*TODO*///	if (!gamename || (strlen(gamename) == 0))
 /*TODO*///		gamename = all_games;
@@ -1757,9 +1761,9 @@ public class fronthlp {
 /*TODO*///		}
 /*TODO*///		return 0;
 /*TODO*///	}
-/*TODO*///
-/*TODO*///	/* FIXME: horrible hack to tell that no frontend option was used */
-/*TODO*///	return 1234;
-/*TODO*///}
-/*TODO*///    
+
+	/* FIXME: horrible hack to tell that no frontend option was used */
+	return 1234;
+    }
+    
 }
