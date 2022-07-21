@@ -112,6 +112,7 @@
  */ 
 package arcadeflex.v078.mame;
 
+import static arcadeflex.v078.mame.mameH.*;
 import static common.libc.cstdio.printf;
 
 public class mame
@@ -140,10 +141,10 @@ public class mame
 /*TODO*///	int mame_debug; /* !0 when -debug option is specified */
 	public static int bailing;	/* set to 1 if the startup is aborted to prevent multiple error messages */
 	
-/*TODO*///	/* the active machine */
-/*TODO*///	static struct RunningMachine active_machine;
-/*TODO*///	struct RunningMachine *Machine = &active_machine;
-/*TODO*///	
+	/* the active machine */
+	public static RunningMachine active_machine;
+	public static RunningMachine Machine = active_machine;
+
 /*TODO*///	/* the active game driver */
 /*TODO*///	static const struct GameDriver *gamedrv;
 /*TODO*///	static struct InternalMachineDriver internal_drv;
@@ -292,10 +293,10 @@ public class mame
 /*TODO*///			cpu_loadsave_schedule(LOADSAVE_LOAD, options.savegame);
 /*TODO*///		else
 /*TODO*///			cpu_loadsave_reset();
-/*TODO*///	
-/*TODO*///		/* here's the meat of it all */
-/*TODO*///		bailing = 0;
-/*TODO*///	
+	
+		/* here's the meat of it all */
+		bailing = 0;
+	
 /*TODO*///		/* let the OSD layer start up first */
 /*TODO*///		if (osd_init())
 /*TODO*///			bail_and_print("Unable to initialize system");
@@ -312,7 +313,7 @@ public class mame
 /*TODO*///				if (run_machine())
 /*TODO*///					bail_and_print("Unable to start machine emulation");
 /*TODO*///				else
-/*TODO*///					err = 0;
+					err = 0;
 /*TODO*///	
 /*TODO*///				/* shutdown the local machine */
 /*TODO*///				shutdown_machine();

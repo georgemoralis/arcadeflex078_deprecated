@@ -15,6 +15,8 @@ import java.io.InputStream;
  * @author shadow
  */
 public class cstdio {
+    
+    public static FILE stderr = null; //fopen("stderr.log", "wa");
 
     /**
      * Write formatted data to string
@@ -154,6 +156,8 @@ public class cstdio {
         try {
             file.fw.write(print);
         } catch (Exception e) {
+            System.out.println(str);
+            e.printStackTrace(System.out);
         }
     }
 

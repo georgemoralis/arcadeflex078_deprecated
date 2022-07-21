@@ -4,6 +4,9 @@
 package arcadeflex.v078.platform;
 
 import static arcadeflex.v078.platform.fronthlp.frontend_help;
+import static arcadeflex.v078.platform.rc.*;
+import static arcadeflex.v078.platform.rcH.*;
+import static common.libc.cstdio.*;
 
 public class config {
 /*TODO*///
@@ -63,9 +66,9 @@ public class config {
 /*TODO*///static int readconfig;
 /*TODO*///static int createconfig;
 /*TODO*///extern int verbose;
-/*TODO*///
-/*TODO*///struct rc_struct *rc;
-/*TODO*///
+
+    public static rc_struct rc;
+
 /*TODO*////* fix me - need to have the core call osd_set_mastervolume with this value */
 /*TODO*////* instead of relying on the name of an osd variable */
 /*TODO*///extern int attenuation;
@@ -75,7 +78,7 @@ public class config {
 /*TODO*///static char *recordname;
     static String gamename;
 
-/*TODO*///char *rompath_extra;
+    static String rompath_extra;
 
 /*TODO*///static float f_beam;
 /*TODO*///static float f_flicker;
@@ -162,81 +165,105 @@ public class config {
 /*TODO*///	option->priority = priority;
 /*TODO*///	return 0;
 /*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////* struct definitions */
-/*TODO*///static struct rc_option opts[] = {
-/*TODO*///	/* name, shortname, type, dest, deflt, min, max, func, help */
-/*TODO*///	{ NULL, NULL, rc_link, frontend_opts, NULL, 0, 0, NULL, NULL },
-/*TODO*///	{ NULL, NULL, rc_link, fileio_opts, NULL, 0, 0, NULL, NULL },
-/*TODO*///	{ NULL, NULL, rc_link, video_opts, NULL, 0,	0, NULL, NULL },
-/*TODO*///	{ NULL, NULL, rc_link, sound_opts, NULL, 0,	0, NULL, NULL },
-/*TODO*///	{ NULL, NULL, rc_link, input_opts, NULL, 0,	0, NULL, NULL },
+    
+    public static rc_option_assign frontend_opts_assign = new rc_option_assign() {
+        @Override
+        public void handler(Object value) {
+            
+            if (opts == null)
+                opts = new rc_option[0];
+            
+            rc_option[] curr = (rc_option[]) value;
+            int _pos_opts = opts.length;
+            int _tot_long = _pos_opts+curr.length;
+            int _max_long = curr.length;
+            rc_option[] _opts_tmp = new rc_option[_tot_long];
+            
+            for (int _i=0 ; _i<_max_long ; _i++) {
+                _opts_tmp[_i] = opts[_i];
+            }
+            
+            for (int _i=_pos_opts ; _i<_tot_long ; _i++) {
+                _opts_tmp[_i] = opts[_i];
+            }
+            
+            opts = _opts_tmp;
+        }
+    };
+
+    /* struct definitions */
+    static rc_option opts[] = {
+            /* name, shortname, type, dest, deflt, min, max, func, help */
+            new rc_option( null, null, rc_link, frontend_opts_assign, null, 0, 0, null, null ),
+/*TODO*///	{ null, null, rc_link, fileio_opts, null, 0, 0, null, null },
+/*TODO*///	{ null, null, rc_link, video_opts, null, 0,	0, null, null },
+/*TODO*///	{ null, null, rc_link, sound_opts, null, 0,	0, null, null },
+/*TODO*///	{ null, null, rc_link, input_opts, null, 0,	0, null, null },
 /*TODO*///#ifdef MESS
-/*TODO*///	{ NULL, NULL, rc_link, mess_opts, NULL, 0,	0, NULL, NULL },
+/*TODO*///	{ null, null, rc_link, mess_opts, null, 0,	0, null, null },
 /*TODO*///#endif
 /*TODO*///
 /*TODO*///	/* options supported by the mame core */
 /*TODO*///	/* video */
-/*TODO*///	{ "Mame CORE video options", NULL, rc_seperator, NULL, NULL, 0, 0, NULL, NULL },
-/*TODO*///	{ "norotate", NULL, rc_bool, &video_norotate, "0", 0, 0, NULL, "do not apply rotation" },
-/*TODO*///	{ "ror", NULL, rc_bool, &video_ror, "0", 0, 0, NULL, "rotate screen clockwise" },
-/*TODO*///	{ "rol", NULL, rc_bool, &video_rol, "0", 0, 0, NULL, "rotate screen anti-clockwise" },
-/*TODO*///	{ "autoror", NULL, rc_bool, &video_autoror, "0", 0, 0, NULL, "automatically rotate screen clockwise for vertical " GAMESNOUN },
-/*TODO*///	{ "autorol", NULL, rc_bool, &video_autorol, "0", 0, 0, NULL, "automatically rotate screen anti-clockwise for vertical " GAMESNOUN },
-/*TODO*///	{ "flipx", NULL, rc_bool, &video_flipx, "0", 0, 0, NULL, "flip screen upside-down" },
-/*TODO*///	{ "flipy", NULL, rc_bool, &video_flipy, "0", 0, 0, NULL, "flip screen left-right" },
+/*TODO*///	{ "Mame CORE video options", null, rc_seperator, null, null, 0, 0, null, null },
+/*TODO*///	{ "norotate", null, rc_bool, &video_norotate, "0", 0, 0, null, "do not apply rotation" },
+/*TODO*///	{ "ror", null, rc_bool, &video_ror, "0", 0, 0, null, "rotate screen clockwise" },
+/*TODO*///	{ "rol", null, rc_bool, &video_rol, "0", 0, 0, null, "rotate screen anti-clockwise" },
+/*TODO*///	{ "autoror", null, rc_bool, &video_autoror, "0", 0, 0, null, "automatically rotate screen clockwise for vertical " GAMESNOUN },
+/*TODO*///	{ "autorol", null, rc_bool, &video_autorol, "0", 0, 0, null, "automatically rotate screen anti-clockwise for vertical " GAMESNOUN },
+/*TODO*///	{ "flipx", null, rc_bool, &video_flipx, "0", 0, 0, null, "flip screen upside-down" },
+/*TODO*///	{ "flipy", null, rc_bool, &video_flipy, "0", 0, 0, null, "flip screen left-right" },
 /*TODO*///	{ "debug_resolution", "dr", rc_string, &debugres, "auto", 0, 0, video_set_debugres, "set resolution for debugger window" },
-/*TODO*///	{ "gamma", NULL, rc_float, &options.gamma, "1.0", 0.5, 2.0, NULL, "gamma correction"},
-/*TODO*///	{ "brightness", "bright", rc_float, &options.brightness, "1.0", 0.5, 2.0, NULL, "brightness correction"},
-/*TODO*///	{ "pause_brightness", NULL, rc_float, &options.pause_bright, "0.65", 0.5, 2.0, NULL, "additional pause brightness"},
+/*TODO*///	{ "gamma", null, rc_float, &options.gamma, "1.0", 0.5, 2.0, null, "gamma correction"},
+/*TODO*///	{ "brightness", "bright", rc_float, &options.brightness, "1.0", 0.5, 2.0, null, "brightness correction"},
+/*TODO*///	{ "pause_brightness", null, rc_float, &options.pause_bright, "0.65", 0.5, 2.0, null, "additional pause brightness"},
 /*TODO*///
 /*TODO*///	/* vector */
-/*TODO*///	{ "Mame CORE vector " GAMENOUN " options", NULL, rc_seperator, NULL, NULL, 0, 0, NULL, NULL },
-/*TODO*///	{ "antialias", "aa", rc_bool, &options.antialias, "1", 0, 0, NULL, "draw antialiased vectors" },
-/*TODO*///	{ "translucency", "tl", rc_bool, &options.translucency, "1", 0, 0, NULL, "draw translucent vectors" },
-/*TODO*///	{ "beam", NULL, rc_float, &f_beam, "1.0", 1.0, 16.0, video_set_beam, "set beam width in vector " GAMESNOUN },
-/*TODO*///	{ "flicker", NULL, rc_float, &f_flicker, "0.0", 0.0, 100.0, video_set_flicker, "set flickering in vector " GAMESNOUN },
-/*TODO*///	{ "intensity", NULL, rc_float, &f_intensity, "1.5", 0.5, 3.0, video_set_intensity, "set intensity in vector " GAMESNOUN },
+/*TODO*///	{ "Mame CORE vector " GAMENOUN " options", null, rc_seperator, null, null, 0, 0, null, null },
+/*TODO*///	{ "antialias", "aa", rc_bool, &options.antialias, "1", 0, 0, null, "draw antialiased vectors" },
+/*TODO*///	{ "translucency", "tl", rc_bool, &options.translucency, "1", 0, 0, null, "draw translucent vectors" },
+/*TODO*///	{ "beam", null, rc_float, &f_beam, "1.0", 1.0, 16.0, video_set_beam, "set beam width in vector " GAMESNOUN },
+/*TODO*///	{ "flicker", null, rc_float, &f_flicker, "0.0", 0.0, 100.0, video_set_flicker, "set flickering in vector " GAMESNOUN },
+/*TODO*///	{ "intensity", null, rc_float, &f_intensity, "1.5", 0.5, 3.0, video_set_intensity, "set intensity in vector " GAMESNOUN },
 /*TODO*///
 /*TODO*///	/* sound */
-/*TODO*///	{ "Mame CORE sound options", NULL, rc_seperator, NULL, NULL, 0, 0, NULL, NULL },
-/*TODO*///	{ "samplerate", "sr", rc_int, &options.samplerate, "44100", 5000, 50000, NULL, "set samplerate" },
-/*TODO*///	{ "samples", NULL, rc_bool, &options.use_samples, "1", 0, 0, NULL, "use samples" },
-/*TODO*///	{ "resamplefilter", NULL, rc_bool, &options.use_filter, "1", 0, 0, NULL, "resample if samplerate does not match" },
-/*TODO*///	{ "sound", NULL, rc_bool, &enable_sound, "1", 0, 0, NULL, "enable/disable sound and sound CPUs" },
-/*TODO*///	{ "volume", "vol", rc_int, &attenuation, "0", -32, 0, NULL, "volume (range [-32,0])" },
+/*TODO*///	{ "Mame CORE sound options", null, rc_seperator, null, null, 0, 0, null, null },
+/*TODO*///	{ "samplerate", "sr", rc_int, &options.samplerate, "44100", 5000, 50000, null, "set samplerate" },
+/*TODO*///	{ "samples", null, rc_bool, &options.use_samples, "1", 0, 0, null, "use samples" },
+/*TODO*///	{ "resamplefilter", null, rc_bool, &options.use_filter, "1", 0, 0, null, "resample if samplerate does not match" },
+/*TODO*///	{ "sound", null, rc_bool, &enable_sound, "1", 0, 0, null, "enable/disable sound and sound CPUs" },
+/*TODO*///	{ "volume", "vol", rc_int, &attenuation, "0", -32, 0, null, "volume (range [-32,0])" },
 /*TODO*///
 /*TODO*///	/* misc */
-/*TODO*///	{ "Mame CORE misc options", NULL, rc_seperator, NULL, NULL, 0, 0, NULL, NULL },
-/*TODO*///	{ "artwork", "art", rc_bool, &use_artwork, "1", 0, 0, NULL, "use additional " GAMENOUN " artwork (sets default for specific options below)" },
-/*TODO*///	{ "use_backdrops", "backdrop", rc_bool, &use_backdrops, "1", 0, 0, NULL, "use backdrop artwork" },
-/*TODO*///	{ "use_overlays", "overlay", rc_bool, &use_overlays, "1", 0, 0, NULL, "use overlay artwork" },
-/*TODO*///	{ "use_bezels", "bezel", rc_bool, &use_bezels, "1", 0, 0, NULL, "use bezel artwork" },
-/*TODO*///	{ "artwork_crop", "artcrop", rc_bool, &options.artwork_crop, "0", 0, 0, NULL, "crop artwork to " GAMENOUN " screen only" },
-/*TODO*///	{ "artwork_resolution", "artres", rc_int, &options.artwork_res, "0", 0, 0, NULL, "artwork resolution (0 for auto)" },
-/*TODO*///	{ "cheat", "c", rc_bool, &options.cheat, "0", 0, 0, NULL, "enable/disable cheat subsystem" },
-/*TODO*///	{ "debug", "d", rc_bool, &options.mame_debug, "0", 0, 0, NULL, "enable/disable debugger (only if available)" },
-/*TODO*///	{ "playback", "pb", rc_string, &playbackname, NULL, 0, 0, NULL, "playback an input file" },
-/*TODO*///	{ "record", "rec", rc_string, &recordname, NULL, 0, 0, NULL, "record an input file" },
-/*TODO*///	{ "log", NULL, rc_bool, &errorlog, "0", 0, 0, init_errorlog, "generate error.log" },
-/*TODO*///	{ "maxlogsize", NULL, rc_int, &maxlogsize, "10000", 1, 2000000, NULL, "maximum error.log size (in KB)" },
-/*TODO*///	{ "oslog", NULL, rc_bool, &erroroslog, "0", 0, 0, NULL, "output error log to debugger" },
-/*TODO*///	{ "skip_disclaimer", NULL, rc_bool, &options.skip_disclaimer, "0", 0, 0, NULL, "skip displaying the disclaimer screen" },
-/*TODO*///	{ "skip_gameinfo", NULL, rc_bool, &options.skip_gameinfo, "0", 0, 0, NULL, "skip displaying the " GAMENOUN " info screen" },
-/*TODO*///	{ "crconly", NULL, rc_bool, &options.crc_only, "0", 0, 0, NULL, "use only CRC for all integrity checks" },
-/*TODO*///	{ "bios", NULL, rc_string, &options.bios, "default", 0, 14, NULL, "change system bios" },
+/*TODO*///	{ "Mame CORE misc options", null, rc_seperator, null, null, 0, 0, null, null },
+/*TODO*///	{ "artwork", "art", rc_bool, &use_artwork, "1", 0, 0, null, "use additional " GAMENOUN " artwork (sets default for specific options below)" },
+/*TODO*///	{ "use_backdrops", "backdrop", rc_bool, &use_backdrops, "1", 0, 0, null, "use backdrop artwork" },
+/*TODO*///	{ "use_overlays", "overlay", rc_bool, &use_overlays, "1", 0, 0, null, "use overlay artwork" },
+/*TODO*///	{ "use_bezels", "bezel", rc_bool, &use_bezels, "1", 0, 0, null, "use bezel artwork" },
+/*TODO*///	{ "artwork_crop", "artcrop", rc_bool, &options.artwork_crop, "0", 0, 0, null, "crop artwork to " GAMENOUN " screen only" },
+/*TODO*///	{ "artwork_resolution", "artres", rc_int, &options.artwork_res, "0", 0, 0, null, "artwork resolution (0 for auto)" },
+/*TODO*///	{ "cheat", "c", rc_bool, &options.cheat, "0", 0, 0, null, "enable/disable cheat subsystem" },
+/*TODO*///	{ "debug", "d", rc_bool, &options.mame_debug, "0", 0, 0, null, "enable/disable debugger (only if available)" },
+/*TODO*///	{ "playback", "pb", rc_string, &playbackname, null, 0, 0, null, "playback an input file" },
+/*TODO*///	{ "record", "rec", rc_string, &recordname, null, 0, 0, null, "record an input file" },
+/*TODO*///	{ "log", null, rc_bool, &errorlog, "0", 0, 0, init_errorlog, "generate error.log" },
+/*TODO*///	{ "maxlogsize", null, rc_int, &maxlogsize, "10000", 1, 2000000, null, "maximum error.log size (in KB)" },
+/*TODO*///	{ "oslog", null, rc_bool, &erroroslog, "0", 0, 0, null, "output error log to debugger" },
+/*TODO*///	{ "skip_disclaimer", null, rc_bool, &options.skip_disclaimer, "0", 0, 0, null, "skip displaying the disclaimer screen" },
+/*TODO*///	{ "skip_gameinfo", null, rc_bool, &options.skip_gameinfo, "0", 0, 0, null, "skip displaying the " GAMENOUN " info screen" },
+/*TODO*///	{ "crconly", null, rc_bool, &options.crc_only, "0", 0, 0, null, "use only CRC for all integrity checks" },
+/*TODO*///	{ "bios", null, rc_string, &options.bios, "default", 0, 14, null, "change system bios" },
 /*TODO*///
 /*TODO*///	/* config options */
-/*TODO*///	{ "Configuration options", NULL, rc_seperator, NULL, NULL, 0, 0, NULL, NULL },
-/*TODO*///	{ "createconfig", "cc", rc_set_int, &createconfig, NULL, 1, 0, NULL, "create the default configuration file" },
-/*TODO*///	{ "showconfig",	"sc", rc_set_int, &showconfig, NULL, 1, 0, NULL, "display running parameters in rc style" },
-/*TODO*///	{ "showusage", "su", rc_set_int, &showusage, NULL, 1, 0, NULL, "show this help" },
-/*TODO*///	{ "readconfig",	"rc", rc_bool, &readconfig, "1", 0, 0, NULL, "enable/disable loading of configfiles" },
-/*TODO*///	{ "verbose", "v", rc_bool, &verbose, "0", 0, 0, NULL, "display additional diagnostic information" },
-/*TODO*///	{ NULL,	NULL, rc_end, NULL, NULL, 0, 0,	NULL, NULL }
-/*TODO*///};
-/*TODO*///
+/*TODO*///	{ "Configuration options", null, rc_seperator, null, null, 0, 0, null, null },
+/*TODO*///	{ "createconfig", "cc", rc_set_int, &createconfig, null, 1, 0, null, "create the default configuration file" },
+/*TODO*///	{ "showconfig",	"sc", rc_set_int, &showconfig, null, 1, 0, null, "display running parameters in rc style" },
+/*TODO*///	{ "showusage", "su", rc_set_int, &showusage, null, 1, 0, null, "show this help" },
+/*TODO*///	{ "readconfig",	"rc", rc_bool, &readconfig, "1", 0, 0, null, "enable/disable loading of configfiles" },
+/*TODO*///	{ "verbose", "v", rc_bool, &verbose, "0", 0, 0, null, "display additional diagnostic information" },
+        new rc_option( null,	null, rc_end, null, null, 0, 0,	null, null )
+    };
+
 /*TODO*////*
 /*TODO*/// * Penalty string compare, the result _should_ be a measure on
 /*TODO*/// * how "close" two strings ressemble each other.
@@ -384,24 +411,24 @@ public class config {
 /*TODO*///
 /*TODO*///	return retval;
 /*TODO*///}
-/*TODO*///
-/*TODO*///struct rc_struct *cli_rc_create(void)
-/*TODO*///{
-/*TODO*///	struct rc_struct *result;
-/*TODO*///
-/*TODO*///	result = rc_create();
-/*TODO*///	if (!result)
-/*TODO*///		return NULL;
-/*TODO*///
-/*TODO*///	if (rc_register(result, opts))
-/*TODO*///	{
-/*TODO*///		rc_destroy(result);
-/*TODO*///		return NULL;
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	return result;
-/*TODO*///}
-/*TODO*///
+
+    public static rc_struct cli_rc_create()
+    {
+	rc_struct result;
+
+	result = rc_create();
+	if (result==null)
+		return null;
+
+	if (rc_register(result, opts) != 0)
+	{
+		rc_destroy(result);
+		return null;
+	}
+
+	return result;
+    }
+
     public static int cli_frontend_init (int argc, String[] argv)
     {
 /*TODO*///	struct InternalMachineDriver drv;
@@ -412,25 +439,25 @@ public class config {
 
 	gamename = null;
 	game_index = -1;
-/*TODO*///
-/*TODO*///	/* clear all core options */
+
+	/* clear all core options */
 /*TODO*///	memset(&options,0,sizeof(options));
-/*TODO*///
-/*TODO*///	/* create the rc object */
-/*TODO*///	rc = cli_rc_create();
-/*TODO*///	if (!rc)
-/*TODO*///	{
-/*TODO*///		fprintf (stderr, "error on rc creation\n");
-/*TODO*///		exit(1);
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	/* parse the commandline */
-/*TODO*///	if (rc_parse_commandline(rc, argc, argv, 2, config_handle_arg))
-/*TODO*///	{
-/*TODO*///		fprintf (stderr, "error while parsing cmdline\n");
-/*TODO*///		exit(1);
-/*TODO*///	}
-/*TODO*///
+
+	/* create the rc object */
+	rc = cli_rc_create();
+	if (rc==null)
+	{
+		fprintf (stderr, "error on rc creation\n");
+		System.exit(1);
+	}
+
+	/* parse the commandline */
+	if (rc_parse_commandline(rc, argc, argv, 2, config_handle_arg) != 0)
+	{
+		fprintf (stderr, "error while parsing cmdline\n");
+		System.exit(1);
+	}
+
 /*TODO*///	/* determine global configfile name */
 /*TODO*///	cmd_name = win_strip_extension(win_basename(argv[0]));
 /*TODO*///	if (!cmd_name)
@@ -770,37 +797,41 @@ public class config {
 /*TODO*///		write_config(NULL, Machine->gamedrv);
 /*TODO*///#endif /* MESS */
 /*TODO*///}
-/*TODO*///
-/*TODO*///static int config_handle_arg(char *arg)
-/*TODO*///{
-/*TODO*///	static int got_gamename = 0;
-/*TODO*///
-/*TODO*///	/* notice: for MESS game means system */
-/*TODO*///	if (got_gamename)
-/*TODO*///	{
-/*TODO*///		fprintf(stderr,"error: duplicate gamename: %s\n", arg);
-/*TODO*///		return -1;
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	rompath_extra = win_dirname(arg);
-/*TODO*///
-/*TODO*///	if (rompath_extra && !strlen(rompath_extra))
-/*TODO*///	{
-/*TODO*///		free (rompath_extra);
-/*TODO*///		rompath_extra = NULL;
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	gamename = arg;
-/*TODO*///
-/*TODO*///	if (!gamename || !strlen(gamename))
-/*TODO*///	{
-/*TODO*///		fprintf(stderr,"error: no gamename given in %s\n", arg);
-/*TODO*///		return -1;
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	got_gamename = 1;
-/*TODO*///	return 0;
-/*TODO*///}
+
+    static int got_gamename = 0;
+    
+    public static arg_callback_Ptr config_handle_arg = new arg_callback_Ptr() {
+        @Override
+        public int handler(String arg) {
+            
+            /* notice: for MESS game means system */
+            if (got_gamename != 0)
+            {
+                    fprintf(stderr,"error: duplicate gamename: %s\n", arg);
+                    return -1;
+            }
+
+            rompath_extra = win_dirname(arg);
+
+            if (rompath_extra!=null && rompath_extra.length()==0)
+            {
+                    rompath_extra = null;
+            }
+
+            gamename = arg;
+
+            if (gamename==null || gamename.length()==0)
+            {
+                    fprintf(stderr,"error: no gamename given in %s\n", arg);
+                    return -1;
+            }
+
+            got_gamename = 1;
+            return 0;
+            
+        }
+    };
+
 /*TODO*///
 /*TODO*///
 /*TODO*/////============================================================
@@ -882,22 +913,22 @@ public class config {
 /*TODO*///	// otherwise, return the whole thing
 /*TODO*///	return filename;
 /*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*/////============================================================
-/*TODO*/////	win_dirname
-/*TODO*/////============================================================
-/*TODO*///
-/*TODO*///static char *win_dirname(char *filename)
-/*TODO*///{
-/*TODO*///	char *dirname;
+
+
+
+    //============================================================
+    //	win_dirname
+    //============================================================
+
+    static String win_dirname(String filename)
+    {
+	String dirname;
 /*TODO*///	char *c;
-/*TODO*///
-/*TODO*///	// NULL begets NULL
-/*TODO*///	if (!filename)
-/*TODO*///		return NULL;
-/*TODO*///
+
+	// NULL begets NULL
+	if (filename==null)
+		return null;
+
 /*TODO*///	// allocate space for it
 /*TODO*///	dirname = malloc(strlen(filename) + 1);
 /*TODO*///	if (!dirname)
@@ -905,10 +936,10 @@ public class config {
 /*TODO*///		fprintf(stderr, "error: malloc failed in win_dirname\n");
 /*TODO*///		return NULL;
 /*TODO*///	}
-/*TODO*///
-/*TODO*///	// copy in the name
-/*TODO*///	strcpy(dirname, filename);
-/*TODO*///
+
+	// copy in the name
+        dirname = filename;
+
 /*TODO*///	// search backward for a slash or a colon
 /*TODO*///	for (c = dirname + strlen(dirname) - 1; c >= dirname; c--)
 /*TODO*///		if (*c == '\\' || *c == '/' || *c == ':')
@@ -920,11 +951,11 @@ public class config {
 /*TODO*///
 /*TODO*///	// otherwise, return an empty string
 /*TODO*///	dirname[0] = 0;
-/*TODO*///	return dirname;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///
+            return dirname;
+    }
+
+
+
 /*TODO*/////============================================================
 /*TODO*/////	win_strip_extension
 /*TODO*/////============================================================
