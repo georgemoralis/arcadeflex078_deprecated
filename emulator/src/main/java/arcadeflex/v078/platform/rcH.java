@@ -26,69 +26,78 @@ package arcadeflex.v078.platform;
 
 public class rcH
 {
-/*TODO*///	
+    public static abstract interface arg_callbackPtr {
+        public abstract int handler(String arg);
+    }
+
 /*TODO*///	struct rc_struct;
 /*TODO*///	struct rc_option;
+/*TODO*///	
+/*TODO*///	enum { 
+    public static final int rc_ignore     = -1;
+    public static final int rc_end        = 0;
+    public static final int rc_bool       = 1;
+    public static final int rc_string     = 2;
+    public static final int rc_int        = 3;
+    public static final int rc_float      = 4;
+    public static final int rc_set_int    = 5;
+    public static final int rc_seperator  = 6;
+    public static final int rc_file       = 7;
+    public static final int rc_use_function   = 8;
+    public static final int rc_use_function_no_arg     = 9;
+    public static final int rc_link       = 10;
 
-    public static final int rc_ignore               = -1;
-    public static final int rc_end                  = 0;
-    public static final int rc_bool                 = 1;
-    public static final int rc_string               = 2;
-    public static final int rc_int                  = 3;
-    public static final int rc_float                = 4;
-    public static final int rc_set_int              = 5;
-    public static final int rc_seperator            = 6;
-    public static final int rc_file                 = 7;
-    public static final int rc_use_function         = 8;
-    public static final int rc_use_function_no_arg  = 9;
-    public static final int rc_link                 = 10;
-	
 /*TODO*///	typedef int(*rc_func)(struct rc_option *option, const char *arg,
 /*TODO*///	   int priority);
+    public static abstract interface rc_func {
+        public abstract int handler(rc_option option, String arg, int priority);
+    }
     
-        public static abstract interface rc_option_assign { public abstract void handler(Object value); }
+    public static abstract interface rc_assign_func {
+        public abstract void handler(int value);
+    }
 
 	public static class rc_option
 	{
 	   String name;  /* name of the option */
 	   String shortname;  /* shortcut name of the option, or clear for bool */
-	   int type;          /* type of the option */
-           rc_option_assign dest;        /* ptr to where the value of the option should be stored */
-	   String deflt;              /* default value of the option in a c-string */
-	   int /*float*/ min;         /* used to verify rc_int or rc_float, this check is not */
-           int /*float*/ max;         /* done if min == max. min is also used as value for
+	   int type=0;          /* type of the option */
+	   Object dest;        /* ptr to where the value of the option should be stored */
+	   String deflt; /* default value of the option in a c-string */
+	   int min;         /* used to verify rc_int or rc_float, this check is not */
+	   int max;         /* done if min == max. min is also used as value for
 	                         set_int, and as write flag for rc_file. */
-	   rc_option_assign func;      /* function which is called for additional verification
+	   rc_func func;      /* function which is called for additional verification
 	                         of the value, or which is called to parse the value if
 	                         type == use_function, or NULL. Should return 0 on
 	                         success, -1 on failure */
-	   String help;       /* help text for this option */
+	   String help;  /* help text for this option */
 	   int priority;      /* priority of the current value, the current value
 	                         is only changed when the priority of the source
 	                         is higher as this, and then the priority is set to
 	                         the priority of the source */
-
-            public rc_option(String name, String shortname, int rc_operator, rc_option_assign dest, String deflt, int min, int max, rc_option_assign func, String help) {
+           
+           public rc_option()
+           {
+               
+           }
+           
+           public rc_option(String name, String shortname, int type, Object dest, String deflt, int min, int max, rc_func func, String help/*, int priority*/) 
+           {
                 this.name = name;
                 this.shortname = shortname;
-                this.type = rc_operator;
+                this.type = type;
                 this.dest = dest;
                 this.deflt = deflt;
                 this.min = min;
                 this.max = max;
                 this.func = func;
                 this.help = help;
-            }
-
-           /* public rc_option(Object object, Object object0, int rc_link, rc_option[] frontend_opts, Object object1, int i, int i0, Object object2, Object object3) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }*/
-
-            public rc_option() {
-                super();
-            }
+                this.priority = priority;
+           }
+           
 	};
-
+	
 /*TODO*///	/* open / close */
 /*TODO*///	struct rc_struct *rc_create(void);
 /*TODO*///	void rc_destroy(struct rc_struct *rc);
@@ -103,7 +112,6 @@ public class rcH
 /*TODO*///	int rc_save(struct rc_struct *rc, const char *name, int append);
 /*TODO*///	int osd_rc_read(struct rc_struct *rc, mame_file *f, const char *description,
 /*TODO*///	   int priority, int continue_on_errors);
-/*TODO*///	int osd_rc_write(struct rc_struct *rc, mame_file *f, const char *description);
 /*TODO*///	int rc_read(struct rc_struct *rc, FILE *f, const char *description,
 /*TODO*///	   int priority, int continue_on_errors);
 /*TODO*///	int rc_write(struct rc_struct *rc, FILE *f, const char *description);

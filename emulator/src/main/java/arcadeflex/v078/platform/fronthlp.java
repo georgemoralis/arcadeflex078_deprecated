@@ -5,6 +5,8 @@ package arcadeflex.v078.platform;
 
 import static common.libc.cstdio.printf;
 import static arcadeflex.v078.mame.common.*;
+import static arcadeflex.v078.mame.driver.drivers;
+import static arcadeflex.v078.mame.driverH.*;
 import static arcadeflex.v078.mame.version.build_version;
 import static arcadeflex.v078.platform.rcH.*;
 
@@ -89,32 +91,32 @@ public class fronthlp {
     static int help = 0;
     static int sortby = 0;
     
-    public static rc_option_assign func_help = new rc_option_assign() {
+    static rc_assign_func assign_list = new rc_assign_func() {
         @Override
-        public void handler(Object value) {
-            help = (int) value;
+        public void handler(int value) {
+            list = value;
         }
     };
-    
-    public static rc_option_assign func_list = new rc_option_assign() {
+
+    static rc_assign_func assign_help = new rc_assign_func() {
         @Override
-        public void handler(Object value) {
-            list = (int) value;
+        public void handler(int value) {
+            help = value;
         }
     };
 
     public static rc_option frontend_opts[] = {
 	new rc_option( "Frontend Related", null,	rc_seperator, null, null, 0, 0,	null, null ),
 
-        new rc_option( "help", "h", rc_set_int, func_help, null, 1, 0, null, "show help message" ),
-        new rc_option( "?", null,   rc_set_int, func_help, null, 1, 0, null, "show help message" ),
+        new rc_option( "help", "h", rc_set_int, assign_help, null, 1, 0, null, "show help message" ),
+        new rc_option( "?", null,   rc_set_int, assign_help, null, 1, 0, null, "show help message" ),
 
 	/* list options follow */
-        new rc_option( "list", "ls", rc_set_int,	func_list, null, LIST_SHORT, 0, null, "List supported games matching gamename, or all, gamename may contain * and ? wildcards" ),
-        new rc_option( "listfull", "ll", rc_set_int,	func_list, null, LIST_FULL,	0, null, "short name, full name" ),
-        new rc_option( "listgames", null, rc_set_int, func_list, null, LIST_GAMES, 0, null, "year, manufacturer and full name" ),
-        new rc_option( "listdetails", null, rc_set_int, func_list, null, LIST_DETAILS, 0, null, "detailed info" ),
-        new rc_option( "gamelist", null, rc_set_int, func_list, null, LIST_GAMELIST, 0, null, "output gamelist.txt main body" ),
+        new rc_option( "list", "ls", rc_set_int,	assign_list, null, LIST_SHORT, 0, null, "List supported games matching gamename, or all, gamename may contain * and ? wildcards" ),
+        new rc_option( "listfull", "ll", rc_set_int,	assign_list, null, LIST_FULL,	0, null, "short name, full name" ),
+        new rc_option( "listgames", null, rc_set_int, assign_list, null, LIST_GAMES, 0, null, "year, manufacturer and full name" ),
+        new rc_option( "listdetails", null, rc_set_int, assign_list, null, LIST_DETAILS, 0, null, "detailed info" ),
+        new rc_option( "gamelist", null, rc_set_int, assign_list, null, LIST_GAMELIST, 0, null, "output gamelist.txt main body" ),
 /*TODO*///	{ "listsourcefile",	null, rc_set_int, &list, null, LIST_SOURCEFILE, 0, null, "driver sourcefile" },
 /*TODO*///	{ "listgamespersourcefile",	null, rc_set_int, &list, null, LIST_GAMESPERSOURCEFILE, 0, null, "games per sourcefile" },
 /*TODO*///	{ "listinfo", "li", rc_set_int, &list, null, LIST_INFO, 0, null, "all available info on driver" },
@@ -506,7 +508,7 @@ public class fronthlp {
     public static int frontend_help (String gamename)
     {
 /*TODO*///	struct InternalMachineDriver drv;
-/*TODO*///	int i, j;
+	int i, j;
 /*TODO*///	const char *all_games = "*";
 
 	/* display help unless a game or an utility are specified */
@@ -552,10 +554,10 @@ public class fronthlp {
 /*TODO*///		else if (sortby == 2)
 /*TODO*///			qsort(drivers, count, sizeof(drivers[0]), compare_driver_names);
 /*TODO*///	}
-/*TODO*///
-/*TODO*///	switch (list)  /* front-end utilities ;) */
-/*TODO*///	{
-/*TODO*///
+
+	switch (list)  /* front-end utilities ;) */
+	{
+
 /*TODO*///        #ifdef MESS
 /*TODO*///		case LIST_MESSTEXT: /* all mess specific calls here */
 /*TODO*///		{
@@ -579,33 +581,33 @@ public class fronthlp {
 /*TODO*///			break;
 /*TODO*///		}
 /*TODO*///		#endif
-/*TODO*///
-/*TODO*///		case LIST_SHORT: /* simple games list */
+
+		case LIST_SHORT: /* simple games list */
 /*TODO*///			#ifndef MESS
-/*TODO*///			printf("\nMAME currently supports the following games:\n\n");
+			printf("\nMAME currently supports the following games:\n\n");
 /*TODO*///			#else
 /*TODO*///			printf("\nMESS currently supports the following systems:\n\n");
 /*TODO*///			#endif
-/*TODO*///			for (i = j = 0; drivers[i]; i++)
-/*TODO*///				if ((listclones || drivers[i]->clone_of == 0
-/*TODO*///						|| (drivers[i]->clone_of->flags & NOT_A_DRIVER)
-/*TODO*///						) && !strwildcmp(gamename, drivers[i]->name))
-/*TODO*///				{
-/*TODO*///					printf("%-8s",drivers[i]->name);
-/*TODO*///					j++;
-/*TODO*///					if (!(j % 8)) printf("\n");
-/*TODO*///					else printf("  ");
-/*TODO*///				}
-/*TODO*///			if (j % 8) printf("\n");
-/*TODO*///			printf("\n");
-/*TODO*///			if (j != i) printf("Total ROM sets displayed: %4d - ", j);
+			for (i = j = 0; drivers[i]!= null; i++)
+				if ((listclones!=0 || drivers[i].clone_of == null
+						|| (drivers[i].clone_of.flags & NOT_A_DRIVER)!=0
+						) /*&& strwildcmp(gamename, drivers[i].name)==0*/)
+				{
+					printf("%-8s",drivers[i].name);
+					j++;
+					if ((j % 8)==0) printf("\n");
+					else printf("  ");
+				}
+			if ((j % 8)!=0) printf("\n");
+			printf("\n");
+			if (j != i) printf("Total ROM sets displayed: %4d - ", j);
 /*TODO*///			#ifndef MESS
-/*TODO*///			printf("Total ROM sets supported: %4d\n", i);
+			printf("Total ROM sets supported: %4d\n", i);
 /*TODO*///			#else
 /*TODO*///			printf("Total Systems supported: %4d\n", i);
 /*TODO*///			#endif
-/*TODO*///            return 0;
-/*TODO*///			break;
+            return 0;
+//			break;
 /*TODO*///
 /*TODO*///		case LIST_FULL: /* games list with descriptions */
 /*TODO*///			printf("Name:     Description:\n");
@@ -1662,8 +1664,8 @@ public class fronthlp {
 /*TODO*///		case LIST_XML: /* list all info */
 /*TODO*///			print_mame_xml( stdout, drivers );
 /*TODO*///			return 0;
-/*TODO*///	}
-/*TODO*///
+	}
+
 /*TODO*///	if (verify)  /* "verify" utilities */
 /*TODO*///	{
 /*TODO*///		int err = 0;

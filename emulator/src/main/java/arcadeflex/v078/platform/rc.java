@@ -35,8 +35,11 @@ Version 0.3, Februari 2000
  */ 
 package arcadeflex.v078.platform;
 
+import static arcadeflex.v078.platform.config.stderr;
 import static arcadeflex.v078.platform.rcH.*;
 import static common.libc.cstdio.*;
+import static common.libc.cstring.*;
+
 
 public class rc
 {
@@ -45,8 +48,8 @@ public class rc
 /*TODO*///	#ifdef _MSC_VER
 /*TODO*///	#define snprintf _snprintf
 /*TODO*///	#endif
-	static final int BUF_SIZE = 512;
-	
+	public static int BUF_SIZE = 512;
+
 	public static class rc_struct
 	{
 	   rc_option[] option;
@@ -56,9 +59,9 @@ public class rc
 	   int args_registered;
 	};
 
-/*TODO*///	/* private variables */
-/*TODO*///	static int rc_requires_arg[] = {0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0 };
-/*TODO*///	
+	/* private variables */
+	static int rc_requires_arg[] = {0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0 };
+	
 /*TODO*///	/* private methods */
 /*TODO*///	static int rc_verify(struct rc_option *option, float value)
 /*TODO*///	{
@@ -78,19 +81,24 @@ public class rc
 	   /* set the defaults */
 	   for(i=0; option[i].type != 0; i++)
 	   {
+              rc_option _tmp = option[i];
+              
 	      if (option[i].type == rc_link)
 	      {
-/*TODO*///	         if(rc_set_defaults(option[i].dest) != null)
-/*TODO*///	            return -1;
+	         if(rc_set_defaults((rc_option[]) _tmp.dest) != 0){
+                    option[i]=_tmp;
+	            return -1;
+                 }
 	      }
-/*TODO*///	      else if (option[i].deflt && rc_set_option3(option+i, option[i].deflt,
-/*TODO*///	         option[i].priority))
-/*TODO*///	         return -1;
+	      else if (option[i].deflt!=null && rc_set_option3(_tmp, option[i].deflt, option[i].priority) !=0){
+                 option[i]=_tmp;
+	         return -1;
+              }
 	   }
 	
 	   return 0;
 	}
-
+	
 /*TODO*///	static void rc_free_stuff(struct rc_option *option)
 /*TODO*///	{
 /*TODO*///	   int i;
@@ -104,73 +112,75 @@ public class rc
 /*TODO*///	            break;
 /*TODO*///	         case rc_string:
 /*TODO*///	            if(*(char **)option[i].dest)
-/*TODO*///				{
 /*TODO*///	               free(*(char **)option[i].dest);
-/*TODO*///				   *(char **)option[i].dest = NULL;
-/*TODO*///				}
 /*TODO*///	            break;
 /*TODO*///	         case rc_file:
 /*TODO*///	            if(*(FILE **)option[i].dest)
-/*TODO*///				{
 /*TODO*///	               fclose(*(FILE **)option[i].dest);
-/*TODO*///				   *(FILE **)option[i].dest = NULL;
-/*TODO*///				}
 /*TODO*///	            break;
 /*TODO*///	      }
 /*TODO*///	   }
 /*TODO*///	}
-	
+
 	/* public methods (in rc.h) */
 	public static rc_struct rc_create()
 	{
 	   rc_struct rc = null;
 	
-	   if((rc = new rc_struct() /*calloc(1, sizeof(struct rc_struct))*/)==null)
+	   if((rc = new rc_struct()) == null)
 	   {
-	      fprintf(stderr, "error: malloc failed for: struct rc_struct\n");
+	      fprintf(System.out, "error: malloc failed for: struct rc_struct\n");
 	      return null;
 	   }
 	
 	   return rc;
 	}
-
-	public static void rc_destroy(rc_struct rc)
-	{
-	   if(rc.option != null)
-	   {
-/*TODO*///	      rc_free_stuff(rc.option);
-	      rc.option = null;
-	   }
-	   if(rc.arg != null)
-	      rc.arg = null;
-	   rc = null;
-	}
+	
+/*TODO*///	void rc_destroy(struct rc_struct *rc)
+/*TODO*///	{
+/*TODO*///	   if(rc->option)
+/*TODO*///	   {
+/*TODO*///	      rc_free_stuff(rc->option);
+/*TODO*///	      free (rc->option);
+/*TODO*///	   }
+/*TODO*///	   if(rc->arg)
+/*TODO*///	      free(rc->arg);
+/*TODO*///	   free(rc);
+/*TODO*///	}
 	
 	public static int rc_register(rc_struct rc, rc_option[] option)
 	{
 	   int i;
+           
+           for (int _i=0 ; _i<rc.option_size ; _i++)
+               if (rc.option[_i] == null)
+                   rc.option[_i] = new rc_option();
 	
 	   /* try to find a free entry in our option list */
 	   for(i = 0; i < rc.option_size; i++)
 	      if(rc.option[i].type <= 0)
 	         break;
-	
+        
+           
 	   /* do we have space to register this option list ? */
 	   if(i >= (rc.option_size-1))
 	   {
-	      rc_option[] tmp = new rc_option[rc.option_size + BUF_SIZE];
-              int _longo=rc.option_size + BUF_SIZE;
+//	      struct rc_option *tmp = realloc(rc.option,
+//	         (rc.option_size + BUF_SIZE) * sizeof(struct rc_option));
+//	      if (tmp == 0)
+//	      {
+//	         fprintf(stderr, "error: malloc failed in rc_register_option\n");
+//	         return -1;
+//	      }
+              rc_option[] tmp = new rc_option[rc.option_size + BUF_SIZE];
+              for (int _i=0 ; _i< (rc.option_size); _i++){
+                  //if (_i<rc.option_size)
+                    tmp[_i] = rc.option[_i];
+                    System.out.println("adding "+_i);
+                  //else
+                  //  tmp[_i] = null; //new rc_option();
+              }
               
-              for (int _i=0 ; _i<_longo ; _i++)
-                  tmp[_i] = new rc_option();
-                  
-/*TODO*///                      realloc(rc.option,
-/*TODO*///	         (rc.option_size + BUF_SIZE) * sizeof(struct rc_option));
-	      if (tmp == null)
-	      {
-	         fprintf(stderr, "error: malloc failed in rc_register_option\n");
-	         return -1;
-	      }
 	      rc.option = tmp;
 /*TODO*///	      memset(rc.option + rc.option_size, 0, BUF_SIZE *
 /*TODO*///	         sizeof(struct rc_option));
@@ -180,10 +190,15 @@ public class rc
 	   /* set the defaults */
 	   if(rc_set_defaults(option) != 0)
 	      return -1;
-	
+            
 	   /* register the option */
-	   rc.option[i].type = rc_link;
-/*TODO*///	   rc.option[i].dest = option;
+           //if (rc.option[i] != null)
+           if (rc.option[i] == null)
+               rc.option[i] = new rc_option();
+           
+            rc.option[i].type = rc_link;
+            rc.option[i].dest = option;
+           
 	
 	   return 0;
 	}
@@ -252,8 +267,6 @@ public class rc
 /*TODO*///	      /* get complete rest of line */
 /*TODO*///	      arg = strtok(NULL, "\r\n");
 /*TODO*///	
-/*TODO*///	      if (arg)
-/*TODO*///	      {
 /*TODO*///	      /* ignore white space */
 /*TODO*///	      for (; (*arg == '\t' || *arg == ' '); arg++) {}
 /*TODO*///	
@@ -264,7 +277,6 @@ public class rc
 /*TODO*///	         arg = strtok (arg, "'");
 /*TODO*///	      else
 /*TODO*///	         arg = strtok (arg, " \t\r\n");
-/*TODO*///	      }
 /*TODO*///	
 /*TODO*///	      if(!(option = rc_get_option2(rc->option, name)))
 /*TODO*///	      {
@@ -361,64 +373,6 @@ public class rc
 /*TODO*///	   return 0;
 /*TODO*///	}
 /*TODO*///	
-/*TODO*///	static int real_rc_write(struct rc_option *option, mame_file *f, const char *description)
-/*TODO*///	{
-/*TODO*///		int i;
-/*TODO*///	
-/*TODO*///		if (description)
-/*TODO*///			mame_fprintf(f, "### %s ###\n", description);
-/*TODO*///	
-/*TODO*///		for(i=0; option[i].type; i++)
-/*TODO*///		{
-/*TODO*///			switch (option[i].type)
-/*TODO*///			{
-/*TODO*///				case rc_seperator:
-/*TODO*///					mame_fprintf(f, "\n### %s ###\n", option[i].name);
-/*TODO*///					break;
-/*TODO*///	
-/*TODO*///				case rc_link:
-/*TODO*///					if (real_rc_write(option[i].dest, f, NULL))
-/*TODO*///						return -1;
-/*TODO*///					break;
-/*TODO*///	
-/*TODO*///				case rc_string:
-/*TODO*///					if(!*(char **)option[i].dest)
-/*TODO*///					{
-/*TODO*///						mame_fprintf(f, "# %-19s   <NULL> (not set)\n", option[i].name);
-/*TODO*///						break;
-/*TODO*///					}
-/*TODO*///					/* fall through */
-/*TODO*///	
-/*TODO*///				case rc_bool:
-/*TODO*///				case rc_int:
-/*TODO*///				case rc_float:
-/*TODO*///					mame_fprintf(f, "%-21s   ", option[i].name);
-/*TODO*///					switch(option[i].type)
-/*TODO*///					{
-/*TODO*///						case rc_bool:
-/*TODO*///						case rc_int:
-/*TODO*///							mame_fprintf(f, "%d\n", *(int *)option[i].dest);
-/*TODO*///							break;
-/*TODO*///						case rc_float:
-/*TODO*///							mame_fprintf(f, "%f\n", *(float *)option[i].dest);
-/*TODO*///							break;
-/*TODO*///						case rc_string:
-/*TODO*///							mame_fprintf(f, "%s\n", *(char **)option[i].dest);
-/*TODO*///							break;
-/*TODO*///					}
-/*TODO*///					break;
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///		if (description)
-/*TODO*///			mame_fprintf(f, "\n");
-/*TODO*///		return 0;
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	int osd_rc_write(struct rc_struct *rc, mame_file *f, const char *description)
-/*TODO*///	{
-/*TODO*///		return real_rc_write(rc->option, f, description);
-/*TODO*///	}
-/*TODO*///	
 /*TODO*///	/* needed to walk the tree */
 /*TODO*///	static int rc_real_write(struct rc_option *option, FILE *f,
 /*TODO*///	   const char *description)
@@ -474,35 +428,26 @@ public class rc
 /*TODO*///	{
 /*TODO*///	   return rc_real_write(rc->option, f, description);
 /*TODO*///	}
-
-        public static abstract interface arg_callback_Ptr { public abstract int handler(String arg); }
-        
-	public static int rc_parse_commandline(rc_struct rc, int argc, String argv[],
-	   int priority, arg_callback_Ptr arg_callback)
+	
+	public static int rc_parse_commandline(rc_struct rc, int argc, String[] argv,
+	   int priority, arg_callbackPtr arg_callback)
 	{
-            System.out.println("rc_parse_commandline");
-            /*System.out.println(argc);
-            System.out.println(argv.length);
-            for (int _i=0 ; _i<argv.length ; _i++)
-                System.out.println(_i+"="+argv[_i]);*/
 	   int i;
-
+           
+           	
 	   for(i=1; i<argc; i++)
 	   {
-               System.out.println("PARAM["+i+"]="+argv[i]);
-               
 	      if(argv[i].charAt(0) == '-')
 	      {
 	         int start = 1;
 	         rc_option option;
 	         String arg = null;
-
+	
 	         if(argv[i].charAt(1) == '-')
 	            start = 2;
-
-	         if((option = rc_get_option2(rc.option, argv[i] + start)) != null)
+	
+	         if((option = rc_get_option2(rc.option, argv[i].substring( start ))) != null)
 	         {
-                     System.out.println("Func_NAME: "+option.name);
 	            if (option.type == rc_bool)
 	            {
 	               /* handle special bool set case */
@@ -511,40 +456,41 @@ public class rc
 	            else
 	            {
 	               /* normal option */
-/*TODO*///	               if (rc_requires_arg[option.type])
-/*TODO*///	               {
-/*TODO*///	                  i++;
-/*TODO*///	                  if (i >= argc)
-/*TODO*///	                  {
-/*TODO*///	                     fprintf(stderr, "error: %s requires an argument\n", argv[i-1]);
-/*TODO*///	                     return -1;
-/*TODO*///	                  }
-/*TODO*///	                  arg = argv[i];
-/*TODO*///	               }
-/*TODO*///	            }
+	               if (rc_requires_arg[option.type] != 0)
+	               {
+	                  i++;
+	                  if (i >= argc)
+	                  {
+	                     fprintf(stderr, "error: %s requires an argument\n", argv[i-1]);
+	                     return -1;
+	                  }
+	                  arg = argv[i];
+	               }
+	            }
 	         }
-/*TODO*///	         else if(!strncmp(argv[i] + start, "no", 2) &&
-/*TODO*///	            (option = rc_get_option2(rc.option, argv[i] + start + 2)) &&
-/*TODO*///	            (option.type == rc_bool))
-/*TODO*///	         {
-/*TODO*///	            /* handle special bool clear case */
-/*TODO*///	            arg = "0";
-/*TODO*///	         }
-/*TODO*///	         else
-/*TODO*///	         {
-/*TODO*///	            fprintf(stderr, "error: unknown option %s\n", argv[i]);
-/*TODO*///	            return -1;
-/*TODO*///	         }
-/*TODO*///	
-/*TODO*///	         if(rc_set_option3(option, arg, priority))
-/*TODO*///	            return -1;
-/*TODO*///	      }
-/*TODO*///	      else
-/*TODO*///	      {
-/*TODO*///	         /* do we have space to register the non-option arg */
-/*TODO*///	         if(rc.args_registered >= (rc.arg_size))
-/*TODO*///	         {
-/*TODO*///	            char **tmp = realloc(rc.arg, (rc.arg_size + BUF_SIZE) *
+	         else if(!strncmp((argv[i].substring(start)).toCharArray(), "no", 2) &&
+	            (option = rc_get_option2(rc.option, argv[i].substring( start + 2)))!=null &&
+	            (option.type == rc_bool))
+	         {
+	            /* handle special bool clear case */
+	            arg = "0";
+	         }
+	         else
+	         {
+	            fprintf(stderr, "error: unknown option %s\n", argv[i]);
+	            return -1;
+	         }
+	
+	         if(rc_set_option3(option, arg, priority) != 0)
+	            return -1;
+	      }
+	      else
+	      {
+	         /* do we have space to register the non-option arg */
+	         if(rc.args_registered >= (rc.arg_size))
+	         {
+                            rc.arg = new String[rc.arg_size + BUF_SIZE];
+/*TODO*///	            char tmp = realloc(rc.arg, (rc.arg_size + BUF_SIZE) *
 /*TODO*///	               sizeof(char *));
 /*TODO*///	            if (tmp == 0)
 /*TODO*///	            {
@@ -554,16 +500,16 @@ public class rc
 /*TODO*///	            }
 /*TODO*///	            rc.arg = tmp;
 /*TODO*///	            memset(rc.arg + rc.arg_size, 0, BUF_SIZE * sizeof(char *));
-/*TODO*///	            rc.arg_size += BUF_SIZE;
+	            rc.arg_size += BUF_SIZE;
 	         }
-/*TODO*///	
-/*TODO*///	         /* register the non-option arg */
-/*TODO*///	         rc.arg[rc.args_registered] = argv[i];
-/*TODO*///	         rc.args_registered++;
-/*TODO*///	
-/*TODO*///	         /* call the callback if defined */
-/*TODO*///	         if(arg_callback && (*arg_callback)(argv[i]))
-/*TODO*///	            return -1;
+	
+	         /* register the non-option arg */
+	         rc.arg[rc.args_registered] = argv[i];
+	         rc.args_registered++;
+	
+	         /* call the callback if defined */
+	         if(arg_callback!=null && (arg_callback).handler(argv[i])!=0)
+	            return -1;
 	      }
 	   }
 	   return 0;
@@ -735,31 +681,33 @@ public class rc
 /*TODO*///	   }
 /*TODO*///	   return rc_set_option3(my_option, arg, priority);
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	int rc_set_option3(struct rc_option *option, const char *arg, int priority)
-/*TODO*///	{
-/*TODO*///	   char *end;
-/*TODO*///	
-/*TODO*///	   /* check priority */
-/*TODO*///	   if(priority < option->priority)
-/*TODO*///	      return 0;
-/*TODO*///	
-/*TODO*///	   switch(option->type)
-/*TODO*///	   {
-/*TODO*///	      case rc_string:
-/*TODO*///	         {
-/*TODO*///	            char *str;
-/*TODO*///	            if ( !( str = malloc(strlen(arg)+1) ) )
-/*TODO*///	            {
-/*TODO*///	               fprintf(stderr, "error: malloc failed for %s\n", option->name);
-/*TODO*///	               return -1;
-/*TODO*///	            }
-/*TODO*///	            strcpy(str, arg);
-/*TODO*///	            if(*(char **)option->dest)
-/*TODO*///	               free(*(char **)option->dest);
-/*TODO*///	            *(char **)option->dest = str;
-/*TODO*///	         }
-/*TODO*///	         break;
+	
+	static int rc_set_option3(rc_option option, String arg, int priority)
+	{
+            //System.out.println("rc_set_option3");
+	   String end;
+	
+	   /* check priority */
+	   if(priority < option.priority)
+	      return 0;
+	
+	   switch(option.type)
+	   {
+	      case rc_string:
+	         {
+	            String str;
+//	            if ( !( str = malloc(strlen(arg)+1) ) )
+//	            {
+//	               fprintf(stderr, "error: malloc failed for %s\n", option.name);
+//	               return -1;
+//	            }
+//	            strcpy(str, arg);
+                    str = arg;
+	            if(option.dest != null)
+	               option.dest = null;
+	            option.dest = str;
+	         }
+	         break;
 /*TODO*///	      case rc_int:
 /*TODO*///	      case rc_bool:
 /*TODO*///	         {
@@ -767,10 +715,10 @@ public class rc
 /*TODO*///	            x = strtol(arg, &end, 0);
 /*TODO*///	            if (*end || rc_verify(option, x))
 /*TODO*///	            {
-/*TODO*///	               fprintf(stderr, "error invalid value for %s: %s\n", option->name, arg);
+/*TODO*///	               fprintf(stderr, "error invalid value for %s: %s\n", option.name, arg);
 /*TODO*///	               return -1;
 /*TODO*///	            }
-/*TODO*///	            *(int *)option->dest = x;
+/*TODO*///	            *(int *)option.dest = x;
 /*TODO*///	         }
 /*TODO*///	         break;
 /*TODO*///	      case rc_float:
@@ -779,83 +727,86 @@ public class rc
 /*TODO*///	            x = strtod(arg, &end);
 /*TODO*///	            if (*end || rc_verify(option, x))
 /*TODO*///	            {
-/*TODO*///	               fprintf(stderr, "error invalid value for %s: %s\n", option->name, arg);
+/*TODO*///	               fprintf(stderr, "error invalid value for %s: %s\n", option.name, arg);
 /*TODO*///	               return -1;
 /*TODO*///	            }
-/*TODO*///	            *(float *)option->dest = x;
+/*TODO*///	            *(float *)option.dest = x;
 /*TODO*///	         }
 /*TODO*///	         break;
-/*TODO*///	      case rc_set_int:
-/*TODO*///	         *(int*)option->dest = option->min;
-/*TODO*///	         break;
+	      case rc_set_int:
+                  
+	         ((rc_assign_func)(option.dest)).handler( option.min );
+	         break;
 /*TODO*///	      case rc_file:
 /*TODO*///	         {
-/*TODO*///	            FILE *f = fopen(arg, (option->min)? "w":"r");
+/*TODO*///	            FILE *f = fopen(arg, (option.min)? "w":"r");
 /*TODO*///	            if (f == 0)
 /*TODO*///	            {
 /*TODO*///	               fprintf(stderr, "error: couldn't open file: %s\n", arg);
 /*TODO*///	               return -1;
 /*TODO*///	            }
-/*TODO*///	            if (*(FILE **)option->dest)
-/*TODO*///	               fclose(*(FILE **)option->dest);
-/*TODO*///	            *(FILE **)option->dest = f;
+/*TODO*///	            if (*(FILE **)option.dest)
+/*TODO*///	               fclose(*(FILE **)option.dest);
+/*TODO*///	            *(FILE **)option.dest = f;
 /*TODO*///	         }
 /*TODO*///	         break;
-/*TODO*///	      case rc_use_function:
-/*TODO*///	      case rc_use_function_no_arg:
-/*TODO*///	         break;
-/*TODO*///	      default:
-/*TODO*///	         fprintf(stderr,
-/*TODO*///	            "error: unknown option type: %d, this should not happen!\n",
-/*TODO*///	            option->type);
-/*TODO*///	         return -1;
-/*TODO*///	   }
-/*TODO*///	   /* functions should do there own priority handling, so that they can
-/*TODO*///	      ignore priority handling if they wish */
-/*TODO*///	   if(option->func)
-/*TODO*///	      return (*option->func)(option, arg, priority);
-/*TODO*///	
-/*TODO*///	   option->priority = priority;
-/*TODO*///	
-/*TODO*///	   return 0;
-/*TODO*///	}
-/*TODO*///	
+	      case rc_use_function:
+	      case rc_use_function_no_arg:
+	         break;
+	      default:
+	         fprintf(stderr,
+	            "error: unknown option type: %d, this should not happen!\n",
+	            option.type);
+	         return -1;
+	   }
+	   /* functions should do there own priority handling, so that they can
+	      ignore priority handling if they wish */
+	   if(option.func != null)
+	      return (option.func).handler(option, arg, priority);
+	
+	   option.priority = priority;
+	
+	   return 0;
+	}
+	
 /*TODO*///	struct rc_option *rc_get_option(struct rc_struct *rc, const char *name)
 /*TODO*///	{
 /*TODO*///	   return rc_get_option2(rc->option, name);
 /*TODO*///	}
 	
-	public static rc_option rc_get_option2(rc_option[] option, String name)
+	static rc_option rc_get_option2(rc_option[] option, String name)
 	{
+            
 	   int i;
 	   rc_option result;
-           
-           //boolean enc= false;
 	
-	   for(i=0; i<(option.length-1)/*!enc*//*option[i].type!=0*/; i++)
+	   for(i=0; ((option[i] != null)&&(option[i].type != 0)) ; i++)
 	   {
-               System.out.println("Vuelta! "+option[i].name);
-               //enc = ((option.length-1) < i);
                
 	      switch(option[i].type)
 	      {
 	         case rc_ignore:
 	         case rc_seperator:
 	            break;
-/*TODO*///	         case rc_link:
-/*TODO*///	            if((result = rc_get_option2(option[i].dest, name)))
-/*TODO*///	               return result;
-/*TODO*///	            break;
+	         case rc_link:
+                     rc_option[] _temp = (rc_option[]) option[i].dest;
+	            if((result = rc_get_option2(_temp, name)) != null){
+                       
+                        option[i].dest = _temp;
+	               return result;
+                    }
+	            break;
 	         default:
-	            if(name.equals(option[i].name) ||
+	            //if(strcmp(name, option[i].name)==0 ||
+                     if(name.equals(option[i].name) ||
 	               (option[i].shortname!=null &&
-	                  name.equals(option[i].shortname)))
+	                  //strcmp(name, option[i].shortname)==0))
+                             name.equals(option[i].shortname))){
+                         
 	               return option[i];
+                     }
 	      }
-              
-              
 	   }
-           
 	   return null;
 	}
 	

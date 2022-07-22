@@ -4,11 +4,16 @@
 package arcadeflex.v078.platform;
 
 import static arcadeflex.v078.platform.fronthlp.frontend_help;
+import static arcadeflex.v078.platform.fronthlp.frontend_opts;
 import static arcadeflex.v078.platform.rc.*;
 import static arcadeflex.v078.platform.rcH.*;
 import static common.libc.cstdio.*;
+import java.io.PrintStream;
 
 public class config {
+    
+    public static PrintStream stderr = System.out;
+    
 /*TODO*///
 /*TODO*////*
 /*TODO*/// * Configuration routines.
@@ -166,35 +171,11 @@ public class config {
 /*TODO*///	return 0;
 /*TODO*///}
     
-    public static rc_option_assign frontend_opts_assign = new rc_option_assign() {
-        @Override
-        public void handler(Object value) {
-            
-            if (opts == null)
-                opts = new rc_option[0];
-            
-            rc_option[] curr = (rc_option[]) value;
-            int _pos_opts = opts.length;
-            int _tot_long = _pos_opts+curr.length;
-            int _max_long = curr.length;
-            rc_option[] _opts_tmp = new rc_option[_tot_long];
-            
-            for (int _i=0 ; _i<_max_long ; _i++) {
-                _opts_tmp[_i] = opts[_i];
-            }
-            
-            for (int _i=_pos_opts ; _i<_tot_long ; _i++) {
-                _opts_tmp[_i] = opts[_i];
-            }
-            
-            opts = _opts_tmp;
-        }
-    };
 
     /* struct definitions */
     static rc_option opts[] = {
             /* name, shortname, type, dest, deflt, min, max, func, help */
-            new rc_option( null, null, rc_link, frontend_opts_assign, null, 0, 0, null, null ),
+            new rc_option( null, null, rc_link, frontend_opts, null, 0, 0, null, null ),
 /*TODO*///	{ null, null, rc_link, fileio_opts, null, 0, 0, null, null },
 /*TODO*///	{ null, null, rc_link, video_opts, null, 0,	0, null, null },
 /*TODO*///	{ null, null, rc_link, sound_opts, null, 0,	0, null, null },
@@ -422,7 +403,7 @@ public class config {
 
 	if (rc_register(result, opts) != 0)
 	{
-		rc_destroy(result);
+/*TODO*///		rc_destroy(result);
 		return null;
 	}
 
@@ -800,7 +781,7 @@ public class config {
 
     static int got_gamename = 0;
     
-    public static arg_callback_Ptr config_handle_arg = new arg_callback_Ptr() {
+    public static arg_callbackPtr config_handle_arg = new arg_callbackPtr() {
         @Override
         public int handler(String arg) {
             

@@ -9,14 +9,13 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 
 /**
  *
  * @author shadow
  */
 public class cstdio {
-    
-    public static FILE stderr = null; //fopen("stderr.log", "wa");
 
     /**
      * Write formatted data to string
@@ -149,6 +148,15 @@ public class cstdio {
         }
         return 0;
     }
+    
+    public static void fprintf(PrintStream file, String str, Object... arguments) {
+        str = str.replace("\n", "%n");//fix for windows
+        String print = String.format(str, arguments);
+        try {
+            file.print(print);
+        } catch (Exception e) {
+        }
+    }
 
     public static void fprintf(FILE file, String str, Object... arguments) {
         str = str.replace("\n", "%n");//fix for windows
@@ -156,8 +164,6 @@ public class cstdio {
         try {
             file.fw.write(print);
         } catch (Exception e) {
-            System.out.println(str);
-            e.printStackTrace(System.out);
         }
     }
 
