@@ -271,9 +271,9 @@ public class driverH
 /*TODO*///	
 /*TODO*///	#define MAX_SOUND 5	/* MAX_SOUND is the maximum number of sound subsystems */
 /*TODO*///						/* which can run at the same time. Currently, 5 is enough. */
-/*TODO*///	
-/*TODO*///	struct InternalMachineDriver
-/*TODO*///	{
+
+	public static class InternalMachineDriver
+	{
 /*TODO*///		struct MachineCPU cpu[MAX_CPU];
 /*TODO*///		float frames_per_second;
 /*TODO*///		int vblank_duration;
@@ -299,10 +299,10 @@ public class driverH
 /*TODO*///	
 /*TODO*///		UINT32 sound_attributes;
 /*TODO*///		struct MachineSound sound[MAX_SOUND];
-/*TODO*///	};
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
+	};
+
+
+
 /*TODO*///	/***************************************************************************
 /*TODO*///	
 /*TODO*///		Machine driver constants and flags
@@ -410,7 +410,7 @@ public class driverH
             public String description;
             public String year;
             public String manufacturer;
-/*TODO*///		void (*drv)(struct InternalMachineDriver *);            
+            public InternalMachineDriver drv;
 //TODO*/// 	const struct InputPortTiny *input_ports;
 /*TODO*///		void (*driver_init)(void);	/* optional function to be called during initialization */
 /*TODO*///									/* This is called ONCE, unlike Machine->init_machine */

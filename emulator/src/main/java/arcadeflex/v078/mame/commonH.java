@@ -113,8 +113,8 @@ public class commonH
 /*TODO*///	
 /*TODO*///	enum
 /*TODO*///	{
-/*TODO*///		REGION_INVALID = 0x80,
-/*TODO*///		REGION_CPU1,
+    public static final int REGION_INVALID  = 0x80;
+    public static final int REGION_CPU1     = 0x81;
 /*TODO*///		REGION_CPU2,
 /*TODO*///		REGION_CPU3,
 /*TODO*///		REGION_CPU4,
@@ -323,6 +323,11 @@ public class commonH
 /*TODO*///	
 /*TODO*///	/* ----- start/stop macros ----- */
 /*TODO*///	#define static RomLoadPtr rom_name = new RomLoadPtr(){ public void handler(){ 								static const struct RomModule rom_##name[] = {
+    public static abstract interface RomLoadPtr {
+        public abstract void handler();
+    }
+    
+    
 /*TODO*///	#define ROM_END(); }};                                       { ROMENTRY_END, 0, 0, 0, NULL } };
 /*TODO*///	
 /*TODO*///	/* ----- ROM region macros ----- */
