@@ -17,6 +17,7 @@ Japan). It has no sound.
 package arcadeflex.v078.drivers;
 
 import static arcadeflex.v078.mame.driverH.*;
+import static arcadeflex.v078.mame.commonH.*;
 
 public class minivadr
 {
@@ -41,9 +42,9 @@ public class minivadr
 /*TODO*///		new Memory_WriteAddress( 0xe008, 0xe008, MWA_NOP ),		// ???
 /*TODO*///		new Memory_WriteAddress(MEMPORT_MARKER, 0)
 /*TODO*///	};
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static InputPortPtr input_ports_minivadr = new InputPortPtr(){ public void handler() { 
+	
+
+	static InputPortPtr input_ports_minivadr = new InputPortPtr(){ public void handler() { 
 /*TODO*///		PORT_START(); 
 /*TODO*///		PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT );
 /*TODO*///		PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT );
@@ -53,9 +54,17 @@ public class minivadr
 /*TODO*///		PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN );
 /*TODO*///		PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN );
 /*TODO*///		PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN );
-/*TODO*///	INPUT_PORTS_END(); }}; 
-/*TODO*///	
-/*TODO*///	
+/*TODO*///	INPUT_PORTS_END(); 
+        }}; 
+
+
+        public static MachinePtr machine_driver_minivadr = new MachinePtr() {
+            @Override
+            public void handler(InternalMachineDriver machine) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        };
+                
 /*TODO*///	static MACHINE_DRIVER_START( minivadr )
 /*TODO*///	
 /*TODO*///		/* basic machine hardware */
@@ -78,19 +87,20 @@ public class minivadr
 /*TODO*///	
 /*TODO*///		/* sound hardware */
 /*TODO*///	MACHINE_DRIVER_END
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///	  Game driver(s)
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_minivadr = new RomLoadPtr(){ public void handler(){ 
+	
+	
+	/***************************************************************************
+	
+	  Game driver(s)
+	
+	***************************************************************************/
+	
+	static RomLoadPtr rom_minivadr = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for code */
 /*TODO*///		ROM_LOAD( "d26-01.bin",	0x0000, 0x2000, CRC(a96c823d),SHA1(aa9969ff80e94b0fff0f3530863f6b300510162e) )
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	public static GameDriver driver_minivadr	   = new GameDriver("1990"	,"minivadr"	,"minivadr.java"	,rom_minivadr,null	,machine_driver_minivadr	,input_ports_minivadr	,null	,ROT0	,	"Taito Corporation", "Minivader" );
+/*TODO*///	ROM_END(); 
+    }}; 
+	
+	
+	public static GameDriver driver_minivadr	   = new GameDriver("1990"	,"minivadr"	,"minivadr.java"	,rom_minivadr,null	,machine_driver_minivadr	,input_ports_minivadr	,null	,ROT0	,	"Taito Corporation", "Minivader" );
 }

@@ -272,6 +272,11 @@ public class driverH
 /*TODO*///	#define MAX_SOUND 5	/* MAX_SOUND is the maximum number of sound subsystems */
 /*TODO*///						/* which can run at the same time. Currently, 5 is enough. */
 
+        public static abstract interface MachinePtr {
+
+            public abstract void handler(InternalMachineDriver machine);
+        }
+        
 	public static class InternalMachineDriver
 	{
 /*TODO*///		struct MachineCPU cpu[MAX_CPU];
@@ -373,7 +378,14 @@ public class driverH
 /*TODO*///	#define	SOUND_SUPPORTS_STEREO		0x0001
 	
 	
-	
+	public static abstract interface InputPortPtr {
+            public abstract void handler();
+        }
+        
+        public static abstract interface InitDriverPtr {
+            public abstract void handler();
+        }
+        
 	/***************************************************************************
 	
 		Game driver structure
@@ -383,9 +395,9 @@ public class driverH
         public static class GameDriver {
             
             public GameDriver(String year, String name, String source, 
-/*TODO*///                    RomLoadPtr romload, 
+                    RomLoadPtr romload, 
                     GameDriver parent, 
-/*TODO*///                    MachinePtr drv, InputPortPtr input, InitDriverPtr init, 
+                    MachinePtr drv, InputPortPtr input, InitDriverPtr init, 
                     int monitor, String manufacture, String fullname) {
                 this.year = year;
                 this.source_file = source;
@@ -535,9 +547,9 @@ public class driverH
 /*TODO*///		rom_##NAME,								\
 /*TODO*///		(MONITOR)|(FLAGS)						\
 /*TODO*///	};
-/*TODO*///	
-/*TODO*///	/* monitor parameters to be used with the GAME() macro */
-/*TODO*///	#define	ROT0	0
+
+	/* monitor parameters to be used with the GAME() macro */
+	public static final int	ROT0	= 0;
 /*TODO*///	#define	ROT90	(ORIENTATION_SWAP_XY|ORIENTATION_FLIP_X)	/* rotate clockwise 90 degrees */
 /*TODO*///	#define	ROT180	(ORIENTATION_FLIP_X|ORIENTATION_FLIP_Y)		/* rotate 180 degrees */
 /*TODO*///	#define	ROT270	(ORIENTATION_SWAP_XY|ORIENTATION_FLIP_Y)	/* rotate counter-clockwise 90 degrees */

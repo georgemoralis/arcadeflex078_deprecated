@@ -18,6 +18,7 @@
  */ 
 package arcadeflex.v078.mame;
 
+import static arcadeflex.v078.drivers.minivadr.*;
 import static arcadeflex.v078.mame.driverH.*;
 
 public class driver
@@ -1452,7 +1453,7 @@ public class driver
 /*TODO*///		DRIVER( pbillian )	/* (c) 1986 Taito */
 /*TODO*///		DRIVER( hotsmash )	/* B18 (c) 1987 Taito */
 /*TODO*///		DRIVER( exzisus )	/* B23 (c) 1987 Taito Corporation (Japan) */
-/*TODO*///		DRIVER( minivadr )	/* D26 cabinet test board */
+    driver_minivadr, 	/* D26 cabinet test board */
 /*TODO*///		DRIVER( volfied )	/* C04 (c) 1989 Taito Corporation Japan (World) */
 /*TODO*///		DRIVER( volfiedu )	/* C04 (c) 1989 Taito America Corporation (US) */
 /*TODO*///		DRIVER( volfiedj )	/* C04 (c) 1989 Taito Corporation (Japan) */
@@ -5571,6 +5572,7 @@ public class driver
 /*TODO*///		DRIVER( bangbead )	/* 0259 (c) 2000 Visco */
 /*TODO*///		DRIVER( nitd )		/* 0260 (c) 2000 Eleven / Gavaking */
 /*TODO*///	
+        null
     };
 /*TODO*///	
 /*TODO*///	#endif	/* DRIVER_RECURSIVE */

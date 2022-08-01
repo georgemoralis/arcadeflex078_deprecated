@@ -3,12 +3,13 @@
  */
 package arcadeflex.v078.platform;
 
-import static common.libc.cstdio.printf;
 import static arcadeflex.v078.mame.common.*;
 import static arcadeflex.v078.mame.driver.drivers;
 import static arcadeflex.v078.mame.driverH.*;
 import static arcadeflex.v078.mame.version.build_version;
 import static arcadeflex.v078.platform.rcH.*;
+import static common.libc.cstdio.*;
+import static common.libc.cstring.*;
 
 public class fronthlp {
 /*TODO*///#include "driver.h"
@@ -221,6 +222,25 @@ public class fronthlp {
 /*TODO*///}
 /*TODO*///
 /*TODO*///
+    static String namecopy(String name_ref, String desc) {
+        String name = "";
+
+        name = desc;
+
+        /* remove details in parenthesis */
+        if (strstr(name, " (") != -1) {
+            name = name.substring(0, strstr(name, " ("));
+        }
+
+        /* Move leading "The" to the end */
+        if (strncmp(name.toCharArray(), "The ", 4) == false) {
+            name_ref = sprintf("%s, The", name + 4);
+        } else {
+            name_ref = sprintf("%s", name);
+        }
+
+        return name_ref;
+    }
 /*TODO*///static void namecopy(char *name_ref,const char *desc)
 /*TODO*///{
 /*TODO*///	char name[200];
@@ -609,29 +629,29 @@ public class fronthlp {
             return 0;
 //			break;
 /*TODO*///
-/*TODO*///		case LIST_FULL: /* games list with descriptions */
-/*TODO*///			printf("Name:     Description:\n");
-/*TODO*///			for (i = 0; drivers[i]; i++)
-/*TODO*///				if ((listclones || drivers[i]->clone_of == 0
-/*TODO*///						|| (drivers[i]->clone_of->flags & NOT_A_DRIVER)
-/*TODO*///						) && !strwildcmp(gamename, drivers[i]->name))
-/*TODO*///				{
-/*TODO*///					char name[200];
-/*TODO*///
-/*TODO*///					printf("%-10s",drivers[i]->name);
-/*TODO*///
-/*TODO*///					namecopy(name,drivers[i]->description);
-/*TODO*///					printf("\"%s",name);
-/*TODO*///
-/*TODO*///					/* print the additional description only if we are listing clones */
-/*TODO*///					if (listclones)
-/*TODO*///					{
-/*TODO*///						if (strchr(drivers[i]->description,'('))
-/*TODO*///							printf(" %s",strchr(drivers[i]->description,'('));
-/*TODO*///					}
-/*TODO*///					printf("\"\n");
-/*TODO*///				}
-/*TODO*///			return 0;
+		case LIST_FULL: /* games list with descriptions */
+			printf("Name:     Description:\n");
+			for (i = 0; drivers[i] != null; i++)
+				if ((listclones != 0 || drivers[i].clone_of == null
+						|| (drivers[i].clone_of.flags & NOT_A_DRIVER)!=0
+						) /*&& !strwildcmp(gamename, drivers[i]->name)*/)
+				{
+					String name="";
+
+					printf("%-10s",drivers[i].name);
+
+					namecopy(name,drivers[i].description);
+					printf("\"%s",name);
+
+					/* print the additional description only if we are listing clones */
+					if (listclones != 0)
+					{
+						if (strchr(drivers[i].description,'(') != null)
+							printf(" %s",strchr(drivers[i].description,'('));
+					}
+					printf("\"\n");
+				}
+			return 0;
 /*TODO*///			break;
 /*TODO*///
 /*TODO*///		case LIST_SAMDIR: /* games list with samples directories */
