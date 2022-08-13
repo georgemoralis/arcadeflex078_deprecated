@@ -640,7 +640,7 @@ public class fronthlp {
 
 					printf("%-10s",drivers[i].name);
 
-					namecopy(name,drivers[i].description);
+					name=namecopy(name,drivers[i].description);
 					printf("\"%s",name);
 
 					/* print the additional description only if we are listing clones */
