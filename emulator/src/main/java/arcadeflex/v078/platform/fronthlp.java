@@ -148,8 +148,8 @@ public class fronthlp {
         /*TODO*///	{ "listtext", null, rc_set_int, &list, null, LIST_MESSTEXT, 0, null, "list available file extensions" },
         /*TODO*///	{ "createdir", null, rc_set_int, &list, null, LIST_MESSCREATEDIR, 0, null, null },
         /*TODO*///#endif
-        /*TODO*///	{ "listroms", null, rc_set_int, &list, null, LIST_ROMS, 0, null, "list required roms for a driver" },
-        /*TODO*///	{ "listsamples", null, rc_set_int, &list, null, LIST_SAMPLES, 0, null, "list optional samples for a driver" },
+        new rc_option("listroms", null, rc_set_int, assign_list, null, LIST_ROMS, 0, null, "list required roms for a driver"),
+        new rc_option("listsamples", null, rc_set_int, assign_list, null, LIST_SAMPLES, 0, null, "list optional samples for a driver"),
         /*TODO*///	{ "verifyroms", null, rc_set_int, &verify, null, VERIFY_ROMS, 0, null, "report romsets that have problems" },
         /*TODO*///	{ "verifysets", null, rc_set_int, &verify, null, VERIFY_ROMS|VERIFY_VERBOSE|VERIFY_TERSE, 0, null, "verify checksums of romsets (terse)" },
         /*TODO*///	{ "vset", null, rc_set_int, &verify, null, VERIFY_ROMS|VERIFY_VERBOSE, 0, null, "verify checksums of a romset (verbose)" },
@@ -167,8 +167,9 @@ public class fronthlp {
 /*TODO*///
 /*TODO*///void get_rom_sample_path (int argc, char **argv, int game_index, char *override_default_rompath);
 /*TODO*///
-/*TODO*///static const struct GameDriver *gamedrv;
-/*TODO*///
+    static GameDriver gamedrv;
+
+    /*TODO*///
 /*TODO*////* compare string[8] using standard(?) DOS wildchars ('?' & '*')      */
 /*TODO*////* for this to work correctly, the shells internal wildcard expansion */
 /*TODO*////* mechanism has to be disabled. Look into msdos.c */
@@ -683,46 +684,46 @@ public class fronthlp {
 /*TODO*///			return 0;
 /*TODO*///			break;
 /*TODO*///
-/*TODO*///		case LIST_ROMS: /* game roms list or */
-/*TODO*///		case LIST_SAMPLES: /* game samples list */
-/*TODO*///			j = 0;
-/*TODO*///			while (drivers[j] && (stricmp(gamename,drivers[j]->name) != 0))
-/*TODO*///				j++;
-/*TODO*///			if (drivers[j] == 0)
-/*TODO*///			{
-/*TODO*///				printf("Game \"%s\" not supported!\n",gamename);
-/*TODO*///				return 1;
-/*TODO*///			}
-/*TODO*///			gamedrv = drivers[j];
-/*TODO*///			if (list == LIST_ROMS)
-/*TODO*///				printromlist(gamedrv->rom,gamename);
-/*TODO*///			else
-/*TODO*///			{
-/*TODO*///#if (HAS_SAMPLES || HAS_VLM5030)
-/*TODO*///				int k;
-/*TODO*///				expand_machine_driver(gamedrv->drv, &drv);
-/*TODO*///				for( k = 0; drv.sound[k].sound_type && k < MAX_SOUND; k++ )
-/*TODO*///				{
-/*TODO*///					const char **samplenames = null;
-/*TODO*///#if (HAS_SAMPLES)
-/*TODO*///					if( drv.sound[k].sound_type == SOUND_SAMPLES )
-/*TODO*///							samplenames = ((struct Samplesinterface *)drv.sound[k].sound_interface)->samplenames;
-/*TODO*///#endif
-/*TODO*///					if (samplenames != 0 && samplenames[0] != 0)
-/*TODO*///					{
-/*TODO*///						i = 0;
-/*TODO*///						while (samplenames[i] != 0)
-/*TODO*///						{
-/*TODO*///							printf("%s\n",samplenames[i]);
-/*TODO*///							i++;
-/*TODO*///						}
-/*TODO*///					}
-/*TODO*///                }
-/*TODO*///#endif
-/*TODO*///			}
-/*TODO*///			return 0;
-/*TODO*///			break;
-/*TODO*///
+            case LIST_ROMS:/* game roms list or */
+            case LIST_SAMPLES:
+                /* game samples list */
+                j = 0;
+                while (drivers[j] != null && (stricmp(gamename, drivers[j].name) != 0)) {
+                    j++;
+                }
+                if (drivers[j] == null) {
+                    printf("Game \"%s\" not supported!\n", gamename);
+                    return 1;
+                }
+                gamedrv = drivers[j];
+                if (list == LIST_ROMS) {
+                    printromlist(gamedrv.rom, gamename);
+                } else {
+                    throw new UnsupportedOperationException("Unsupported");
+//TODO #if (HAS_SAMPLES || HAS_VLM5030)
+//TODO 				int k;
+//TODO 				expand_machine_driver(gamedrv->drv, &drv);
+//TODO 				for( k = 0; drv.sound[k].sound_type && k < MAX_SOUND; k++ )
+//TODO 				{
+//TODO 					const char **samplenames = null;
+//TODO #if (HAS_SAMPLES)
+//TODO 					if( drv.sound[k].sound_type == SOUND_SAMPLES )
+//TODO 							samplenames = ((struct Samplesinterface *)drv.sound[k].sound_interface)->samplenames;
+//TODO #endif
+//TODO 					if (samplenames != 0 && samplenames[0] != 0)
+//TODO 					{
+//TODO 						i = 0;
+//TODO 						while (samplenames[i] != 0)
+//TODO 						{
+//TODO 							printf("%s\n",samplenames[i]);
+//TODO 							i++;
+//TODO 						}
+//TODO 					}
+//TODO                 }
+//TODO #endif
+                }
+                return 0;
+            /*TODO*///
 /*TODO*///		case LIST_LMR:
 /*TODO*///			{
 /*TODO*///				int total;

@@ -388,10 +388,10 @@ public class driverH {
             this.manufacturer = manufacture;
             //TODO            this.drv = drv;
             //TODO           this.driver_init = init;
-/*TODO*///                romload.handler();//load the rom
+            romload.handler();//load the rom
             //TODO            input.handler();//load input
             //TODO            this.input_ports = input_macro;//copy input macro to input ports
-            //TODO            this.rom = rommodule_macro; //copy rommodule_macro to rom
+            this.rom = rommodule_macro; //copy rommodule_macro to rom
             this.flags = monitor;
         }
 

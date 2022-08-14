@@ -4,6 +4,10 @@
  */ 
 package arcadeflex.v078.drivers;
 
+import static arcadeflex.v078.mame.commonH.REGION_CPU1;
+import static arcadeflex.v078.mame.commonH.ROM_END;
+import static arcadeflex.v078.mame.commonH.ROM_LOAD;
+import static arcadeflex.v078.mame.commonH.ROM_REGION;
 import static arcadeflex.v078.mame.driverH.*;
 import static common.FuncPtr.*;
 
@@ -84,9 +88,9 @@ public class minivadr
 	***************************************************************************/
 	
 	static RomLoadPtr rom_minivadr = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for code */
-/*TODO*///		ROM_LOAD( "d26-01.bin",	0x0000, 0x2000, CRC(a96c823d),SHA1(aa9969ff80e94b0fff0f3530863f6b300510162e) )
-/*TODO*///	ROM_END(); 
+		ROM_REGION( 0x10000, REGION_CPU1, 0 );/* 64k for code */
+		ROM_LOAD( "d26-01.bin",	0x0000, 0x2000, "CRC(a96c823d),SHA1(aa9969ff80e94b0fff0f3530863f6b300510162e)");
+	ROM_END(); 
     }}; 
 	
 	
