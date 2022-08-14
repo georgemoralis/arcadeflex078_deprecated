@@ -1,14 +1,6 @@
-/** *******************************************************************
- *
- * common.h
- *
- * Generic functions, mostly ROM related.
- *
- ******************************************************************** */
-
 /*
  * ported to v0.78
- * using automatic conversion tool v0.01
+ * 
  */
 package arcadeflex.v078.mame;
 
@@ -16,20 +8,14 @@ import java.util.ArrayList;
 
 public class commonH {
 
-    /*TODO*///	
-/*TODO*///	#ifdef __cplusplus
-/*TODO*///	extern "C" {
-/*TODO*///	#endif
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///		Type definitions
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	struct mame_bitmap
-/*TODO*///	{
+/**
+     * *************************************************************************
+     *
+     * Type definitions
+     *
+     **************************************************************************
+     */
+    public static class mame_bitmap {
 /*TODO*///		int width,height;	/* width and height of the bitmap */
 /*TODO*///		int depth;			/* bits per pixel */
 /*TODO*///		void **line;		/* pointers to the start of each line - can be UINT8 **, UINT16 ** or UINT32 ** */
@@ -43,9 +29,8 @@ public class commonH {
 /*TODO*///		void (*plot)(struct mame_bitmap *bitmap,int x,int y,pen_t pen);
 /*TODO*///		pen_t (*read)(struct mame_bitmap *bitmap,int x,int y);
 /*TODO*///		void (*plot_box)(struct mame_bitmap *bitmap,int x,int y,int width,int height,pen_t pen);
-/*TODO*///	};
-/*TODO*///	
-/*TODO*///	
+    }
+    
     public static class RomModule {
 
         public RomModule(String _name, int _offset, int _length, int _flags, String _hashdata) {
@@ -376,10 +361,6 @@ public class commonH {
      **************************************************************************
      */
     /* ----- start/stop macros ----- */
-    public static abstract interface RomLoadPtr {
-
-        public abstract void handler();
-    }
     public static RomModule[] rommodule_macro = null;
     public static ArrayList<RomModule> arload = new ArrayList<>();
 

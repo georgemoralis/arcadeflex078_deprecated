@@ -1,21 +1,15 @@
-/***************************************************************************
-
-	Core MAME includes
-
-***************************************************************************/
-
 /*
  * ported to v0.78
- * using automatic conversion tool v0.01
- */ 
+ * 
+ */
 package arcadeflex.v078.mame;
 
 import static arcadeflex.v078.mame.commonH.*;
+import static common.FuncPtr.*;
 
-public class driverH
-{
+public class driverH {
 
-/*TODO*///	/***************************************************************************
+    /*TODO*///	/***************************************************************************
 /*TODO*///
 /*TODO*///		driver.h
 /*TODO*///
@@ -271,15 +265,13 @@ public class driverH
 /*TODO*///	
 /*TODO*///	#define MAX_SOUND 5	/* MAX_SOUND is the maximum number of sound subsystems */
 /*TODO*///						/* which can run at the same time. Currently, 5 is enough. */
+    public static abstract interface MachinePtr {
 
-        public static abstract interface MachinePtr {
+        public abstract void handler(InternalMachineDriver machine);
+    }
 
-            public abstract void handler(InternalMachineDriver machine);
-        }
-        
-	public static class InternalMachineDriver
-	{
-/*TODO*///		struct MachineCPU cpu[MAX_CPU];
+    public static class InternalMachineDriver {
+        /*TODO*///		struct MachineCPU cpu[MAX_CPU];
 /*TODO*///		float frames_per_second;
 /*TODO*///		int vblank_duration;
 /*TODO*///		UINT32 cpu_slices_per_frame;
@@ -304,11 +296,9 @@ public class driverH
 /*TODO*///	
 /*TODO*///		UINT32 sound_attributes;
 /*TODO*///		struct MachineSound sound[MAX_SOUND];
-	};
+    };
 
-
-
-/*TODO*///	/***************************************************************************
+    /*TODO*///	/***************************************************************************
 /*TODO*///	
 /*TODO*///		Machine driver constants and flags
 /*TODO*///	
@@ -376,71 +366,60 @@ public class driverH
 /*TODO*///	
 /*TODO*///	/* ----- flags for sound_attributes ----- */
 /*TODO*///	#define	SOUND_SUPPORTS_STEREO		0x0001
-	
-	
-	public static abstract interface InputPortPtr {
-            public abstract void handler();
-        }
-        
-        public static abstract interface InitDriverPtr {
-            public abstract void handler();
-        }
-        
-	/***************************************************************************
-	
-		Game driver structure
-	
-	***************************************************************************/
-	
-        public static class GameDriver {
-            
-            public GameDriver(String year, String name, String source, 
-                    RomLoadPtr romload, 
-                    GameDriver parent, 
-                    MachinePtr drv, InputPortPtr input, InitDriverPtr init, 
-                    int monitor, String manufacture, String fullname) {
-                this.year = year;
-                this.source_file = source;
-                this.clone_of = parent;
-                this.name = name;
-                this.description = fullname;
-                this.manufacturer = manufacture;
-    //TODO            this.drv = drv;
-     //TODO           this.driver_init = init;
-/*TODO*///                romload.handler();//load the rom
-    //TODO            input.handler();//load input
-    //TODO            this.input_ports = input_macro;//copy input macro to input ports
-    //TODO            this.rom = rommodule_macro; //copy rommodule_macro to rom
-                this.flags = monitor;
-            }
+    /**
+     * *************************************************************************
+     *
+     * Game driver structure
+     *
+     **************************************************************************
+     */
+    public static class GameDriver {
 
-            public String source_file;/* set this to __FILE__ */
-            public GameDriver clone_of;/*if this is a clone, point to the main version of the game */
-            public String name;
-/*TODO*///		const struct SystemBios *bios;	/* if this system has alternate bios roms use this */
+        public GameDriver(String year, String name, String source,
+                RomLoadPtr romload,
+                GameDriver parent,
+                MachinePtr drv, InputPortPtr input, InitDriverPtr init,
+                int monitor, String manufacture, String fullname) {
+            this.year = year;
+            this.source_file = source;
+            this.clone_of = parent;
+            this.name = name;
+            this.description = fullname;
+            this.manufacturer = manufacture;
+            //TODO            this.drv = drv;
+            //TODO           this.driver_init = init;
+/*TODO*///                romload.handler();//load the rom
+            //TODO            input.handler();//load input
+            //TODO            this.input_ports = input_macro;//copy input macro to input ports
+            //TODO            this.rom = rommodule_macro; //copy rommodule_macro to rom
+            this.flags = monitor;
+        }
+
+        public String source_file;/* set this to __FILE__ */
+        public GameDriver clone_of;/*if this is a clone, point to the main version of the game */
+        public String name;
+        /*TODO*///		const struct SystemBios *bios;	/* if this system has alternate bios roms use this */
 /*TODO*///										/* structure to list names and ROM_BIOSFLAGS. */            
-            public String description;
-            public String year;
-            public String manufacturer;
-            public InternalMachineDriver drv;
+        public String description;
+        public String year;
+        public String manufacturer;
+        public InternalMachineDriver drv;
 //TODO*/// 	const struct InputPortTiny *input_ports;
 /*TODO*///		void (*driver_init)(void);	/* optional function to be called during initialization */
 /*TODO*///									/* This is called ONCE, unlike Machine->init_machine */
 /*TODO*///									/* which is called every time the game is reset. */
 /*TODO*///	
-            public RomModule[] rom;
-/*TODO*///	#ifdef MESS
+        public RomModule[] rom;
+        /*TODO*///	#ifdef MESS
 /*TODO*///		void (*sysconfig_ctor)(struct SystemConfigurationParamBlock *cfg);
 /*TODO*///		const struct GameDriver *compatible_with;
 /*TODO*///	#endif
 /*TODO*///
-            public int flags;/* orientation and other flags; see defines below */
+        public int flags;/* orientation and other flags; see defines below */
 
-        };
-	
-	
-	
-/*TODO*///	/***************************************************************************
+    };
+
+    /*TODO*///	/***************************************************************************
 /*TODO*///	
 /*TODO*///		Game driver flags
 /*TODO*///	
@@ -461,8 +440,9 @@ public class driverH
 /*TODO*///	#define GAME_NO_COCKTAIL			0x0100	/* screen flip support is missing */
 /*TODO*///	#define GAME_NO_SOUND				0x0200	/* sound is missing */
 /*TODO*///	#define GAME_IMPERFECT_SOUND		0x0400	/* sound is known to be wrong */
-	public static final int NOT_A_DRIVER				= 0x4000;	/* set by the fake "root" driver_0 and by "containers" */
-/*TODO*///												/* e.g. driver_neogeo. */
+    public static final int NOT_A_DRIVER = 0x4000;
+    /* set by the fake "root" driver_0 and by "containers" */
+ /*TODO*///												/* e.g. driver_neogeo. */
 /*TODO*///	#ifdef MESS
 /*TODO*///	#define GAME_COMPUTER               0x8000  /* Driver is a computer (needs full keyboard) */
 /*TODO*///	#define GAME_COMPUTER_MODIFIED      0x0800	/* Official? Hack */
@@ -548,9 +528,9 @@ public class driverH
 /*TODO*///		(MONITOR)|(FLAGS)						\
 /*TODO*///	};
 
-	/* monitor parameters to be used with the GAME() macro */
-	public static final int	ROT0	= 0;
-/*TODO*///	#define	ROT90	(ORIENTATION_SWAP_XY|ORIENTATION_FLIP_X)	/* rotate clockwise 90 degrees */
+    /* monitor parameters to be used with the GAME() macro */
+    public static final int ROT0 = 0;
+    /*TODO*///	#define	ROT90	(ORIENTATION_SWAP_XY|ORIENTATION_FLIP_X)	/* rotate clockwise 90 degrees */
 /*TODO*///	#define	ROT180	(ORIENTATION_FLIP_X|ORIENTATION_FLIP_Y)		/* rotate 180 degrees */
 /*TODO*///	#define	ROT270	(ORIENTATION_SWAP_XY|ORIENTATION_FLIP_Y)	/* rotate counter-clockwise 90 degrees */
 /*TODO*///	

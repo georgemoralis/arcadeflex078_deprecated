@@ -1,15 +1,3 @@
-/***************************************************************************
-
-Minivader (Space Invaders's mini game)
-(c)1990 Taito Corporation
-
-Driver by Takahiro Nogi (nogi@kt.rim.or.jp) 1999/12/19 -
-
-This is a test board sold together with the cabinet (as required by law in
-Japan). It has no sound.
-
-***************************************************************************/
-
 /*
  * ported to v0.78
  * using automatic conversion tool v0.01
@@ -17,7 +5,7 @@ Japan). It has no sound.
 package arcadeflex.v078.drivers;
 
 import static arcadeflex.v078.mame.driverH.*;
-import static arcadeflex.v078.mame.commonH.*;
+import static common.FuncPtr.*;
 
 public class minivadr
 {
