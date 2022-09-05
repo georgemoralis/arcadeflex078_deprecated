@@ -8,6 +8,8 @@ import static arcadeflex.v078.mame.commonH.*;
 import arcadeflex.v078.mame.drawgfxH.rectangle;
 import static arcadeflex.v078.mame.mameH.machine;
 import static common.FuncPtr.*;
+import common.PtrLib.UBytePtr;
+import java.lang.reflect.Method;
 
 public class driverH {
 
@@ -208,11 +210,26 @@ public class driverH {
 /*TODO*///	#define MDRV_COLORTABLE_LENGTH(length)									\
 /*TODO*///		machine->color_table_len = (length);								\
 /*TODO*///	
-/*TODO*///	
-/*TODO*///	/* core video functions */
-/*TODO*///	#define MDRV_PALETTE_INIT(name)											\
-/*TODO*///		machine->init_palette = palette_init_##name;						\
-/*TODO*///	
+
+        public static VhPaletteInitPtr GET_palette_init(String name) {
+            VhPaletteInitPtr _palOut = null;
+            
+            try {
+                Class _cl = Class.forName("arcadeflex.v078.vidhrdw."+name+".palette_init_"+name);
+                
+                _palOut = (VhPaletteInitPtr) _cl.newInstance();
+               
+            } catch (Exception e) {
+                e.printStackTrace(System.out);
+            }
+            
+            return _palOut;
+        }
+	/* core video functions */
+	public static void MDRV_PALETTE_INIT(String name) {
+		machine.init_palette = GET_palette_init(name);
+        }
+
 /*TODO*///	#define MDRV_VIDEO_START(name)											\
 /*TODO*///		machine->video_start = video_start_##name;							\
 /*TODO*///	
@@ -295,8 +312,8 @@ public class driverH {
 /*TODO*///		struct GfxDecodeInfo *gfxdecodeinfo;
 		int /*UINT32*/ total_colors;
 /*TODO*///		UINT32 color_table_len;
-/*TODO*///	
-/*TODO*///		void (*init_palette)(UINT16 *colortable,const UINT8 *color_prom);
+	
+		VhPaletteInitPtr init_palette;
 /*TODO*///		int (*video_start)(void);
 /*TODO*///		void (*video_stop)(void);
 /*TODO*///		void (*video_eof)(void);

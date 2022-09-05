@@ -70,7 +70,7 @@ public class minivadr
 		MDRV_VISIBLE_AREA(0, 256-1, 16, 240-1);
 		MDRV_PALETTE_LENGTH(2);
 	
-/*TODO*///		MDRV_PALETTE_INIT(minivadr)
+		MDRV_PALETTE_INIT("minivadr");
 /*TODO*///		MDRV_VIDEO_START(generic)
 /*TODO*///		MDRV_VIDEO_UPDATE(minivadr)
 /*TODO*///	
