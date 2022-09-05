@@ -12,6 +12,8 @@
  */ 
 package arcadeflex.v078.mame;
 
+import arcadeflex.v078.mame.driverH.InternalMachineDriver;
+
 public class mameH
 {
 /*TODO*///	
@@ -321,9 +323,9 @@ public class mameH
 /*TODO*///	
 /*TODO*///	/* execute a given game by index in the drivers[] array */
 /*TODO*///	int run_game(int game);
-/*TODO*///	
-/*TODO*///	/* construct a machine driver */
-/*TODO*///	struct InternalMachineDriver;
+
+	/* construct a machine driver */
+	public static InternalMachineDriver machine;
 /*TODO*///	void expand_machine_driver(void (*constructor)(struct InternalMachineDriver *), struct InternalMachineDriver *output);
 /*TODO*///	
 /*TODO*///	/* pause the system */

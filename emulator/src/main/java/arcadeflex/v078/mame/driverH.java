@@ -5,6 +5,8 @@
 package arcadeflex.v078.mame;
 
 import static arcadeflex.v078.mame.commonH.*;
+import arcadeflex.v078.mame.drawgfxH.rectangle;
+import static arcadeflex.v078.mame.mameH.machine;
 import static common.FuncPtr.*;
 
 public class driverH {
@@ -150,14 +152,16 @@ public class driverH {
 /*TODO*///			cpu->timed_interrupts_per_second = (rate);						\
 /*TODO*///		}																	\
 /*TODO*///	
-/*TODO*///	
-/*TODO*///	/* core parameters */
-/*TODO*///	#define MDRV_FRAMES_PER_SECOND(rate)									\
-/*TODO*///		machine->frames_per_second = (rate);								\
-/*TODO*///	
-/*TODO*///	#define MDRV_VBLANK_DURATION(duration)									\
-/*TODO*///		machine->vblank_duration = (duration);								\
-/*TODO*///	
+	
+	/* core parameters */
+	public static void MDRV_FRAMES_PER_SECOND(float rate) {
+		machine.frames_per_second = (rate);
+        }
+	
+	public static void MDRV_VBLANK_DURATION(int duration) {
+		machine.vblank_duration = (duration);
+        }
+	
 /*TODO*///	#define MDRV_INTERLEAVE(interleave)										\
 /*TODO*///		machine->cpu_slices_per_frame = (interleave);						\
 /*TODO*///	
@@ -171,32 +175,36 @@ public class driverH {
 /*TODO*///	
 /*TODO*///	#define MDRV_NVRAM_HANDLER(name)										\
 /*TODO*///		machine->nvram_handler = nvram_handler_##name;						\
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/* core video parameters */
-/*TODO*///	#define MDRV_VIDEO_ATTRIBUTES(flags)									\
-/*TODO*///		machine->video_attributes = (flags);								\
-/*TODO*///	
+	
+	
+	/* core video parameters */
+	public static void MDRV_VIDEO_ATTRIBUTES(int flags) {
+		machine.video_attributes = (flags);
+        }
+	
 /*TODO*///	#define MDRV_ASPECT_RATIO(num, den)										\
 /*TODO*///		machine->aspect_x = (num);											\
 /*TODO*///		machine->aspect_y = (den);											\
-/*TODO*///	
-/*TODO*///	#define MDRV_SCREEN_SIZE(width, height)									\
-/*TODO*///		machine->screen_width = (width);									\
-/*TODO*///		machine->screen_height = (height);									\
-/*TODO*///	
-/*TODO*///	#define MDRV_VISIBLE_AREA(minx, maxx, miny, maxy)						\
-/*TODO*///		machine->default_visible_area.min_x = (minx);						\
-/*TODO*///		machine->default_visible_area.max_x = (maxx);						\
-/*TODO*///		machine->default_visible_area.min_y = (miny);						\
-/*TODO*///		machine->default_visible_area.max_y = (maxy);						\
-/*TODO*///	
+	
+	public static void MDRV_SCREEN_SIZE(int width, int height) {
+		machine.screen_width = (width);
+		machine.screen_height = (height);
+        }
+	
+	public static void MDRV_VISIBLE_AREA(int minx, int maxx, int miny, int maxy) {
+		machine.default_visible_area.min_x = (minx);
+		machine.default_visible_area.max_x = (maxx);
+		machine.default_visible_area.min_y = (miny);
+		machine.default_visible_area.max_y = (maxy);
+        }
+	
 /*TODO*///	#define MDRV_GFXDECODE(gfx)												\
 /*TODO*///		machine->gfxdecodeinfo = (gfx);										\
-/*TODO*///	
-/*TODO*///	#define MDRV_PALETTE_LENGTH(length)										\
-/*TODO*///		machine->total_colors = (length);									\
-/*TODO*///	
+	
+	public static void MDRV_PALETTE_LENGTH(int length) {
+		machine.total_colors = (length);
+        }
+	
 /*TODO*///	#define MDRV_COLORTABLE_LENGTH(length)									\
 /*TODO*///		machine->color_table_len = (length);								\
 /*TODO*///	
@@ -272,20 +280,20 @@ public class driverH {
 
     public static class InternalMachineDriver {
         /*TODO*///		struct MachineCPU cpu[MAX_CPU];
-/*TODO*///		float frames_per_second;
-/*TODO*///		int vblank_duration;
+		float frames_per_second;
+		int vblank_duration;
 /*TODO*///		UINT32 cpu_slices_per_frame;
 /*TODO*///	
 /*TODO*///		void (*machine_init)(void);
 /*TODO*///		void (*machine_stop)(void);
 /*TODO*///		void (*nvram_handler)(mame_file *file, int read_or_write);
 /*TODO*///	
-/*TODO*///		UINT32 video_attributes;
+		int /*UINT32*/ video_attributes;
 /*TODO*///		UINT32 aspect_x, aspect_y;
-/*TODO*///		int screen_width,screen_height;
-/*TODO*///		struct rectangle default_visible_area;
+		int screen_width,screen_height;
+		rectangle default_visible_area = new rectangle();
 /*TODO*///		struct GfxDecodeInfo *gfxdecodeinfo;
-/*TODO*///		UINT32 total_colors;
+		int /*UINT32*/ total_colors;
 /*TODO*///		UINT32 color_table_len;
 /*TODO*///	
 /*TODO*///		void (*init_palette)(UINT16 *colortable,const UINT8 *color_prom);
@@ -298,39 +306,39 @@ public class driverH {
 /*TODO*///		struct MachineSound sound[MAX_SOUND];
     };
 
-    /*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///		Machine driver constants and flags
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	/* VBlank is the period when the video beam is outside of the visible area and */
-/*TODO*///	/* returns from the bottom to the top of the screen to prepare for a new video frame. */
-/*TODO*///	/* VBlank duration is an important factor in how the game renders itself. MAME */
-/*TODO*///	/* generates the vblank_interrupt, lets the game run for vblank_duration microseconds, */
-/*TODO*///	/* and then updates the screen. This faithfully reproduces the behaviour of the real */
-/*TODO*///	/* hardware. In many cases, the game does video related operations both in its vblank */
-/*TODO*///	/* interrupt, and in the normal game code; it is therefore important to set up */
-/*TODO*///	/* vblank_duration accurately to have everything properly in sync. An example of this */
-/*TODO*///	/* is Commando: if you set vblank_duration to 0, therefore redrawing the screen BEFORE */
-/*TODO*///	/* the vblank interrupt is executed, sprites will be misaligned when the screen scrolls. */
-/*TODO*///	
-/*TODO*///	/* Here are some predefined, TOTALLY ARBITRARY values for vblank_duration, which should */
-/*TODO*///	/* be OK for most cases. I have NO IDEA how accurate they are compared to the real */
-/*TODO*///	/* hardware, they could be completely wrong. */
-/*TODO*///	#define DEFAULT_60HZ_VBLANK_DURATION 0
+    	/***************************************************************************
+	
+		Machine driver constants and flags
+	
+	***************************************************************************/
+	
+	/* VBlank is the period when the video beam is outside of the visible area and */
+	/* returns from the bottom to the top of the screen to prepare for a new video frame. */
+	/* VBlank duration is an important factor in how the game renders itself. MAME */
+	/* generates the vblank_interrupt, lets the game run for vblank_duration microseconds, */
+	/* and then updates the screen. This faithfully reproduces the behaviour of the real */
+	/* hardware. In many cases, the game does video related operations both in its vblank */
+	/* interrupt, and in the normal game code; it is therefore important to set up */
+	/* vblank_duration accurately to have everything properly in sync. An example of this */
+	/* is Commando: if you set vblank_duration to 0, therefore redrawing the screen BEFORE */
+	/* the vblank interrupt is executed, sprites will be misaligned when the screen scrolls. */
+	
+	/* Here are some predefined, TOTALLY ARBITRARY values for vblank_duration, which should */
+	/* be OK for most cases. I have NO IDEA how accurate they are compared to the real */
+	/* hardware, they could be completely wrong. */
+	public static final int DEFAULT_60HZ_VBLANK_DURATION  = 0;
 /*TODO*///	#define DEFAULT_30HZ_VBLANK_DURATION 0
 /*TODO*///	/* If you use IPT_VBLANK, you need a duration different from 0. */
 /*TODO*///	#define DEFAULT_REAL_60HZ_VBLANK_DURATION 2500
 /*TODO*///	#define DEFAULT_REAL_30HZ_VBLANK_DURATION 2500
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/* ----- flags for video_attributes ----- */
-/*TODO*///	
-/*TODO*///	/* bit 0 of the video attributes indicates raster or vector video hardware */
-/*TODO*///	#define	VIDEO_TYPE_RASTER			0x0000
-/*TODO*///	#define	VIDEO_TYPE_VECTOR			0x0001
-/*TODO*///	
+	
+	
+	/* ----- flags for video_attributes ----- */
+	
+	/* bit 0 of the video attributes indicates raster or vector video hardware */
+	public static final int	VIDEO_TYPE_RASTER   = 0x0000;
+	public static final int	VIDEO_TYPE_VECTOR   = 0x0001;
+	
 /*TODO*///	/* bit 3 of the video attributes indicates that the game's palette has 6 or more bits */
 /*TODO*///	/*       per gun, and would therefore require a 24-bit display. This is entirely up to */
 /*TODO*///	/*       the OS dependant layer, the bitmap will still be 16-bit. */
