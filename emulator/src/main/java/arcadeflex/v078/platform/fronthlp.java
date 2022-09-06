@@ -828,7 +828,7 @@ public class fronthlp {
 
 		case LIST_GAMELIST: /* GAMELIST.TXT */
 			printf("This is the complete list of games supported by MAME %s.\n",build_version);
-/*TODO*///			if (!listclones)
+			if (listclones==0)
 				printf("Variants of the same game are not included, you can use the -listclones command\n"+
 					"to get a list of the alternate versions of a given game.\n");
 			printf("\n"+
@@ -944,7 +944,7 @@ public class fronthlp {
 						printf("|  Yes  ");
 
 					{
-/*TODO*///						const char **samplenames = null;
+						String[] samplenames = null;
 /*TODO*///						expand_machine_driver(drivers[i].drv, &drv);
 /*TODO*///#if (HAS_SAMPLES || HAS_VLM5030)
 /*TODO*///						for (j = 0;drv.sound[j].sound_type && j < MAX_SOUND; j++)
@@ -962,16 +962,16 @@ public class fronthlp {
 							printf("|   No  ");
 						else if ((drivers[i].flags & GAME_IMPERFECT_SOUND) != 0)
 						{
-/*TODO*///							if (samplenames != null)
-/*TODO*///								printf("|Part(2)");
-/*TODO*///							else
+							if (samplenames != null)
+								printf("|Part(2)");
+							else
 								printf("|Partial");
 						}
 						else
 						{
-/*TODO*///							if (samplenames != null)
-/*TODO*///								printf("| Yes(2)");
-/*TODO*///							else
+							if (samplenames != null)
+								printf("| Yes(2)");
+							else
 								printf("|  Yes  ");
 						}
 					}
