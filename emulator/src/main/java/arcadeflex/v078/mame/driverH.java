@@ -456,16 +456,16 @@ public class driverH {
 /*TODO*///	#define	ORIENTATION_FLIP_X			0x0001	/* mirror everything in the X direction */
 /*TODO*///	#define	ORIENTATION_FLIP_Y			0x0002	/* mirror everything in the Y direction */
 /*TODO*///	#define ORIENTATION_SWAP_XY			0x0004	/* mirror along the top-left/bottom-right diagonal */
-/*TODO*///	
-/*TODO*///	#define GAME_NOT_WORKING			0x0008
-/*TODO*///	#define GAME_UNEMULATED_PROTECTION	0x0010	/* game's protection not fully emulated */
-/*TODO*///	#define GAME_WRONG_COLORS			0x0020	/* colors are totally wrong */
-/*TODO*///	#define GAME_IMPERFECT_COLORS		0x0040	/* colors are not 100% accurate, but close */
-/*TODO*///	#define GAME_IMPERFECT_GRAPHICS		0x0080	/* graphics are wrong/incomplete */
-/*TODO*///	#define GAME_NO_COCKTAIL			0x0100	/* screen flip support is missing */
-/*TODO*///	#define GAME_NO_SOUND				0x0200	/* sound is missing */
-/*TODO*///	#define GAME_IMPERFECT_SOUND		0x0400	/* sound is known to be wrong */
-    public static final int NOT_A_DRIVER = 0x4000;
+	
+    public static final int GAME_NOT_WORKING            = 0x0008;
+    public static final int GAME_UNEMULATED_PROTECTION	= 0x0010;	/* game's protection not fully emulated */
+    public static final int GAME_WRONG_COLORS           = 0x0020;	/* colors are totally wrong */
+    public static final int GAME_IMPERFECT_COLORS       = 0x0040;	/* colors are not 100% accurate, but close */
+    public static final int GAME_IMPERFECT_GRAPHICS	= 0x0080;	/* graphics are wrong/incomplete */
+    public static final int GAME_NO_COCKTAIL		= 0x0100;	/* screen flip support is missing */
+    public static final int GAME_NO_SOUND		= 0x0200;	/* sound is missing */
+    public static final int GAME_IMPERFECT_SOUND	= 0x0400;	/* sound is known to be wrong */
+    public static final int NOT_A_DRIVER                = 0x4000;
     /* set by the fake "root" driver_0 and by "containers" */
  /*TODO*///												/* e.g. driver_neogeo. */
 /*TODO*///	#ifdef MESS
