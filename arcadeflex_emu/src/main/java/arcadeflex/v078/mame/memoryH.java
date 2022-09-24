@@ -4,7 +4,13 @@
  */
 package arcadeflex.v078.mame;
 
+//generic imports
+import static arcadeflex.v078.generic.funcPtr.*;
+//common imports
+import static common.ptrLib.*;
+
 public class memoryH {
+
     /*TODO*////***************************************************************************
 /*TODO*///
 /*TODO*///	Parameters
@@ -413,14 +419,37 @@ public class memoryH {
 /*TODO*///	the memory area processed by the handler.
 /*TODO*///
 /*TODO*///***************************************************************************/
-/*TODO*///
-/*TODO*////* ----- structs for memory read arrays ----- */
-/*TODO*///struct Memory_ReadAddress
-/*TODO*///{
-/*TODO*///	offs_t				start, end;		/* start, end addresses, inclusive */
-/*TODO*///	mem_read_handler 	handler;		/* handler callback */
-/*TODO*///};
-/*TODO*///
+
+    /* ----- structs for memory read arrays ----- */
+    public static class Memory_ReadAddress {
+
+        public Memory_ReadAddress(int start, int end) {
+            this.start = start;
+            this.end = end;
+            this.handler = -15000;//random number for not matching something else
+            this._handler = null;
+        }
+
+        public Memory_ReadAddress(int start, int end, int handler) {
+            this.start = start;
+            this.end = end;
+            this.handler = handler;
+            this._handler = null;
+        }
+
+        public Memory_ReadAddress(int start, int end, ReadHandlerPtr _handler) {
+            this.start = start;
+            this.end = end;
+            this.handler = -15000;//random number for not matching something else
+            this._handler = _handler;
+        }
+
+        private int start, end;/* start, end addresses, inclusive */
+        private ReadHandlerPtr _handler;/* handler callback */
+        private int handler;
+    }
+
+    /*TODO*///
 /*TODO*///struct Memory_ReadAddress16
 /*TODO*///{
 /*TODO*///	offs_t				start, end;		/* start, end addresses, inclusive */
@@ -433,16 +462,80 @@ public class memoryH {
 /*TODO*///	mem_read32_handler	handler;		/* handler callback */
 /*TODO*///};
 /*TODO*///
-/*TODO*////* ----- structs for memory write arrays ----- */
-/*TODO*///struct Memory_WriteAddress
-/*TODO*///{
-/*TODO*///    offs_t				start, end;		/* start, end addresses, inclusive */
-/*TODO*///	mem_write_handler	handler;		/* handler callback */
-/*TODO*///	data8_t **			base;			/* receives pointer to memory (optional) */
-/*TODO*///    size_t *			size;			/* receives size of memory in bytes (optional) */
-/*TODO*///};
-/*TODO*///
-/*TODO*///struct Memory_WriteAddress16
+    /* ----- structs for memory write arrays ----- */
+    public static class Memory_WriteAddress {
+
+        public Memory_WriteAddress(int start, int end) {
+            this.start = start;
+            this.end = end;
+            this._handler = null;
+            this.handler = -15000;//random number for not matching something else
+            this.base = null;
+            this.size = null;
+        }
+
+        public Memory_WriteAddress(int start, int end, int handler) {
+            this.start = start;
+            this.end = end;
+            this.handler = handler;
+            this._handler = null;
+            this.base = null;
+            this.size = null;
+        }
+
+        public Memory_WriteAddress(int start, int end, int handler, UBytePtr base) {
+            this.start = start;
+            this.end = end;
+            this.handler = handler;
+            this._handler = null;
+            this.base = base;
+            this.size = null;
+        }
+
+        public Memory_WriteAddress(int start, int end, int handler, UBytePtr base, int[] size) {
+            this.start = start;
+            this.end = end;
+            this.handler = handler;
+            this._handler = null;
+            this.base = base;
+            this.size = size;
+        }
+
+        public Memory_WriteAddress(int start, int end, WriteHandlerPtr _handler) {
+            this.start = start;
+            this.end = end;
+            this.handler = -15000;//random number for not matching something else
+            this._handler = _handler;
+            this.base = null;
+            this.size = null;
+        }
+
+        public Memory_WriteAddress(int start, int end, WriteHandlerPtr _handler, UBytePtr base) {
+            this.start = start;
+            this.end = end;
+            this._handler = _handler;
+            this.handler = -15000;//random number for not matching something else
+            this.base = base;
+            this.size = null;
+        }
+
+        public Memory_WriteAddress(int start, int end, WriteHandlerPtr _handler, UBytePtr base, int[] size) {
+            this.start = start;
+            this.end = end;
+            this._handler = _handler;
+            this.handler = -15000;//random number for not matching something else
+            this.base = base;
+            this.size = size;
+        }
+
+        private int start, end;/* start, end addresses, inclusive */
+        private WriteHandlerPtr _handler;/* handler callback */
+        private int handler;
+        private UBytePtr base;/* receives pointer to memory (optional) */
+        private int[] size;/* receives size of memory in bytes (optional) */
+    }
+
+    /*TODO*///struct Memory_WriteAddress16
 /*TODO*///{
 /*TODO*///    offs_t				start, end;		/* start, end addresses, inclusive */
 /*TODO*///	mem_write16_handler handler;		/* handler callback */
