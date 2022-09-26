@@ -4,95 +4,127 @@
  */
 package arcadeflex.v078.mame;
 
+//mame imports
+import static arcadeflex.v078.mame.memoryH.*;
+//common imports
+import static common.ptrLib.*;
+
 public class memory {
-/*TODO*/////#define MEM_DUMP
+
+    /*TODO*/////#define MEM_DUMP
 /*TODO*/////#define CHECK_MASKS
 /*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////***************************************************************************
-/*TODO*///
-/*TODO*///	Basic theory of memory handling:
-/*TODO*///
-/*TODO*///	An address with up to 32 bits is passed to a memory handler. First,
-/*TODO*///	the non-significant bits are removed from the bottom; for example,
-/*TODO*///	a 16-bit memory handler doesn't care about the low bit, so that is
-/*TODO*///	removed.
-/*TODO*///
-/*TODO*///	Next, the address is broken into two halves, an upper half and a
-/*TODO*///	lower half. The number of bits in each half varies based on the
-/*TODO*///	total number of address bits. The upper half is then used as an
-/*TODO*///	index into the base_lookup table.
-/*TODO*///
-/*TODO*///	If the value pulled from the table is within the range 192-255, then
-/*TODO*///	the lower half of the address is needed to resolve the final handler.
-/*TODO*///	The value from the table (192-255) is combined with the lower address
-/*TODO*///	bits to form an index into a subtable.
-/*TODO*///
-/*TODO*///	Table values in the range 0-31 are reserved for internal handling
-/*TODO*///	(such as RAM, ROM, NOP, and banking). Table values between 32 and 192
-/*TODO*///	are assigned dynamically at startup.
-/*TODO*///
-/*TODO*///***************************************************************************/
-/*TODO*///
-/*TODO*////* macros for the profiler */
-/*TODO*///#define MEMREADSTART			profiler_mark(PROFILER_MEMREAD);
+    /**
+     * *************************************************************************
+     *
+     * Basic theory of memory handling:
+     *
+     * An address with up to 32 bits is passed to a memory handler. First, the
+     * non-significant bits are removed from the bottom; for example, a 16-bit
+     * memory handler doesn't care about the low bit, so that is removed.
+     *
+     * Next, the address is broken into two halves, an upper half and a lower
+     * half. The number of bits in each half varies based on the total number of
+     * address bits. The upper half is then used as an index into the
+     * base_lookup table.
+     *
+     * If the value pulled from the table is within the range 192-255, then the
+     * lower half of the address is needed to resolve the final handler. The
+     * value from the table (192-255) is combined with the lower address bits to
+     * form an index into a subtable.
+     *
+     * Table values in the range 0-31 are reserved for internal handling (such
+     * as RAM, ROM, NOP, and banking). Table values between 32 and 192 are
+     * assigned dynamically at startup.
+     *
+     **************************************************************************
+     */
+
+    /* macros for the profiler */
+ /*TODO*///#define MEMREADSTART			profiler_mark(PROFILER_MEMREAD);
 /*TODO*///#define MEMREADEND(ret)			{ profiler_mark(PROFILER_END); return ret; }
 /*TODO*///#define MEMWRITESTART			profiler_mark(PROFILER_MEMWRITE);
 /*TODO*///#define MEMWRITEEND(ret)		{ (ret); profiler_mark(PROFILER_END); return; }
-/*TODO*///
-/*TODO*///#define DATABITS_TO_SHIFT(d)	(((d) == 32) ? 2 : ((d) == 16) ? 1 : 0)
-/*TODO*///
-/*TODO*////* helper macros */
-/*TODO*///#define HANDLER_IS_RAM(h)		((FPTR)(h) == STATIC_RAM)
-/*TODO*///#define HANDLER_IS_ROM(h)		((FPTR)(h) == STATIC_ROM)
-/*TODO*///#define HANDLER_IS_RAMROM(h)	((FPTR)(h) == STATIC_RAMROM)
-/*TODO*///#define HANDLER_IS_NOP(h)		((FPTR)(h) == STATIC_NOP)
-/*TODO*///#define HANDLER_IS_BANK(h)		((FPTR)(h) >= STATIC_BANK1 && (FPTR)(h) <= STATIC_BANKMAX)
-/*TODO*///#define HANDLER_IS_STATIC(h)	((FPTR)(h) < STATIC_COUNT)
-/*TODO*///
-/*TODO*///#define HANDLER_TO_BANK(h)		((FPTR)(h))
-/*TODO*///#define BANK_TO_HANDLER(b)		((void *)(b))
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	TYPE DEFINITIONS
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///struct bank_data
-/*TODO*///{
-/*TODO*///	UINT8 				used;				/* is this bank used? */
-/*TODO*///	UINT8 				cpunum;				/* the CPU it is used for */
-/*TODO*///	offs_t 				base;				/* the base offset */
-/*TODO*///	offs_t				readoffset;			/* original base offset for reads */
-/*TODO*///	offs_t				writeoffset;		/* original base offset for writes */
-/*TODO*///};
-/*TODO*///
-/*TODO*///struct handler_data
-/*TODO*///{
-/*TODO*///	void *				handler;			/* function pointer for handler */
-/*TODO*///	offs_t				offset;				/* base offset for handler */
-/*TODO*///	offs_t				top;				/* maximum offset for handler */
-/*TODO*///};
-/*TODO*///
-/*TODO*///struct table_data
-/*TODO*///{
-/*TODO*///	UINT8 *				table;				/* pointer to base of table */
-/*TODO*///	UINT8 				subtable_count;		/* number of subtables used */
-/*TODO*///	UINT8 				subtable_alloc;		/* number of subtables allocated */
-/*TODO*///	struct handler_data *handlers;			/* pointer to which set of handlers */
-/*TODO*///};
-/*TODO*///
-/*TODO*///struct memport_data
-/*TODO*///{
-/*TODO*///	int					cpunum;				/* CPU index */
-/*TODO*///	int					abits;				/* address bits */
-/*TODO*///	int 				dbits;				/* data bits */
-/*TODO*///	int					ebits;				/* effective address bits */
-/*TODO*///	offs_t				mask;				/* address mask */
-/*TODO*///	struct table_data	read;				/* memory read lookup table */
-/*TODO*///	struct table_data	write;				/* memory write lookup table */
-/*TODO*///};
+    public static int DATABITS_TO_SHIFT(int d) {
+        return (((d) == 32) ? 2 : ((d) == 16) ? 1 : 0);
+    }
+
+    /* helper macros */
+    public static boolean HANDLER_IS_RAM(int h) {
+        return ((h) == STATIC_RAM);
+    }
+
+    public static boolean HANDLER_IS_ROM(int h) {
+        return ((h) == STATIC_ROM);
+    }
+
+    public static boolean HANDLER_IS_RAMROM(int h) {
+        return ((h) == STATIC_RAMROM);
+    }
+
+    public static boolean HANDLER_IS_NOP(int h) {
+        return ((h) == STATIC_NOP);
+    }
+
+    public static boolean HANDLER_IS_BANK(int h) {
+        return ((h) >= STATIC_BANK1 && (h) <= STATIC_BANKMAX);
+    }
+
+    public static boolean HANDLER_IS_STATIC(int h) {
+        return (h < STATIC_COUNT && h != -15000);//special handle for arcadeflex
+    }
+
+    public static int HANDLER_TO_BANK(int h) {
+        return h;
+    }
+
+    /*TODO*///#define BANK_TO_HANDLER(b)		((void *)(b))
+    /*-------------------------------------------------
+	TYPE DEFINITIONS
+    -------------------------------------------------*/
+    public static class bank_data {
+
+        public int used;/* is this bank used? */
+        public int cpunum;/* the CPU it is used for */
+        public int base;/* the base offset */
+        public int readoffset;/* original base offset for reads */
+        public int writeoffset;/* original base offset for writes */
+    }
+
+    public static class handler_data {
+
+        public Object handler;/* function pointer for handler */
+        public int offset;/* base offset for handler */
+        public int top;/* maximum offset for handler */
+
+        public static handler_data[] create(int n) {
+            handler_data[] a = new handler_data[n];
+            for (int k = 0; k < n; k++) {
+                a[k] = new handler_data();
+            }
+            return a;
+        }
+    }
+
+    public static class table_data {
+
+        public UBytePtr table;/* pointer to base of table */
+        public int /*UINT8*/ subtable_count;/* number of subtables used */
+        public int /*UINT8*/ subtable_alloc;/* number of subtables allocated */
+        public handler_data[] handlers;/* pointer to which set of handlers */
+    }
+
+    public static class memport_data {
+
+        public int cpunum;/* CPU index */
+        public int abits;/* address bits */
+        public int dbits;/* data bits */
+        public int ebits;/* effective address bits */
+        public int /*offs_t*/ mask;/* address mask */
+        public table_data read = new table_data();/* memory read lookup table */
+        public table_data write = new table_data();/* memory write lookup table */
+    }
+
 /*TODO*///
 /*TODO*///struct cpu_data
 /*TODO*///{
