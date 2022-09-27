@@ -18,5 +18,21 @@ public class ptrLib {
 
         public UBytePtr() {
         }
+
+        public char read() {
+            return (char) (memory[offset] & 0xFF);
+        }
+
+        public char read(int index) {
+            return (char) (memory[offset + index] & 0xFF);
+        }
+
+        public void write(int value) {
+            memory[offset] = (char) (value & 0xFF);
+        }
+
+        public void write(int index, int value) {
+            memory[offset + index] = (char) (value & 0xFF);
+        }
     }
 }

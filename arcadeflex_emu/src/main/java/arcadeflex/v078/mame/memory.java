@@ -4,6 +4,8 @@
  */
 package arcadeflex.v078.mame;
 
+//generic imports
+import static arcadeflex.v078.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v078.mame.memoryH.*;
 //common imports
@@ -11,9 +13,9 @@ import static common.ptrLib.*;
 
 public class memory {
 
-    /*TODO*/////#define MEM_DUMP
-/*TODO*/////#define CHECK_MASKS
-/*TODO*///
+    public static final boolean MEM_DUMP = false;
+    public static final boolean CHECK_MASKS = false;
+
     /**
      * *************************************************************************
      *
@@ -125,173 +127,135 @@ public class memory {
         public table_data write = new table_data();/* memory write lookup table */
     }
 
-/*TODO*///
-/*TODO*///struct cpu_data
-/*TODO*///{
-/*TODO*///	void *				rambase;			/* RAM base pointer */
-/*TODO*///	size_t				ramlength;			/* RAM length pointer */
-/*TODO*///	opbase_handler 		opbase;				/* opcode base handler */
-/*TODO*///
-/*TODO*///	void *				op_ram;				/* dynamic RAM base pointer */
-/*TODO*///	void *				op_rom;				/* dynamic ROM base pointer */
-/*TODO*///	offs_t				op_mem_min;			/* dynamic ROM/RAM min */
-/*TODO*///	offs_t				op_mem_max;			/* dynamic ROM/RAM max */
-/*TODO*///	UINT8		 		opcode_entry;		/* opcode base handler */
-/*TODO*///
-/*TODO*///	struct memport_data	mem;				/* memory tables */
-/*TODO*///	struct memport_data	port;				/* port tables */
-/*TODO*///};
-/*TODO*///
-/*TODO*///struct memory_address_table
+    public static class cpu_data {
+
+        public UBytePtr rambase;/* RAM base pointer */
+        public int ramlength;/* RAM length pointer */
+        public opbase_handlerPtr opbase;/* opcode base handler */
+
+        public UBytePtr op_ram;/* dynamic RAM base pointer */
+        public UBytePtr op_rom;/* dynamic ROM base pointer */
+        public int op_mem_min;/* dynamic ROM/RAM min */
+        public int op_mem_max;/* dynamic ROM/RAM max */
+        public int opcode_entry;/* opcode base handler */
+        public memport_data mem = new memport_data();/* memory tables */
+        public memport_data port = new memport_data();/* port tables */
+    }
+
+    /*TODO*///struct memory_address_table
 /*TODO*///{
 /*TODO*///	int 				bits;				/* address bits */
 /*TODO*///	read8_handler		handler;			/* handler associated with that */
 /*TODO*///};
 /*TODO*///
 /*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	GLOBAL VARIABLES
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///static int					cur_context;					/* current CPU context */
-/*TODO*///
-/*TODO*///UINT8 *						OP_ROM;							/* opcode ROM base */
-/*TODO*///UINT8 *						OP_RAM;							/* opcode RAM base */
-/*TODO*///offs_t						OP_MEM_MIN;						/* opcode memory minimum */
-/*TODO*///offs_t						OP_MEM_MAX;						/* opcode memory maximum */
-/*TODO*///UINT8		 				opcode_entry;					/* opcode readmem entry */
-/*TODO*///
-/*TODO*///UINT8 *						readmem_lookup;					/* memory read lookup table */
-/*TODO*///static UINT8 *				writemem_lookup;				/* memory write lookup table */
-/*TODO*///static UINT8 *				readport_lookup;				/* port read lookup table */
-/*TODO*///static UINT8 *				writeport_lookup;				/* port write lookup table */
-/*TODO*///
-/*TODO*///offs_t						mem_amask;						/* memory address mask */
-/*TODO*///static offs_t				port_amask;						/* port address mask */
-/*TODO*///
-/*TODO*///UINT8 *						cpu_bankbase[STATIC_COUNT];		/* array of bank bases */
-/*TODO*///int ext_entries = 0;										/* number of entries ext_memory[] entries used */
-/*TODO*///struct ExtMemory			ext_memory[MAX_EXT_MEMORY];		/* externally-allocated memory */
-/*TODO*///
-/*TODO*///static data32_t				unmap_value;					/* unmapped memory value */
-/*TODO*///
-/*TODO*///static opbase_handler		opbasefunc;						/* opcode base override */
-/*TODO*///
-/*TODO*///static struct handler_data 	rmemhandler8[ENTRY_COUNT];		/* 8-bit memory read handlers */
-/*TODO*///static struct handler_data 	rmemhandler16[ENTRY_COUNT];		/* 16-bit memory read handlers */
-/*TODO*///static struct handler_data 	rmemhandler32[ENTRY_COUNT];		/* 32-bit memory read handlers */
-/*TODO*///static struct handler_data 	wmemhandler8[ENTRY_COUNT];		/* 8-bit memory write handlers */
-/*TODO*///static struct handler_data 	wmemhandler16[ENTRY_COUNT];		/* 16-bit memory write handlers */
-/*TODO*///static struct handler_data 	wmemhandler32[ENTRY_COUNT];		/* 32-bit memory write handlers */
-/*TODO*///
-/*TODO*///static struct handler_data 	rporthandler8[ENTRY_COUNT];		/* 8-bit port read handlers */
-/*TODO*///static struct handler_data 	rporthandler16[ENTRY_COUNT];	/* 16-bit port read handlers */
-/*TODO*///static struct handler_data 	rporthandler32[ENTRY_COUNT];	/* 32-bit port read handlers */
-/*TODO*///static struct handler_data 	wporthandler8[ENTRY_COUNT];		/* 8-bit port write handlers */
-/*TODO*///static struct handler_data 	wporthandler16[ENTRY_COUNT];	/* 16-bit port write handlers */
-/*TODO*///static struct handler_data 	wporthandler32[ENTRY_COUNT];	/* 32-bit port write handlers */
-/*TODO*///
-/*TODO*///static read8_handler 		rmemhandler8s[STATIC_COUNT];	/* copy of 8-bit static read memory handlers */
+
+    /*-------------------------------------------------
+	GLOBAL VARIABLES
+    -------------------------------------------------*/
+    static int cur_context;/* current CPU context */
+
+    public static UBytePtr OP_ROM = new UBytePtr();/* opcode ROM base */
+    public static UBytePtr OP_RAM = new UBytePtr();/* opcode RAM base */
+    public static int OP_MEM_MIN;/* opcode memory minimum */
+    public static int OP_MEM_MAX;/* opcode memory maximum */
+    public static int opcode_entry;/* opcode readmem entry */
+
+    public static UBytePtr readmem_lookup;/* memory read lookup table */
+    public static UBytePtr writemem_lookup;/* memory write lookup table */
+    public static UBytePtr readport_lookup;/* port read lookup table */
+    public static UBytePtr writeport_lookup;/* port write lookup table */
+    public static int mem_amask;/* memory address mask */
+    public static int port_amask;/* port address mask */
+
+    public static UBytePtr[] cpu_bankbase = new UBytePtr[STATIC_COUNT];/* array of bank bases */
+    public static int ext_entries = 0;
+    /* number of entries ext_memory[] entries used */
+    public static ExtMemory[] ext_memory = ExtMemory.create(MAX_EXT_MEMORY);/* externally-allocated memory */
+
+    static int/*data32_t*/ unmap_value;/* unmapped memory value */
+
+    public static opbase_handlerPtr opbasefunc;/* opcode base override */
+
+    public static handler_data[] rmemhandler8 = handler_data.create(ENTRY_COUNT);/* 8-bit memory read handlers */
+    public static handler_data[] rmemhandler16 = handler_data.create(ENTRY_COUNT);/* 16-bit memory read handlers */
+    public static handler_data[] rmemhandler32 = handler_data.create(ENTRY_COUNT);/* 32-bit memory read handlers */
+    public static handler_data[] wmemhandler8 = handler_data.create(ENTRY_COUNT);/* 8-bit memory write handlers */
+    public static handler_data[] wmemhandler16 = handler_data.create(ENTRY_COUNT);/* 16-bit memory write handlers */
+    public static handler_data[] wmemhandler32 = handler_data.create(ENTRY_COUNT);/* 32-bit memory write handlers */
+
+    public static handler_data[] rporthandler8 = handler_data.create(ENTRY_COUNT);/* 8-bit port read handlers */
+    public static handler_data[] rporthandler16 = handler_data.create(ENTRY_COUNT);/* 16-bit port read handlers */
+    public static handler_data[] rporthandler32 = handler_data.create(ENTRY_COUNT);/* 32-bit port read handlers */
+    public static handler_data[] wporthandler8 = handler_data.create(ENTRY_COUNT);/* 8-bit port write handlers */
+    public static handler_data[] wporthandler16 = handler_data.create(ENTRY_COUNT);/* 16-bit port write handlers */
+    public static handler_data[] wporthandler32 = handler_data.create(ENTRY_COUNT);/* 32-bit port write handlers */
+
+ /*TODO*///static read8_handler 		rmemhandler8s[STATIC_COUNT];	/* copy of 8-bit static read memory handlers */
 /*TODO*///static write8_handler 		wmemhandler8s[STATIC_COUNT];	/* copy of 8-bit static write memory handlers */
-/*TODO*///
-/*TODO*///static struct cpu_data 		cpudata[MAX_CPU];				/* data gathered for each CPU */
-/*TODO*///static struct bank_data 	bankdata[MAX_BANKS];			/* data gathered for each bank */
-/*TODO*///
-/*TODO*///offs_t encrypted_opcode_start[MAX_CPU],encrypted_opcode_end[MAX_CPU];
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	PROTOTYPES
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///static int CLIB_DECL fatalerror(const char *string, ...);
-/*TODO*///static UINT8 get_handler_index(struct handler_data *table, void *handler, offs_t start);
-/*TODO*///static UINT8 alloc_new_subtable(const struct memport_data *memport, struct table_data *tabledata, UINT8 previous_value);
-/*TODO*///static void populate_table(struct memport_data *memport, int iswrite, offs_t start, offs_t stop, UINT8 handler);
-/*TODO*///static void *assign_dynamic_bank(int cpunum, offs_t start);
-/*TODO*///static void install_mem_handler(struct memport_data *memport, int iswrite, offs_t start, offs_t end, void *handler);
-/*TODO*///static void install_port_handler(struct memport_data *memport, int iswrite, offs_t start, offs_t end, void *handler);
-/*TODO*///static void set_static_handler(int idx,
-/*TODO*///		read8_handler r8handler, read16_handler r16handler, read32_handler r32handler,
-/*TODO*///		write8_handler w8handler, write16_handler w16handler, write32_handler w32handler);
-/*TODO*///static int init_cpudata(void);
-/*TODO*///static int init_memport(int cpunum, struct memport_data *data, int abits, int dbits, int ismemory);
-/*TODO*///static int verify_memory(void);
-/*TODO*///static int verify_ports(void);
-/*TODO*///static int allocate_memory(void);
-/*TODO*///static int populate_memory(void);
-/*TODO*///static int populate_ports(void);
-/*TODO*///static void register_banks(void);
-/*TODO*///static int mem_address_bits_of_cpu(int cpunum);
-/*TODO*///static int port_address_bits_of_cpu(int cpunum);
-/*TODO*///static int init_static(void);
-/*TODO*///
-/*TODO*///#ifdef MEM_DUMP
-/*TODO*///static void mem_dump(void);
-/*TODO*///#endif
-/*TODO*///#ifdef CHECK_MASKS
-/*TODO*///static void verify_masks(void);
-/*TODO*///#endif
-/*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	memory_init - initialize the memory system
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///int memory_init(void)
-/*TODO*///{
-/*TODO*///#ifdef CHECK_MASKS
+
+    public static cpu_data[] cpudata = new cpu_data[MAX_CPU];/* data gathered for each CPU */
+    public static bank_data[] bankdata = new bank_data[MAX_BANKS];/* data gathered for each bank */
+
+ /*TODO*///offs_t encrypted_opcode_start[MAX_CPU],encrypted_opcode_end[MAX_CPU];
+
+    /*-------------------------------------------------
+	memory_init - initialize the memory system
+    -------------------------------------------------*/
+    public static int memory_init() {
+        /*TODO*///#ifdef CHECK_MASKS
 /*TODO*///	verify_masks();
 /*TODO*///#endif
-/*TODO*///
-/*TODO*///	/* no current context to start */
-/*TODO*///	cur_context = -1;
-/*TODO*///	unmap_value = 0;
-/*TODO*///
-/*TODO*///	/* init the static handlers */
-/*TODO*///	if (!init_static())
-/*TODO*///		return 0;
-/*TODO*///
-/*TODO*///	/* init the CPUs */
-/*TODO*///	if (!init_cpudata())
-/*TODO*///		return 0;
-/*TODO*///
-/*TODO*///	/* verify the memory handlers and check banks */
-/*TODO*///	if (!verify_memory())
-/*TODO*///		return 0;
-/*TODO*///	if (!verify_ports())
-/*TODO*///		return 0;
-/*TODO*///
-/*TODO*///	/* allocate memory for sparse address spaces */
-/*TODO*///	if (!allocate_memory())
-/*TODO*///		return 0;
-/*TODO*///
-/*TODO*///	/* then fill in the tables */
-/*TODO*///	if (!populate_memory())
-/*TODO*///		return 0;
-/*TODO*///	if (!populate_ports())
-/*TODO*///		return 0;
-/*TODO*///
-/*TODO*///	register_banks();
-/*TODO*///
-/*TODO*///#ifdef MEM_DUMP
-/*TODO*///	/* dump the final memory configuration */
-/*TODO*///	mem_dump();
-/*TODO*///#endif
-/*TODO*///
-/*TODO*///	return 1;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	memory_shutdown - free memory
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///void memory_shutdown(void)
-/*TODO*///{
-/*TODO*///	struct ExtMemory *ext;
+
+        /* no current context to start */
+        cur_context = -1;
+        unmap_value = 0;
+
+        /* init the static handlers */
+        if (init_static() == 0) {
+            return 0;
+        }
+
+        /* init the CPUs */
+        if (init_cpudata() == 0) {
+            return 0;
+        }
+
+        /* verify the memory handlers and check banks */
+        if (verify_memory() == 0) {
+            return 0;
+        }
+        if (verify_ports() == 0) {
+            return 0;
+        }
+
+        /* allocate memory for sparse address spaces */
+        if (allocate_memory() == 0) {
+            return 0;
+        }
+
+        /* then fill in the tables */
+        if (populate_memory() == 0) {
+            return 0;
+        }
+        if (populate_ports() == 0) {
+            return 0;
+        }
+
+        /*TODO*///	register_banks();
+        if (MEM_DUMP) {
+            /* dump the final memory configuration */
+            mem_dump();
+        }
+        return 1;
+    }
+
+
+    /*-------------------------------------------------
+            memory_shutdown - free memory
+    -------------------------------------------------*/
+    public static void memory_shutdown() {
+        /*TODO*///	struct ExtMemory *ext;
 /*TODO*///	int ext_entry;
 /*TODO*///	int cpunum;
 /*TODO*///
@@ -318,86 +282,76 @@ public class memory {
 /*TODO*///	}
 /*TODO*///	memset(ext_memory, 0, sizeof(ext_memory));
 /*TODO*///	ext_entries = 0;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	memory_set_opcode_base - set the base of
-/*TODO*///	ROM
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///void memory_set_opcode_base(int cpunum, void *base)
-/*TODO*///{
-/*TODO*///	if (cur_context == cpunum)
-/*TODO*///	{
-/*TODO*///		OP_ROM = base;
-/*TODO*///		OP_MEM_MIN = (offs_t) 0x00000000;
-/*TODO*///		OP_MEM_MAX = (offs_t) 0x7fffffff;
-/*TODO*///	}
-/*TODO*///	else
-/*TODO*///	{
-/*TODO*///		cpudata[cpunum].op_rom = base;
-/*TODO*///		cpudata[cpunum].op_mem_min = (offs_t) 0x00000000;
-/*TODO*///		cpudata[cpunum].op_mem_max = (offs_t) 0x7fffffff;
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///
+    }
+
+
+    /*-------------------------------------------------
+            memory_set_opcode_base - set the base of
+            ROM
+    -------------------------------------------------*/
+    public static void memory_set_opcode_base(int cpunum, UBytePtr base) {
+        if (cur_context == cpunum) {
+            OP_ROM = base;
+            OP_MEM_MIN = 0x00000000;
+            OP_MEM_MAX = 0x7fffffff;
+        } else {
+            cpudata[cpunum].op_rom = base;
+            cpudata[cpunum].op_mem_min = 0x00000000;
+            cpudata[cpunum].op_mem_max = 0x7fffffff;
+        }
+    }
+
+    /*TODO*///
 /*TODO*///void memory_set_encrypted_opcode_range(int cpunum,offs_t min_address,offs_t max_address)
 /*TODO*///{
 /*TODO*///	encrypted_opcode_start[cpunum] = min_address;
 /*TODO*///	encrypted_opcode_end[cpunum] = max_address;
 /*TODO*///}
 /*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	memory_set_context - set the memory context
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///void memory_set_context(int activecpu)
-/*TODO*///{
-/*TODO*///	/* remember dynamic RAM/ROM */
-/*TODO*///	if (cur_context != -1)
-/*TODO*///	{
-/*TODO*///		cpudata[cur_context].op_ram = OP_RAM;
-/*TODO*///		cpudata[cur_context].op_rom = OP_ROM;
-/*TODO*///		cpudata[cur_context].op_mem_min = OP_MEM_MIN;
-/*TODO*///		cpudata[cur_context].op_mem_max = OP_MEM_MAX;
-/*TODO*///		cpudata[cur_context].opcode_entry = opcode_entry;
-/*TODO*///	}
-/*TODO*///	cur_context = activecpu;
-/*TODO*///
-/*TODO*///	cpu_bankbase[STATIC_RAM] = cpudata[activecpu].rambase;
-/*TODO*///	OP_RAM = cpudata[activecpu].op_ram;
-/*TODO*///	OP_ROM = cpudata[activecpu].op_rom;
-/*TODO*///	OP_MEM_MIN = cpudata[activecpu].op_mem_min;
-/*TODO*///	OP_MEM_MAX = cpudata[activecpu].op_mem_max;
-/*TODO*///	opcode_entry = opcode_entry;
-/*TODO*///
-/*TODO*///	readmem_lookup = cpudata[activecpu].mem.read.table;
-/*TODO*///	writemem_lookup = cpudata[activecpu].mem.write.table;
-/*TODO*///	readport_lookup = cpudata[activecpu].port.read.table;
-/*TODO*///	writeport_lookup = cpudata[activecpu].port.write.table;
-/*TODO*///
-/*TODO*///	mem_amask = cpudata[activecpu].mem.mask;
-/*TODO*///	port_amask = cpudata[activecpu].port.mask;
-/*TODO*///
-/*TODO*///	opbasefunc = cpudata[activecpu].opbase;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	memory_set_unmap_value - set the unmapped
-/*TODO*///	memory value
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///void memory_set_unmap_value(data32_t value)
-/*TODO*///{
-/*TODO*///	unmap_value = value;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
+
+    /*-------------------------------------------------
+            memory_set_context - set the memory context
+    -------------------------------------------------*/
+    public static void memory_set_context(int activecpu) {
+        /* remember dynamic RAM/ROM */
+        if (cur_context != -1) {
+            cpudata[cur_context].op_ram = OP_RAM;
+            cpudata[cur_context].op_rom = OP_ROM;
+            cpudata[cur_context].op_mem_min = OP_MEM_MIN;
+            cpudata[cur_context].op_mem_max = OP_MEM_MAX;
+            cpudata[cur_context].opcode_entry = opcode_entry;
+        }
+        cur_context = activecpu;
+
+        cpu_bankbase[STATIC_RAM] = cpudata[activecpu].rambase;
+        OP_RAM = cpudata[activecpu].op_ram;
+        OP_ROM = cpudata[activecpu].op_rom;
+        OP_MEM_MIN = cpudata[activecpu].op_mem_min;
+        OP_MEM_MAX = cpudata[activecpu].op_mem_max;
+        opcode_entry = opcode_entry;
+
+        readmem_lookup = cpudata[activecpu].mem.read.table;
+        writemem_lookup = cpudata[activecpu].mem.write.table;
+        readport_lookup = cpudata[activecpu].port.read.table;
+        writeport_lookup = cpudata[activecpu].port.write.table;
+
+        mem_amask = cpudata[activecpu].mem.mask;
+        port_amask = cpudata[activecpu].port.mask;
+
+        opbasefunc = cpudata[activecpu].opbase;
+    }
+
+
+    /*-------------------------------------------------
+            memory_set_unmap_value - set the unmapped
+            memory value
+    -------------------------------------------------*/
+    public static void memory_set_unmap_value(int/*data32_t*/ value) {
+        unmap_value = value;
+    }
+
+
+    /*TODO*////*-------------------------------------------------
 /*TODO*///	memory_set_bankhandler_r - set readmemory
 /*TODO*///	handler for bank memory (8-bit only!)
 /*TODO*///-------------------------------------------------*/
@@ -440,23 +394,21 @@ public class memory {
 /*TODO*///	wmemhandler8[bank].handler = (void *)handler;
 /*TODO*///}
 /*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	memory_set_opbase_handler - change op-code
-/*TODO*///	memory base
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///opbase_handler memory_set_opbase_handler(int cpunum, opbase_handler function)
-/*TODO*///{
-/*TODO*///	opbase_handler old = cpudata[cpunum].opbase;
-/*TODO*///	cpudata[cpunum].opbase = function;
-/*TODO*///	if (cpunum == cpu_getactivecpu())
-/*TODO*///		opbasefunc = function;
-/*TODO*///	return old;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
+
+    /*-------------------------------------------------
+            memory_set_opbase_handler - change op-code
+            memory base
+    -------------------------------------------------*/
+    public static opbase_handlerPtr memory_set_opbase_handler(int cpunum, opbase_handlerPtr function) {
+        opbase_handlerPtr old = cpudata[cpunum].opbase;
+        cpudata[cpunum].opbase = function;
+        if (cpunum == cpu_getactivecpu()) {
+            opbasefunc = function;
+        }
+        return old;
+    }
+
+    /*TODO*////*-------------------------------------------------
 /*TODO*///	install_mem_read_handler - install dynamic
 /*TODO*///	read handler for 8-bit case
 /*TODO*///-------------------------------------------------*/
@@ -1310,28 +1262,23 @@ public class memory {
 /*TODO*///	return 1;
 /*TODO*///}
 /*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	needs_ram - returns true if a given type
-/*TODO*///	of memory needs RAM backing it
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///static int needs_ram(int cpunum, void *handler)
-/*TODO*///{
-/*TODO*///	/* RAM, ROM, and banks always need RAM */
-/*TODO*///	if (HANDLER_IS_RAM(handler) || HANDLER_IS_ROM(handler) || HANDLER_IS_RAMROM(handler) || HANDLER_IS_BANK(handler))
-/*TODO*///		return 1;
-/*TODO*///
-/*TODO*///	/* NOPs never need RAM */
-/*TODO*///	else if (HANDLER_IS_NOP(handler))
-/*TODO*///		return 0;
-/*TODO*///
-/*TODO*///	/* otherwise, we only need RAM for sparse memory spaces */
-/*TODO*///	else
-/*TODO*///		return IS_SPARSE(cpudata[cpunum].mem.abits);
-/*TODO*///}
-/*TODO*///
-/*TODO*///
+
+    /*-------------------------------------------------
+            needs_ram - returns true if a given type
+            of memory needs RAM backing it
+    -------------------------------------------------*/
+    static boolean needs_ram(int cpunum, int handler, Object _handler) {
+        /* RAM, ROM, and banks always need RAM */
+        if (HANDLER_IS_RAM(handler) || HANDLER_IS_ROM(handler) || HANDLER_IS_RAMROM(handler) || HANDLER_IS_BANK(handler)) {
+            return true;
+        } /* NOPs never need RAM */ else if (HANDLER_IS_NOP(handler)) {
+            return false;
+        } /* otherwise, we only need RAM for sparse memory spaces */ else {
+            return IS_SPARSE(cpudata[cpunum].mem.abits);
+        }
+    }
+
+    /*TODO*///
 /*TODO*////*-------------------------------------------------
 /*TODO*///	allocate_memory - allocate memory for
 /*TODO*///	sparse CPU address spaces
@@ -2673,72 +2620,285 @@ public class memory {
 /*TODO*///static WRITE_HANDLER( mwh8_rom )       { logerror("cpu #%d (PC=%08X): byte write to ROM %08X = %02X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset), data); }
 /*TODO*///static WRITE16_HANDLER( mwh16_rom )    { logerror("cpu #%d (PC=%08X): word write to %08X = %04X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*2), data, mem_mask ^ 0xffff); }
 /*TODO*///static WRITE32_HANDLER( mwh32_rom )    { logerror("cpu #%d (PC=%08X): dword write to %08X = %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*4), data, mem_mask ^ 0xffffffff); }
-/*TODO*///
-/*TODO*///static READ_HANDLER( mrh8_nop )        { return 0; }
+
+    public static ReadHandlerPtr mrh8_nop = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return 0;
+        }
+    };
 /*TODO*///static READ16_HANDLER( mrh16_nop )     { return 0; }
 /*TODO*///static READ32_HANDLER( mrh32_nop )     { return 0; }
-/*TODO*///
-/*TODO*///static WRITE_HANDLER( mwh8_nop )       {  }
+
+    public static WriteHandlerPtr mwh8_nop = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+
+        }
+    };
 /*TODO*///static WRITE16_HANDLER( mwh16_nop )    {  }
 /*TODO*///static WRITE32_HANDLER( mwh32_nop )    {  }
-/*TODO*///
-/*TODO*///static READ_HANDLER( mrh8_ram )        { return cpu_bankbase[STATIC_RAM][offset]; }
-/*TODO*///static WRITE_HANDLER( mwh8_ram )       { cpu_bankbase[STATIC_RAM][offset] = data; }
-/*TODO*///
-/*TODO*///static WRITE_HANDLER( mwh8_ramrom )    { cpu_bankbase[STATIC_RAM][offset] = cpu_bankbase[STATIC_RAM][offset + (OP_ROM - OP_RAM)] = data; }
+
+    public static ReadHandlerPtr mrh8_ram = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[STATIC_RAM].read(offset);
+        }
+    };
+    public static WriteHandlerPtr mwh8_ram = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[STATIC_RAM].write(offset, data);
+        }
+    };
+
+    public static WriteHandlerPtr mwh8_ramrom = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[STATIC_RAM].write(offset + (OP_ROM.offset - OP_RAM.offset), data);
+            cpu_bankbase[STATIC_RAM].write(offset, data);
+        }
+    };
 /*TODO*///static WRITE16_HANDLER( mwh16_ramrom ) { COMBINE_DATA(&cpu_bankbase[STATIC_RAM][offset*2]); COMBINE_DATA(&cpu_bankbase[0][offset*2 + (OP_ROM - OP_RAM)]); }
 /*TODO*///static WRITE32_HANDLER( mwh32_ramrom ) { COMBINE_DATA(&cpu_bankbase[STATIC_RAM][offset*4]); COMBINE_DATA(&cpu_bankbase[0][offset*4 + (OP_ROM - OP_RAM)]); }
 /*TODO*///
-/*TODO*///static READ_HANDLER( mrh8_bank1 )      { return cpu_bankbase[1][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank2 )      { return cpu_bankbase[2][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank3 )      { return cpu_bankbase[3][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank4 )      { return cpu_bankbase[4][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank5 )      { return cpu_bankbase[5][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank6 )      { return cpu_bankbase[6][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank7 )      { return cpu_bankbase[7][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank8 )      { return cpu_bankbase[8][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank9 )      { return cpu_bankbase[9][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank10 )     { return cpu_bankbase[10][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank11 )     { return cpu_bankbase[11][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank12 )     { return cpu_bankbase[12][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank13 )     { return cpu_bankbase[13][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank14 )     { return cpu_bankbase[14][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank15 )     { return cpu_bankbase[15][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank16 )     { return cpu_bankbase[16][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank17 )     { return cpu_bankbase[17][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank18 )     { return cpu_bankbase[18][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank19 )     { return cpu_bankbase[19][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank20 )     { return cpu_bankbase[20][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank21 )     { return cpu_bankbase[21][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank22 )     { return cpu_bankbase[22][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank23 )     { return cpu_bankbase[23][offset]; }
-/*TODO*///static READ_HANDLER( mrh8_bank24 )     { return cpu_bankbase[24][offset]; }
-/*TODO*///
-/*TODO*///static WRITE_HANDLER( mwh8_bank1 )     { cpu_bankbase[1][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank2 )     { cpu_bankbase[2][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank3 )     { cpu_bankbase[3][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank4 )     { cpu_bankbase[4][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank5 )     { cpu_bankbase[5][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank6 )     { cpu_bankbase[6][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank7 )     { cpu_bankbase[7][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank8 )     { cpu_bankbase[8][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank9 )     { cpu_bankbase[9][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank10 )    { cpu_bankbase[10][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank11 )    { cpu_bankbase[11][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank12 )    { cpu_bankbase[12][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank13 )    { cpu_bankbase[13][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank14 )    { cpu_bankbase[14][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank15 )    { cpu_bankbase[15][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank16 )    { cpu_bankbase[16][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank17 )    { cpu_bankbase[17][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank18 )    { cpu_bankbase[18][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank19 )    { cpu_bankbase[19][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank20 )    { cpu_bankbase[20][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank21 )    { cpu_bankbase[21][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank22 )    { cpu_bankbase[22][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank23 )    { cpu_bankbase[23][offset] = data; }
-/*TODO*///static WRITE_HANDLER( mwh8_bank24 )    { cpu_bankbase[24][offset] = data; }
-/*TODO*///
+    public static ReadHandlerPtr mrh8_bank1 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[1].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank2 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[2].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank3 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[3].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank4 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[4].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank5 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[5].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank6 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[6].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank7 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[7].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank8 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[8].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank9 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[9].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank10 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[10].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank11 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[11].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank12 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[12].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank13 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[13].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank14 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[14].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank15 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[15].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank16 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[16].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank17 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[17].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank18 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[18].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank19 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[19].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank20 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[20].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank21 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[21].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank22 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[22].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank23 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[23].read(offset);
+        }
+    };
+    public static ReadHandlerPtr mrh8_bank24 = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return cpu_bankbase[24].read(offset);
+        }
+    };
+
+    public static WriteHandlerPtr mwh8_bank1 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[1].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank2 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[2].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank3 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[3].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank4 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[4].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank5 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[5].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank6 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[6].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank7 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[7].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank8 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[8].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank9 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[9].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank10 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[10].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank11 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[11].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank12 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[12].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank13 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[13].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank14 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[14].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank15 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[15].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank16 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[16].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank17 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[17].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank18 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[18].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank19 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[19].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank20 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[20].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank21 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[21].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank22 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[22].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank23 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[23].write(offset, data);
+        }
+    };
+    public static WriteHandlerPtr mwh8_bank24 = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            cpu_bankbase[24].write(offset, data);
+        }
+    };
+    /*TODO*///
 /*TODO*///
 /*TODO*////*-------------------------------------------------
 /*TODO*///	init_static - sets up the static memory
