@@ -408,31 +408,25 @@ public class memory {
         return old;
     }
 
+    public static UBytePtr install_mem_read_handler(int cpunum, int start, int end, int _handler) {
+        /* sanity check */
+        if (cpudata[cpunum].mem.dbits != 8) {
+            printf("fatal: install_mem_read_handler called on %d-bit cpu\n", cpudata[cpunum].mem.dbits);
+            exit(1);
+        }
+
+        /* install the handler */
+        install_mem_handler(cpudata[cpunum].mem, 0, start, end, _handler, null);
+
+        if (MEM_DUMP) {
+            /* dump the new memory configuration */
+            mem_dump();
+        }
+
+        return memory_find_base(cpunum, start);
+    }
+
     /*TODO*////*-------------------------------------------------
-/*TODO*///	install_mem_read_handler - install dynamic
-/*TODO*///	read handler for 8-bit case
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///data8_t *install_mem_read_handler(int cpunum, offs_t start, offs_t end, mem_read_handler handler)
-/*TODO*///{
-/*TODO*///	/* sanity check */
-/*TODO*///	if (cpudata[cpunum].mem.dbits != 8)
-/*TODO*///	{
-/*TODO*///		printf("fatal: install_mem_read_handler called on %d-bit cpu\n",cpudata[cpunum].mem.dbits);
-/*TODO*///		exit(1);
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	/* install the handler */
-/*TODO*///	install_mem_handler(&cpudata[cpunum].mem, 0, start, end, (void *)handler);
-/*TODO*///#ifdef MEM_DUMP
-/*TODO*///	/* dump the new memory configuration */
-/*TODO*///	mem_dump();
-/*TODO*///#endif
-/*TODO*///	return memory_find_base(cpunum, start);
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
 /*TODO*///	install_mem_read16_handler - install dynamic
 /*TODO*///	read handler for 16-bit case
 /*TODO*///-------------------------------------------------*/
@@ -480,30 +474,47 @@ public class memory {
 /*TODO*///}
 /*TODO*///
 /*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	install_mem_write_handler - install dynamic
-/*TODO*///	read handler for 8-bit case
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///data8_t *install_mem_write_handler(int cpunum, offs_t start, offs_t end, mem_write_handler handler)
-/*TODO*///{
-/*TODO*///	/* sanity check */
-/*TODO*///	if (cpudata[cpunum].mem.dbits != 8)
-/*TODO*///	{
-/*TODO*///		printf("fatal: install_mem_write_handler called on %d-bit cpu\n",cpudata[cpunum].mem.dbits);
-/*TODO*///		exit(1);
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	/* install the handler */
-/*TODO*///	install_mem_handler(&cpudata[cpunum].mem, 1, start, end, (void *)handler);
-/*TODO*///#ifdef MEM_DUMP
-/*TODO*///	/* dump the new memory configuration */
-/*TODO*///	mem_dump();
-/*TODO*///#endif
-/*TODO*///	return memory_find_base(cpunum, start);
-/*TODO*///}
-/*TODO*///
-/*TODO*///
+    /*-------------------------------------------------
+            install_mem_write_handler - install dynamic
+            read handler for 8-bit case
+    -------------------------------------------------*/
+    public static UBytePtr install_mem_write_handler(int cpunum, int start, int end, WriteHandlerPtr handler) {
+        /* sanity check */
+        if (cpudata[cpunum].mem.dbits != 8) {
+            printf("fatal: install_mem_write_handler called on %d-bit cpu\n", cpudata[cpunum].mem.dbits);
+            exit(1);
+        }
+
+        /* install the handler */
+        install_mem_handler(cpudata[cpunum].mem, 1, start, end, -15000, handler);
+
+        if (MEM_DUMP) {
+            /* dump the new memory configuration */
+            mem_dump();
+        }
+
+        return memory_find_base(cpunum, start);
+    }
+
+    public static UBytePtr install_mem_write_handler(int cpunum, int start, int end, int _handler) {
+        /* sanity check */
+        if (cpudata[cpunum].mem.dbits != 8) {
+            printf("fatal: install_mem_write_handler called on %d-bit cpu\n", cpudata[cpunum].mem.dbits);
+            exit(1);
+        }
+
+        /* install the handler */
+        install_mem_handler(cpudata[cpunum].mem, 1, start, end, _handler, null);
+
+        if (MEM_DUMP) {
+            /* dump the new memory configuration */
+            mem_dump();
+        }
+
+        return memory_find_base(cpunum, start);
+    }
+
+    /*TODO*///
 /*TODO*////*-------------------------------------------------
 /*TODO*///	install_mem_write16_handler - install dynamic
 /*TODO*///	read handler for 16-bit case
@@ -551,31 +562,28 @@ public class memory {
 /*TODO*///	return memory_find_base(cpunum, start);
 /*TODO*///}
 /*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	install_port_read_handler - install dynamic
-/*TODO*///	read handler for 8-bit case
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///void install_port_read_handler(int cpunum, offs_t start, offs_t end, port_read_handler handler)
-/*TODO*///{
-/*TODO*///	/* sanity check */
-/*TODO*///	if (cpudata[cpunum].port.dbits != 8)
-/*TODO*///	{
-/*TODO*///		printf("fatal: install_port_read_handler called on %d-bit cpu\n",cpudata[cpunum].port.dbits);
-/*TODO*///		exit(1);
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	/* install the handler */
-/*TODO*///	install_port_handler(&cpudata[cpunum].port, 0, start, end, (void *)handler);
-/*TODO*///#ifdef MEM_DUMP
-/*TODO*///	/* dump the new memory configuration */
-/*TODO*///	mem_dump();
-/*TODO*///#endif
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
+    /*-------------------------------------------------
+            install_port_read_handler - install dynamic
+            read handler for 8-bit case
+    -------------------------------------------------*/
+    public static void install_port_read_handler(int cpunum, int start, int end, ReadHandlerPtr handler) {
+        /* sanity check */
+        if (cpudata[cpunum].port.dbits != 8) {
+            printf("fatal: install_port_read_handler called on %d-bit cpu\n", cpudata[cpunum].port.dbits);
+            exit(1);
+        }
+
+        /* install the handler */
+        install_port_handler(cpudata[cpunum].port, 0, start, end, -15000, handler);
+
+        if (MEM_DUMP) {
+            /* dump the new memory configuration */
+            mem_dump();
+        }
+
+    }
+
+    /*TODO*////*-------------------------------------------------
 /*TODO*///	install_port_read16_handler - install dynamic
 /*TODO*///	read handler for 16-bit case
 /*TODO*///-------------------------------------------------*/
@@ -620,30 +628,27 @@ public class memory {
 /*TODO*///#endif
 /*TODO*///}
 /*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	install_port_write_handler - install dynamic
-/*TODO*///	read handler for 8-bit case
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///void install_port_write_handler(int cpunum, offs_t start, offs_t end, port_write_handler handler)
-/*TODO*///{
-/*TODO*///	/* sanity check */
-/*TODO*///	if (cpudata[cpunum].port.dbits != 8)
-/*TODO*///	{
-/*TODO*///		printf("fatal: install_port_write_handler called on %d-bit cpu\n",cpudata[cpunum].port.dbits);
-/*TODO*///		exit(1);
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	/* install the handler */
-/*TODO*///	install_port_handler(&cpudata[cpunum].port, 1, start, end, (void *)handler);
-/*TODO*///#ifdef MEM_DUMP
-/*TODO*///	/* dump the new memory configuration */
-/*TODO*///	mem_dump();
-/*TODO*///#endif
-/*TODO*///}
-/*TODO*///
-/*TODO*///
+    /*-------------------------------------------------
+	install_port_write_handler - install dynamic
+	read handler for 8-bit case
+    -------------------------------------------------*/
+    public static void install_port_write_handler(int cpunum, int start, int end, WriteHandlerPtr handler) {
+        /* sanity check */
+        if (cpudata[cpunum].port.dbits != 8) {
+            printf("fatal: install_port_write_handler called on %d-bit cpu\n", cpudata[cpunum].port.dbits);
+            exit(1);
+        }
+
+        /* install the handler */
+        install_port_handler(cpudata[cpunum].port, 1, start, end, -15000, handler);
+
+        if (MEM_DUMP) {
+            /* dump the new memory configuration */
+            mem_dump();
+        }
+    }
+
+    /*TODO*///
 /*TODO*////*-------------------------------------------------
 /*TODO*///	install_port_write16_handler - install dynamic
 /*TODO*///	read handler for 16-bit case
@@ -690,23 +695,17 @@ public class memory {
 /*TODO*///}
 /*TODO*///
 /*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	fatalerror - display an error message and
-/*TODO*///	exit immediately
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///int CLIB_DECL fatalerror(const char *string, ...)
-/*TODO*///{
-/*TODO*///	va_list arg;
-/*TODO*///	va_start(arg, string);
-/*TODO*///	vprintf(string, arg);
-/*TODO*///	va_end(arg);
-/*TODO*///	exit(1);
-/*TODO*///	return 0;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
+    /*-------------------------------------------------
+            fatalerror - display an error message and
+            exit immediately
+    -------------------------------------------------*/
+    public static int fatalerror(String str, Object... arguments) {
+        System.out.println(String.format(str, arguments));
+        exit(1);
+        return 0;
+    }
+
+    /*TODO*////*-------------------------------------------------
 /*TODO*///	memory_find_base - return a pointer to the
 /*TODO*///	base of RAM associated with the given CPU
 /*TODO*///	and offset
@@ -2525,108 +2524,114 @@ public class memory {
 /*TODO*///	return 0;
 /*TODO*///}
 /*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	get address bits from a read handler
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///int port_address_bits_of_cpu(int cputype)
-/*TODO*///{
-/*TODO*///#if (HAS_V60)
-/*TODO*///	return cputype == CPU_V60 ? 24 : 16;
-/*TODO*///#else
-/*TODO*///	return 16;
-/*TODO*///#endif
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////*-------------------------------------------------
-/*TODO*///	basic static handlers
-/*TODO*///-------------------------------------------------*/
-/*TODO*///
-/*TODO*///INLINE offs_t effective_offset(offs_t offset)
-/*TODO*///{
-/*TODO*///	int shift = activecpu_address_shift();
-/*TODO*///	if (shift < 0)
-/*TODO*///		return offset >> -shift;
-/*TODO*///	else
-/*TODO*///		return offset << shift;
-/*TODO*///}
-/*TODO*///
-/*TODO*///static READ_HANDLER( mrh8_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory byte read from %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset));
-/*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH && unmap_value == 0) return cpu_bankbase[STATIC_RAM][offset];
-/*TODO*///	return unmap_value;
-/*TODO*///}
-/*TODO*///static READ16_HANDLER( mrh16_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory word read from %08X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*2), mem_mask ^ 0xffff);
-/*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH && unmap_value == 0) return ((data16_t *)cpu_bankbase[STATIC_RAM])[offset];
-/*TODO*///	return unmap_value;
-/*TODO*///}
-/*TODO*///static READ32_HANDLER( mrh32_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory dword read from %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*4), mem_mask ^ 0xffffffff);
-/*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH && unmap_value == 0) return ((data32_t *)cpu_bankbase[STATIC_RAM])[offset];
-/*TODO*///	return unmap_value;
-/*TODO*///}
-/*TODO*///
-/*TODO*///static WRITE_HANDLER( mwh8_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory byte write to %08X = %02X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset), data);
-/*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH) cpu_bankbase[STATIC_RAM][offset] = data;
-/*TODO*///}
-/*TODO*///static WRITE16_HANDLER( mwh16_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory word write to %08X = %04X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*2), data, mem_mask ^ 0xffff);
-/*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH) COMBINE_DATA(&((data16_t *)cpu_bankbase[STATIC_RAM])[offset]);
-/*TODO*///}
-/*TODO*///static WRITE32_HANDLER( mwh32_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory dword write to %08X = %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*4), data, mem_mask ^ 0xffffffff);
-/*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH) COMBINE_DATA(&((data32_t *)cpu_bankbase[STATIC_RAM])[offset]);
-/*TODO*///}
-/*TODO*///
-/*TODO*///static READ_HANDLER( prh8_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port byte read from %08X\n", cpu_getactivecpu(), activecpu_get_pc(), offset);
-/*TODO*///	return unmap_value;
-/*TODO*///}
-/*TODO*///static READ16_HANDLER( prh16_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port word read from %08X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*2, mem_mask ^ 0xffff);
-/*TODO*///	return unmap_value;
-/*TODO*///}
-/*TODO*///static READ32_HANDLER( prh32_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port dword read from %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*4, mem_mask ^ 0xffffffff);
-/*TODO*///	return unmap_value;
-/*TODO*///}
-/*TODO*///
-/*TODO*///static WRITE_HANDLER( pwh8_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port byte write to %08X = %02X\n", cpu_getactivecpu(), activecpu_get_pc(), offset, data);
-/*TODO*///}
-/*TODO*///static WRITE16_HANDLER( pwh16_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port word write to %08X = %04X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*2, data, mem_mask ^ 0xffff);
-/*TODO*///}
-/*TODO*///static WRITE32_HANDLER( pwh32_bad )
-/*TODO*///{
-/*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port dword write to %08X = %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*4, data, mem_mask ^ 0xffffffff);
-/*TODO*///}
-/*TODO*///
-/*TODO*///static WRITE_HANDLER( mwh8_rom )       { logerror("cpu #%d (PC=%08X): byte write to ROM %08X = %02X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset), data); }
-/*TODO*///static WRITE16_HANDLER( mwh16_rom )    { logerror("cpu #%d (PC=%08X): word write to %08X = %04X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*2), data, mem_mask ^ 0xffff); }
-/*TODO*///static WRITE32_HANDLER( mwh32_rom )    { logerror("cpu #%d (PC=%08X): dword write to %08X = %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*4), data, mem_mask ^ 0xffffffff); }
 
+    /*-------------------------------------------------
+	get address bits from a read handler
+    -------------------------------------------------*/
+    public static int port_address_bits_of_cpu(int cputype) {
+        return cputype == CPU_V60 ? 24 : 16;
+    }
+
+
+    /*-------------------------------------------------
+	basic static handlers
+    -------------------------------------------------*/
+    public static int effective_offset(int offset) {
+        int shift = activecpu_address_shift();
+        if (shift < 0) {
+            return offset >>> -shift;
+        } else {
+            return offset << shift;
+        }
+    }
+
+    public static ReadHandlerPtr mrh8_bad = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            logerror("cpu #%d (PC=%08X): unmapped memory byte read from %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset));
+            if (activecpu_address_bits() <= SPARSE_THRESH && unmap_value == 0) {
+                return cpu_bankbase[STATIC_RAM].read(offset);
+            }
+            return unmap_value;
+        }
+    };
+
+    /*TODO*///static READ16_HANDLER( mrh16_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory word read from %08X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*2), mem_mask ^ 0xffff);
+    /*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH && unmap_value == 0) return ((data16_t *)cpu_bankbase[STATIC_RAM])[offset];
+    /*TODO*///	return unmap_value;
+    /*TODO*///}
+    /*TODO*///static READ32_HANDLER( mrh32_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory dword read from %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*4), mem_mask ^ 0xffffffff);
+    /*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH && unmap_value == 0) return ((data32_t *)cpu_bankbase[STATIC_RAM])[offset];
+    /*TODO*///	return unmap_value;
+    /*TODO*///}
+    /*TODO*///
+    public static WriteHandlerPtr mwh8_bad = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            logerror("cpu #%d (PC=%08X): unmapped memory byte write to %08X = %02X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset), data);
+            if (activecpu_address_bits() <= SPARSE_THRESH) {
+                cpu_bankbase[STATIC_RAM].write(offset, data);
+            }
+        }
+    };
+
+    /*TODO*///static WRITE16_HANDLER( mwh16_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory word write to %08X = %04X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*2), data, mem_mask ^ 0xffff);
+    /*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH) COMBINE_DATA(&((data16_t *)cpu_bankbase[STATIC_RAM])[offset]);
+    /*TODO*///}
+    /*TODO*///static WRITE32_HANDLER( mwh32_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped memory dword write to %08X = %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*4), data, mem_mask ^ 0xffffffff);
+    /*TODO*///	if (activecpu_address_bits() <= SPARSE_THRESH) COMBINE_DATA(&((data32_t *)cpu_bankbase[STATIC_RAM])[offset]);
+    /*TODO*///}
+    /*TODO*///
+    public static ReadHandlerPtr prh8_bad = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            logerror("cpu #%d (PC=%08X): unmapped port byte read from %08X\n", cpu_getactivecpu(), activecpu_get_pc(), offset);
+            return unmap_value;
+        }
+    };
+    /*TODO*///static READ16_HANDLER( prh16_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port word read from %08X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*2, mem_mask ^ 0xffff);
+    /*TODO*///	return unmap_value;
+    /*TODO*///}
+    /*TODO*///static READ32_HANDLER( prh32_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port dword read from %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*4, mem_mask ^ 0xffffffff);
+    /*TODO*///	return unmap_value;
+    /*TODO*///}
+    /*TODO*///
+    public static WriteHandlerPtr pwh8_bad = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            logerror("cpu #%d (PC=%08X): unmapped port byte write to %08X = %02X\n", cpu_getactivecpu(), activecpu_get_pc(), offset, data);
+        }
+    };
+    /*TODO*///static WRITE16_HANDLER( pwh16_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port word write to %08X = %04X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*2, data, mem_mask ^ 0xffff);
+    /*TODO*///}
+    /*TODO*///static WRITE32_HANDLER( pwh32_bad )
+    /*TODO*///{
+    /*TODO*///	logerror("cpu #%d (PC=%08X): unmapped port dword write to %08X = %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), offset*4, data, mem_mask ^ 0xffffffff);
+    /*TODO*///}
+    /*TODO*///
+    public static WriteHandlerPtr mwh8_rom = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            logerror("cpu #%d (PC=%08X): byte write to ROM %08X = %02X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset), data);
+        }
+    };
+    /*TODO*///static WRITE16_HANDLER( mwh16_rom )    { logerror("cpu #%d (PC=%08X): word write to %08X = %04X & %04X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*2), data, mem_mask ^ 0xffff); }
+    /*TODO*///static WRITE32_HANDLER( mwh32_rom )    { logerror("cpu #%d (PC=%08X): dword write to %08X = %08X & %08X\n", cpu_getactivecpu(), activecpu_get_pc(), effective_offset(offset*4), data, mem_mask ^ 0xffffffff); }
     public static ReadHandlerPtr mrh8_nop = new ReadHandlerPtr() {
         public int handler(int offset) {
             return 0;
         }
     };
-/*TODO*///static READ16_HANDLER( mrh16_nop )     { return 0; }
+    /*TODO*///static READ16_HANDLER( mrh16_nop )     { return 0; }
 /*TODO*///static READ32_HANDLER( mrh32_nop )     { return 0; }
 
     public static WriteHandlerPtr mwh8_nop = new WriteHandlerPtr() {
@@ -2634,7 +2639,7 @@ public class memory {
 
         }
     };
-/*TODO*///static WRITE16_HANDLER( mwh16_nop )    {  }
+    /*TODO*///static WRITE16_HANDLER( mwh16_nop )    {  }
 /*TODO*///static WRITE32_HANDLER( mwh32_nop )    {  }
 
     public static ReadHandlerPtr mrh8_ram = new ReadHandlerPtr() {
@@ -2654,7 +2659,7 @@ public class memory {
             cpu_bankbase[STATIC_RAM].write(offset, data);
         }
     };
-/*TODO*///static WRITE16_HANDLER( mwh16_ramrom ) { COMBINE_DATA(&cpu_bankbase[STATIC_RAM][offset*2]); COMBINE_DATA(&cpu_bankbase[0][offset*2 + (OP_ROM - OP_RAM)]); }
+    /*TODO*///static WRITE16_HANDLER( mwh16_ramrom ) { COMBINE_DATA(&cpu_bankbase[STATIC_RAM][offset*2]); COMBINE_DATA(&cpu_bankbase[0][offset*2 + (OP_ROM - OP_RAM)]); }
 /*TODO*///static WRITE32_HANDLER( mwh32_ramrom ) { COMBINE_DATA(&cpu_bankbase[STATIC_RAM][offset*4]); COMBINE_DATA(&cpu_bankbase[0][offset*4 + (OP_ROM - OP_RAM)]); }
 /*TODO*///
     public static ReadHandlerPtr mrh8_bank1 = new ReadHandlerPtr() {
