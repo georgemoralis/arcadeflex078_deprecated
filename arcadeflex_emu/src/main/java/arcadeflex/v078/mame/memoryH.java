@@ -6,6 +6,8 @@ package arcadeflex.v078.mame;
 
 //generic imports
 import static arcadeflex.v078.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v078.mame.memory.*;
 //common imports
 import static common.ptrLib.*;
 
@@ -75,9 +77,9 @@ public class memoryH {
     /* ----- typedefs for externally allocated memory ----- */
     public static class ExtMemory {
 
-        private int start, end;
-        private int region;
-        private UBytePtr data;
+        public int start, end;
+        public int region;
+        public UBytePtr data;
 
         public static ExtMemory[] create(int n) {
             ExtMemory[] a = new ExtMemory[n];
@@ -451,9 +453,9 @@ public class memoryH {
             this._handler = _handler;
         }
 
-        private int start, end;/* start, end addresses, inclusive */
-        private ReadHandlerPtr _handler;/* handler callback */
-        private int handler;
+        public int start, end;/* start, end addresses, inclusive */
+        public ReadHandlerPtr _handler;/* handler callback */
+        public int handler;
     }
 
     /*TODO*///
@@ -535,11 +537,11 @@ public class memoryH {
             this.size = size;
         }
 
-        private int start, end;/* start, end addresses, inclusive */
-        private WriteHandlerPtr _handler;/* handler callback */
-        private int handler;
-        private UBytePtr base;/* receives pointer to memory (optional) */
-        private int[] size;/* receives size of memory in bytes (optional) */
+        public int start, end;/* start, end addresses, inclusive */
+        public WriteHandlerPtr _handler;/* handler callback */
+        public int handler;
+        public UBytePtr base;/* receives pointer to memory (optional) */
+        public int[] size;/* receives size of memory in bytes (optional) */
     }
 
     /*TODO*///struct Memory_WriteAddress16
@@ -578,9 +580,9 @@ public class memoryH {
         public IO_ReadPort(int start, int end) {
             this(start, end, null);
         }
-        private int start, end;/* start, end addresses, inclusive */
-        private int handler;
-        private ReadHandlerPtr _handler;/* handler callback */
+        public int start, end;/* start, end addresses, inclusive */
+        public int handler;
+        public ReadHandlerPtr _handler;/* handler callback */
     }
 
     /*TODO*///
@@ -616,9 +618,9 @@ public class memoryH {
         public IO_WritePort(int start, int end) {
             this(start, end, null);
         }
-        private /*offs_t*/ int start, end;/* start, end addresses, inclusive */
-        private int handler;
-        private WriteHandlerPtr _handler;/* handler callback */
+        public /*offs_t*/ int start, end;/* start, end addresses, inclusive */
+        public int handler;
+        public WriteHandlerPtr _handler;/* handler callback */
     }
 
     /*TODO*///struct IO_WritePort16
