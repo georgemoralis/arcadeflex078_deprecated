@@ -131,7 +131,7 @@ public class memory {
 
         public UBytePtr rambase;/* RAM base pointer */
         public int ramlength;/* RAM length pointer */
-        public opbase_handlerPtr opbase;/* opcode base handler */
+        public OpbaseHandlerPtr opbase;/* opcode base handler */
 
         public UBytePtr op_ram;/* dynamic RAM base pointer */
         public UBytePtr op_rom;/* dynamic ROM base pointer */
@@ -175,7 +175,7 @@ public class memory {
 
     static int/*data32_t*/ unmap_value;/* unmapped memory value */
 
-    public static opbase_handlerPtr opbasefunc;/* opcode base override */
+    public static OpbaseHandlerPtr opbasefunc;/* opcode base override */
 
     public static handler_data[] rmemhandler8 = handler_data.create(ENTRY_COUNT);/* 8-bit memory read handlers */
     public static handler_data[] rmemhandler16 = handler_data.create(ENTRY_COUNT);/* 16-bit memory read handlers */
@@ -399,8 +399,8 @@ public class memory {
             memory_set_opbase_handler - change op-code
             memory base
     -------------------------------------------------*/
-    public static opbase_handlerPtr memory_set_opbase_handler(int cpunum, opbase_handlerPtr function) {
-        opbase_handlerPtr old = cpudata[cpunum].opbase;
+    public static OpbaseHandlerPtr memory_set_opbase_handler(int cpunum, OpbaseHandlerPtr function) {
+        OpbaseHandlerPtr old = cpudata[cpunum].opbase;
         cpudata[cpunum].opbase = function;
         if (cpunum == cpu_getactivecpu()) {
             opbasefunc = function;
@@ -1055,17 +1055,17 @@ public class memory {
                 return 0;
             }
             /* Z80 port mask kludge */
-            if (cputype == CPU_Z80) {
+ /*    if (cputype == CPU_Z80) {
                 if ((Machine.drv.cpu[cpunum].cpu_flags & CPU_16BIT_PORT) == 0) {
                     cpudata[cpunum].port.mask = 0xff;
                 }
             }
             /* Z180 port mask kludge */
-            if (cputype == CPU_Z180) {
+ /*    if (cputype == CPU_Z180) {
                 if ((Machine.drv.cpu[cpunum].cpu_flags & CPU_16BIT_PORT) == 0) {
                     cpudata[cpunum].port.mask = 0xff;
                 }
-            }
+            }*/
 
         }
         return 1;
@@ -2624,7 +2624,7 @@ public class memory {
             GENERATE_MEM_HANDLERS - memory handler
             variants of the GENERATE_HANDLERS
     -------------------------------------------------*/
-    public static setopbase cpu_setOPbase16 = new setopbase() {
+    public static SetOpbaseHandlerPtr cpu_setOPbase16 = new SetOpbaseHandlerPtr() {
         public void handler(int pc) {
             UBytePtr base = null;
             int entry;
