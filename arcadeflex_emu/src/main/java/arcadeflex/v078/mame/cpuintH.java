@@ -1,3 +1,7 @@
+/*
+ * ported to v0.78
+ * 
+ */
 package arcadeflex.v078.mame;
 
 //mame imports
