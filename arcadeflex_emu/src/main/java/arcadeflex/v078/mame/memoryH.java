@@ -7,6 +7,8 @@ package arcadeflex.v078.mame;
 //generic imports
 import static arcadeflex.v078.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v078.mame.cpuintrf.*;
+import static arcadeflex.v078.mame.cpuintrfH.*;
 import static arcadeflex.v078.mame.memory.*;
 //common imports
 import static common.ptrLib.*;

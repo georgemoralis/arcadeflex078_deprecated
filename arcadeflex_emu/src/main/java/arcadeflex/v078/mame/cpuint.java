@@ -6,6 +6,9 @@ package arcadeflex.v078.mame;
 
 //generic imports
 import static arcadeflex.v078.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v078.mame.cpuintrf.*;
+import static arcadeflex.v078.mame.cpuintrfH.*;
 
 public class cpuint {
 
@@ -116,7 +119,7 @@ public class cpuint {
      *
      ************************************
      */
-    public static void cpu_set_irq_callback(int cpunum, IrqcallbackPtr callback) {
+    public static void cpu_set_irq_callback(int cpunum, IrqCallbackHandlerPtr callback) {
         drv_irq_callbacks[cpunum] = callback;
     }
 
@@ -148,42 +151,42 @@ public class cpuint {
         return vector;
     }
 
-    public static IrqcallbackPtr cpu_0_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_0_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(0, irqline);
         }
     };
-    public static IrqcallbackPtr cpu_1_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_1_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(1, irqline);
         }
     };
-    public static IrqcallbackPtr cpu_2_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_2_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(2, irqline);
         }
     };
-    public static IrqcallbackPtr cpu_3_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_3_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(3, irqline);
         }
     };
-    public static IrqcallbackPtr cpu_4_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_4_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(4, irqline);
         }
     };
-    public static IrqcallbackPtr cpu_5_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_5_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(5, irqline);
         }
     };
-    public static IrqcallbackPtr cpu_6_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_6_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(6, irqline);
         }
     };
-    public static IrqcallbackPtr cpu_7_irq_callback = new IrqcallbackPtr() {
+    public static IrqCallbackHandlerPtr cpu_7_irq_callback = new IrqCallbackHandlerPtr() {
         public int handler(int irqline) {
             return cpu_irq_callback(7, irqline);
         }
@@ -196,12 +199,12 @@ public class cpuint {
      *
      ************************************
      */
-    public static IrqcallbackPtr[] cpu_irq_callbacks = {
+    public static IrqCallbackHandlerPtr[] cpu_irq_callbacks = {
         cpu_0_irq_callback, cpu_1_irq_callback, cpu_2_irq_callback, cpu_3_irq_callback,
         cpu_4_irq_callback, cpu_5_irq_callback, cpu_6_irq_callback, cpu_7_irq_callback
     };
 
-    public static IrqcallbackPtr[] drv_irq_callbacks = new IrqcallbackPtr[MAX_CPU];
+    public static IrqCallbackHandlerPtr[] drv_irq_callbacks = new IrqCallbackHandlerPtr[MAX_CPU];
 
     /**
      * ***********************************

@@ -35,4 +35,17 @@ public class funcPtr {
 
         public abstract void handler(int pc);
     }
+
+    /**
+     * cpu interface related
+     */
+    public static abstract interface BurnHandlerPtr {
+
+        public abstract void handler(int cycles);
+    }
+
+    public static abstract interface IrqCallbackHandlerPtr {
+
+        public abstract int handler(int irqline);
+    }
 }
