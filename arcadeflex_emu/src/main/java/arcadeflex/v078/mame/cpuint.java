@@ -7,8 +7,11 @@ package arcadeflex.v078.mame;
 //generic imports
 import static arcadeflex.v078.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v078.mame.cpuexec.*;
 import static arcadeflex.v078.mame.cpuintrf.*;
 import static arcadeflex.v078.mame.cpuintrfH.*;
+import static arcadeflex.v078.mame.timerH.*;
+import static arcadeflex.v078.mame.timer.*;
 
 public class cpuint {
 
@@ -229,7 +232,7 @@ public class cpuint {
      *
      ************************************
      */
-    public static timer_callback cpu_empty_event_queue = new timer_callback() {
+    public static TimerCallbackHandlerPtr cpu_empty_event_queue = new TimerCallbackHandlerPtr() {
         public void handler(int cpunum) {
             int i;
 
@@ -507,7 +510,7 @@ public class cpuint {
      *
      ************************************
      */
-    public static timer_callback cpu_clearintcallback = new timer_callback() {
+    public static TimerCallbackHandlerPtr cpu_clearintcallback = new TimerCallbackHandlerPtr() {
         public void handler(int cpunum) {
             int irqcount = cputype_get_interface(Machine.drv.cpu[cpunum].cpu_type).num_irqs;
             int irqline;

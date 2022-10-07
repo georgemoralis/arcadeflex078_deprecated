@@ -48,4 +48,29 @@ public class funcPtr {
 
         public abstract int handler(int irqline);
     }
+
+    /**
+     * Daisy chain related
+     */
+    public static abstract interface DaisyChainInterruptEntryPtr {
+
+        public abstract int handler(int i);
+    }
+
+    public static abstract interface DaisyChainResetPtr {
+
+        public abstract void handler(int i);
+    }
+
+    public static abstract interface DaisyChainInterruptRetiPtr {
+
+        public abstract void handler(int i);
+    }
+    /**
+     * Timer callback
+     */
+    public static abstract interface TimerCallbackHandlerPtr {
+
+        public abstract void handler(int i);
+    }
 }

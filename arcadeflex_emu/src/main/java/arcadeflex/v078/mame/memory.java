@@ -10,8 +10,7 @@ import static arcadeflex.v078.generic.funcPtr.*;
 import static arcadeflex.v078.mame.cpuintrf.*;
 import static arcadeflex.v078.mame.cpuintrfH.*;
 import static arcadeflex.v078.mame.memoryH.*;
-//todo imports
-import static common.ptrLib.*;
+import static arcadeflex.v078.mame.cpuexecH.*;
 
 public class memory {
 
@@ -1057,17 +1056,17 @@ public class memory {
                 return 0;
             }
             /* Z80 port mask kludge */
- /*    if (cputype == CPU_Z80) {
+            if (cputype == CPU_Z80) {
                 if ((Machine.drv.cpu[cpunum].cpu_flags & CPU_16BIT_PORT) == 0) {
                     cpudata[cpunum].port.mask = 0xff;
                 }
             }
             /* Z180 port mask kludge */
- /*    if (cputype == CPU_Z180) {
+            if (cputype == CPU_Z180) {
                 if ((Machine.drv.cpu[cpunum].cpu_flags & CPU_16BIT_PORT) == 0) {
                     cpudata[cpunum].port.mask = 0xff;
                 }
-            }*/
+            }
 
         }
         return 1;

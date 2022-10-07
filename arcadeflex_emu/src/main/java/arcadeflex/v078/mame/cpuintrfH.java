@@ -368,28 +368,14 @@ public class cpuintrfH {
         return activecpu;
     }
 
-    /*TODO*///
-/*TODO*///
-/*TODO*////* return a the index of the executing CPU */
-/*TODO*///INLINE int cpu_getexecutingcpu(void)
-/*TODO*///{
-/*TODO*///	extern int executingcpu;
-/*TODO*///	return executingcpu;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
+    /* return a the index of the executing CPU */
+    public static int cpu_getexecutingcpu() {
+        return executingcpu;
+    }
+
     /* return a the total number of registered CPUs */
     public static int cpu_gettotalcpu() {
         return totalcpu;
     }
-    /*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*///#ifdef __cplusplus
-/*TODO*///}
-/*TODO*///#endif
-/*TODO*///
-/*TODO*///#endif	/* CPUINTRF_H */
-/*TODO*///
-/*TODO*///    
+
 }
